@@ -24,6 +24,8 @@ namespace bltz {
     public:
         static mat3 skew(vec3 v);
         static float clamp(float value, float min, float max);
+        static vec3 vmin(vec3 a, vec3 x);
+        static vec3 vmax(vec3 a, vec3 x);
         static vec3 orthogonal(vec3 v);
         static bool isPointInPolygon(vector<vec3> poly, vec3 x);
         static vector<vec2> projectPointsOntoPlane(vector<vec3> points, vec3 x, vec3 n);

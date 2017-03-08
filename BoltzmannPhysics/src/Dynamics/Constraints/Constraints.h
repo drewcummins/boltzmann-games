@@ -11,5 +11,8 @@
 
 #include "GroundConstraint.hpp"
 #include "DistanceConstraint.hpp"
+#include "ContactConstraint.hpp"
+#include "BallAndSocketJoint.hpp"
+#include "HingeJoint.hpp"
 
 #endif /* Constraints_h */

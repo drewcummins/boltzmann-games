@@ -14,11 +14,22 @@ namespace bltz {
     using namespace ci;
     using namespace std;
     
+    typedef struct AABB {
+        vec3 min;
+        vec3 max;
+    } AABB;
+    
+    typedef struct ShapeCache {
+        vector<vec3> vertices;
+        AABB aabb;
+    } ShapeCache;
+    
     class BaseShape {
     public:
         virtual float computeMass(float density) = 0;
         virtual mat3 computeInertiaTensor(float mass) = 0;
         virtual void prepareView(gl::GlslProgRef shader, gl::GlslProgRef shadowShader) = 0;
+        virtual ShapeCache cache(vec3 x, mat3 R, vec3 o) = 0;
         gl::BatchRef view;
         gl::BatchRef shadow;
         uint type;
@@ -32,6 +43,7 @@ namespace bltz {
         virtual float computeMass(float density);
         virtual mat3 computeInertiaTensor(float mass);
         virtual void prepareView(gl::GlslProgRef shader, gl::GlslProgRef shadowShader);
+        virtual ShapeCache cache(vec3 x, mat3 R, vec3 o);
         float r;
     protected:
         Sphere(float radius);
@@ -64,6 +76,7 @@ namespace bltz {
         virtual float computeMass(float density);
         virtual mat3 computeInertiaTensor(float mass);
         virtual void prepareView(gl::GlslProgRef shader, gl::GlslProgRef shadowShader);
+        virtual ShapeCache cache(vec3 x, mat3 R, vec3 o);
         vec3 extents;
         vector<vec3> getVerticesInWorldSpace(vec3 x, mat3 R);
         Support getSupport(vector<vec3> vertices, vec3 axis);
@@ -77,6 +90,11 @@ namespace bltz {
         unordered_map<int, vector<int>> faceMap;
         unordered_map<int, FeatureType> typeMap;
     };
+    
+    typedef struct Geometry {
+        Shape shape;
+        vec3 x; // offset
+    } Geometry;
 }
 
 #endif /* Shape_hpp */

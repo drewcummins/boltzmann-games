@@ -23,6 +23,10 @@
 		3A44CDE81E6F7EA1001D7C7A /* BaseConstraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A44CDE61E6F7EA1001D7C7A /* BaseConstraint.cpp */; };
 		3A44CDEB1E6F7F38001D7C7A /* GroundConstraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A44CDE91E6F7F38001D7C7A /* GroundConstraint.cpp */; };
 		3A44CDEF1E6F81E4001D7C7A /* DistanceConstraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A44CDED1E6F81E4001D7C7A /* DistanceConstraint.cpp */; };
+		3A44CDF21E7048CA001D7C7A /* ContactConstraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A44CDF01E7048CA001D7C7A /* ContactConstraint.cpp */; };
+		3A44CDF61E70525C001D7C7A /* BallAndSocketJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A44CDF41E70525C001D7C7A /* BallAndSocketJoint.cpp */; };
+		3A44CDF91E70547F001D7C7A /* HingeJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A44CDF71E70547F001D7C7A /* HingeJoint.cpp */; };
+		3A44CDFC1E706316001D7C7A /* Collision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A44CDFA1E706316001D7C7A /* Collision.cpp */; };
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		EC87B634BA93402CB24AB258 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 368F767DED1B446E9953E6EB /* CinderApp.icns */; };
@@ -58,6 +62,15 @@
 		3A44CDEC1E6F8148001D7C7A /* Constraints.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; name = Constraints.h; path = ../src/Dynamics/Constraints/Constraints.h; sourceTree = "<group>"; };
 		3A44CDED1E6F81E4001D7C7A /* DistanceConstraint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DistanceConstraint.cpp; path = ../src/Dynamics/Constraints/DistanceConstraint.cpp; sourceTree = "<group>"; };
 		3A44CDEE1E6F81E4001D7C7A /* DistanceConstraint.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = DistanceConstraint.hpp; path = ../src/Dynamics/Constraints/DistanceConstraint.hpp; sourceTree = "<group>"; };
+		3A44CDF01E7048CA001D7C7A /* ContactConstraint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ContactConstraint.cpp; path = ../src/Dynamics/Constraints/ContactConstraint.cpp; sourceTree = "<group>"; };
+		3A44CDF11E7048CA001D7C7A /* ContactConstraint.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ContactConstraint.hpp; path = ../src/Dynamics/Constraints/ContactConstraint.hpp; sourceTree = "<group>"; };
+		3A44CDF31E704AD7001D7C7A /* CollisionGeometry.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; name = CollisionGeometry.hpp; path = ../src/Geometry/CollisionGeometry.hpp; sourceTree = "<group>"; };
+		3A44CDF41E70525C001D7C7A /* BallAndSocketJoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BallAndSocketJoint.cpp; path = ../src/Dynamics/Constraints/BallAndSocketJoint.cpp; sourceTree = "<group>"; };
+		3A44CDF51E70525C001D7C7A /* BallAndSocketJoint.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = BallAndSocketJoint.hpp; path = ../src/Dynamics/Constraints/BallAndSocketJoint.hpp; sourceTree = "<group>"; };
+		3A44CDF71E70547F001D7C7A /* HingeJoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HingeJoint.cpp; path = ../src/Dynamics/Constraints/HingeJoint.cpp; sourceTree = "<group>"; };
+		3A44CDF81E70547F001D7C7A /* HingeJoint.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = HingeJoint.hpp; path = ../src/Dynamics/Constraints/HingeJoint.hpp; sourceTree = "<group>"; };
+		3A44CDFA1E706316001D7C7A /* Collision.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Collision.cpp; path = ../src/Geometry/Collision.cpp; sourceTree = "<group>"; };
+		3A44CDFB1E706316001D7C7A /* Collision.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Collision.hpp; path = ../src/Geometry/Collision.hpp; sourceTree = "<group>"; };
 		5323E6B10EAFCA74003A9687 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = /System/Library/Frameworks/CoreVideo.framework; sourceTree = "<absolute>"; };
 		6E061E20D94D4F1D8CC47034 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* BoltzmannPhysics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BoltzmannPhysics.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -197,6 +210,9 @@
 				3A44CDDA1E6F75FF001D7C7A /* Shape.hpp */,
 				3A44CDDC1E6F78E1001D7C7A /* Sphere.cpp */,
 				3A44CDDE1E6F7B63001D7C7A /* Box.cpp */,
+				3A44CDF31E704AD7001D7C7A /* CollisionGeometry.hpp */,
+				3A44CDFA1E706316001D7C7A /* Collision.cpp */,
+				3A44CDFB1E706316001D7C7A /* Collision.hpp */,
 			);
 			name = Geometry;
 			sourceTree = "<group>";
@@ -220,6 +236,12 @@
 				3A44CDEC1E6F8148001D7C7A /* Constraints.h */,
 				3A44CDED1E6F81E4001D7C7A /* DistanceConstraint.cpp */,
 				3A44CDEE1E6F81E4001D7C7A /* DistanceConstraint.hpp */,
+				3A44CDF01E7048CA001D7C7A /* ContactConstraint.cpp */,
+				3A44CDF11E7048CA001D7C7A /* ContactConstraint.hpp */,
+				3A44CDF41E70525C001D7C7A /* BallAndSocketJoint.cpp */,
+				3A44CDF51E70525C001D7C7A /* BallAndSocketJoint.hpp */,
+				3A44CDF71E70547F001D7C7A /* HingeJoint.cpp */,
+				3A44CDF81E70547F001D7C7A /* HingeJoint.hpp */,
 			);
 			name = Constraints;
 			sourceTree = "<group>";
@@ -294,14 +316,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A44CDF61E70525C001D7C7A /* BallAndSocketJoint.cpp in Sources */,
 				FA96CC66C0774656A1E6B1D8 /* BoltzmannPhysicsApp.cpp in Sources */,
 				3A44CDDF1E6F7B63001D7C7A /* Box.cpp in Sources */,
+				3A44CDF91E70547F001D7C7A /* HingeJoint.cpp in Sources */,
 				3A44CDDD1E6F78E1001D7C7A /* Sphere.cpp in Sources */,
 				3A44CDE81E6F7EA1001D7C7A /* BaseConstraint.cpp in Sources */,
 				3A44CDE31E6F7BA5001D7C7A /* Utils.cpp in Sources */,
 				3A44CDD71E6F71BC001D7C7A /* RigidBody.cpp in Sources */,
 				3A44CDEB1E6F7F38001D7C7A /* GroundConstraint.cpp in Sources */,
 				3A44CDEF1E6F81E4001D7C7A /* DistanceConstraint.cpp in Sources */,
+				3A44CDFC1E706316001D7C7A /* Collision.cpp in Sources */,
+				3A44CDF21E7048CA001D7C7A /* ContactConstraint.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

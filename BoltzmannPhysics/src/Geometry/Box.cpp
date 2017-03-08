@@ -12,8 +12,6 @@
 
 using namespace bltz;
 
-
-
 Shape Box::create(vec3 extents) {
     Shape box(new Box(extents));
     return box;
@@ -96,6 +94,17 @@ vector<vec3> Box::getVerticesInWorldSpace(vec3 x, mat3 R) {
     vertices.push_back(x + R * vec3(-r.x,r.y,-r.z));
     vertices.push_back(x + R * vec3(-r.x,-r.y,-r.z));
     return vertices;
+}
+
+ShapeCache Box::cache(vec3 x, mat3 R, vec3 o) {
+    ShapeCache box;
+    box.vertices = getVerticesInWorldSpace(x + R * o, R);
+    box.aabb.min = box.aabb.max = box.vertices[0];
+    for (int i = 1; i < box.vertices.size(); i++) {
+        box.aabb.min = Utils::vmin(box.aabb.min, box.vertices[i]);
+        box.aabb.max = Utils::vmax(box.aabb.max, box.vertices[i]);
+    }
+    return box;
 }
 
 vector<int> Box::getFace(vec3 axis) {

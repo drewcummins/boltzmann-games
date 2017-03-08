@@ -165,3 +165,11 @@ bool Utils::isClockwise(vector<vec2> p) {
     return area > 0;
 }
 
+vec3 Utils::vmin(vec3 a, vec3 x) {
+    return vec3(min(a.x, x.x), min(a.y, x.y), min(a.z, x.z));
+}
+
+vec3 Utils::vmax(vec3 a, vec3 x) {
+    return vec3(max(a.x, x.x), max(a.y, x.y), max(a.z, x.z));
+}
+

@@ -35,3 +35,12 @@ mat3 bltz::Sphere::computeInertiaTensor(float mass) {
     float inflated = r * 1.2;
     return (2 * mass * inflated * inflated / 5.f) * mat3();
 }
+
+ShapeCache bltz::Sphere::cache(vec3 x, mat3 R, vec3 o) {
+    ShapeCache sphere;
+    vec3 C = x + R * o;
+    sphere.vertices = {C};
+    sphere.aabb.min = C - vec3(r);
+    sphere.aabb.max = C + vec3(r);
+    return sphere;
+}

@@ -19,9 +19,9 @@ namespace bltz {
     
     class RigidBody {
     public:
-        static shared_ptr<RigidBody> create(Shape shape, float density);
+        static shared_ptr<RigidBody> create(Geometry geometry, float density);
         
-        Shape shape;
+        vector<Geometry> geometry;
         
         float m;
         float invM;
@@ -43,6 +43,7 @@ namespace bltz {
         
         void integrateAcceleration(float dt);
         void integrateVelocity(float dt);
+        void addShape(Shape shape, vec3 offset);
         
         void addForce(vec3 force);
         void addTorque(vec3 torque);

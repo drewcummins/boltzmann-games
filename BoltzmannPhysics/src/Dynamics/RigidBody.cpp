@@ -10,11 +10,11 @@
 
 using namespace bltz;
 
-shared_ptr<RigidBody> RigidBody::create(Shape shape, float density) {
+shared_ptr<RigidBody> RigidBody::create(Geometry geometry, float density) {
     shared_ptr<RigidBody> body(new RigidBody());
     body->m = density;
     body->invM = 1 / body->m;
-    mat3 I = shape->computeInertiaTensor(body->m);
+    mat3 I = geometry.shape->computeInertiaTensor(body->m);
     body->invIModel = inverse(I);
     body->q = quat(1,0,0,0);
     body->R = glm::toMat3(body->q);
