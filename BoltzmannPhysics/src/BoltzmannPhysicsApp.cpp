@@ -3,6 +3,7 @@
 #include "cinder/gl/gl.h"
 #include "RigidBody.hpp"
 #include "Shape.hpp"
+#include "Constraints.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -21,6 +22,8 @@ void BoltzmannPhysicsApp::setup()
 {
     auto sphere = bltz::Sphere::create(1.f);
     auto body = RigidBody::create(sphere, 1.f);
+    
+    auto ground = GroundConstraint::create(body);
 }
 
 void BoltzmannPhysicsApp::mouseDown( MouseEvent event )

@@ -114,8 +114,8 @@ vector<int> Box::getFace(vec3 axis) {
     return {2,6,7,3};
 }
 
-Box::Support BoxShape::getSupport(vector<vec3> vertices, vec3 axis) {
-    BoxShape::Support support;
+Box::Support Box::getSupport(vector<vec3> vertices, vec3 axis) {
+    Box::Support support;
     support.max.proj = -FLT_MAX;
     support.min.proj = FLT_MAX;
     for (int i = 0; i < vertices.size(); i++) {

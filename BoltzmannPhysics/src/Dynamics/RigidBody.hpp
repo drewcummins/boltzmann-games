@@ -58,6 +58,8 @@ namespace bltz {
     protected:
         RigidBody();
     };
+    
+    typedef shared_ptr<RigidBody> Body;
 }
 
 #endif /* RigidBody_hpp */

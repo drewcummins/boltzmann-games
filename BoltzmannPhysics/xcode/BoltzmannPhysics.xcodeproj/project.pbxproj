@@ -20,6 +20,9 @@
 		3A44CDDD1E6F78E1001D7C7A /* Sphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A44CDDC1E6F78E1001D7C7A /* Sphere.cpp */; };
 		3A44CDDF1E6F7B63001D7C7A /* Box.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A44CDDE1E6F7B63001D7C7A /* Box.cpp */; };
 		3A44CDE31E6F7BA5001D7C7A /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A44CDE11E6F7BA5001D7C7A /* Utils.cpp */; };
+		3A44CDE81E6F7EA1001D7C7A /* BaseConstraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A44CDE61E6F7EA1001D7C7A /* BaseConstraint.cpp */; };
+		3A44CDEB1E6F7F38001D7C7A /* GroundConstraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A44CDE91E6F7F38001D7C7A /* GroundConstraint.cpp */; };
+		3A44CDEF1E6F81E4001D7C7A /* DistanceConstraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A44CDED1E6F81E4001D7C7A /* DistanceConstraint.cpp */; };
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		EC87B634BA93402CB24AB258 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 368F767DED1B446E9953E6EB /* CinderApp.icns */; };
@@ -48,6 +51,13 @@
 		3A44CDDE1E6F7B63001D7C7A /* Box.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Box.cpp; path = ../src/Geometry/Box.cpp; sourceTree = "<group>"; };
 		3A44CDE11E6F7BA5001D7C7A /* Utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Utils.cpp; path = ../src/Utils/Utils.cpp; sourceTree = "<group>"; };
 		3A44CDE21E6F7BA5001D7C7A /* Utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Utils.hpp; path = ../src/Utils/Utils.hpp; sourceTree = "<group>"; };
+		3A44CDE61E6F7EA1001D7C7A /* BaseConstraint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BaseConstraint.cpp; path = ../src/Dynamics/Constraints/BaseConstraint.cpp; sourceTree = "<group>"; };
+		3A44CDE71E6F7EA1001D7C7A /* BaseConstraint.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = BaseConstraint.hpp; path = ../src/Dynamics/Constraints/BaseConstraint.hpp; sourceTree = "<group>"; };
+		3A44CDE91E6F7F38001D7C7A /* GroundConstraint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GroundConstraint.cpp; path = ../src/Dynamics/Constraints/GroundConstraint.cpp; sourceTree = "<group>"; };
+		3A44CDEA1E6F7F38001D7C7A /* GroundConstraint.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = GroundConstraint.hpp; path = ../src/Dynamics/Constraints/GroundConstraint.hpp; sourceTree = "<group>"; };
+		3A44CDEC1E6F8148001D7C7A /* Constraints.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; name = Constraints.h; path = ../src/Dynamics/Constraints/Constraints.h; sourceTree = "<group>"; };
+		3A44CDED1E6F81E4001D7C7A /* DistanceConstraint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DistanceConstraint.cpp; path = ../src/Dynamics/Constraints/DistanceConstraint.cpp; sourceTree = "<group>"; };
+		3A44CDEE1E6F81E4001D7C7A /* DistanceConstraint.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = DistanceConstraint.hpp; path = ../src/Dynamics/Constraints/DistanceConstraint.hpp; sourceTree = "<group>"; };
 		5323E6B10EAFCA74003A9687 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = /System/Library/Frameworks/CoreVideo.framework; sourceTree = "<absolute>"; };
 		6E061E20D94D4F1D8CC47034 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* BoltzmannPhysics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BoltzmannPhysics.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -173,6 +183,8 @@
 		3A44CDD41E6F713A001D7C7A /* Dynamics */ = {
 			isa = PBXGroup;
 			children = (
+				3A44CDE51E6F7E78001D7C7A /* Forces */,
+				3A44CDE41E6F7E6C001D7C7A /* Constraints */,
 				3A44CDD51E6F71BC001D7C7A /* RigidBody.cpp */,
 				3A44CDD61E6F71BC001D7C7A /* RigidBody.hpp */,
 			);
@@ -196,6 +208,27 @@
 				3A44CDE21E6F7BA5001D7C7A /* Utils.hpp */,
 			);
 			name = Utils;
+			sourceTree = "<group>";
+		};
+		3A44CDE41E6F7E6C001D7C7A /* Constraints */ = {
+			isa = PBXGroup;
+			children = (
+				3A44CDE61E6F7EA1001D7C7A /* BaseConstraint.cpp */,
+				3A44CDE71E6F7EA1001D7C7A /* BaseConstraint.hpp */,
+				3A44CDE91E6F7F38001D7C7A /* GroundConstraint.cpp */,
+				3A44CDEA1E6F7F38001D7C7A /* GroundConstraint.hpp */,
+				3A44CDEC1E6F8148001D7C7A /* Constraints.h */,
+				3A44CDED1E6F81E4001D7C7A /* DistanceConstraint.cpp */,
+				3A44CDEE1E6F81E4001D7C7A /* DistanceConstraint.hpp */,
+			);
+			name = Constraints;
+			sourceTree = "<group>";
+		};
+		3A44CDE51E6F7E78001D7C7A /* Forces */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Forces;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -264,8 +297,11 @@
 				FA96CC66C0774656A1E6B1D8 /* BoltzmannPhysicsApp.cpp in Sources */,
 				3A44CDDF1E6F7B63001D7C7A /* Box.cpp in Sources */,
 				3A44CDDD1E6F78E1001D7C7A /* Sphere.cpp in Sources */,
+				3A44CDE81E6F7EA1001D7C7A /* BaseConstraint.cpp in Sources */,
 				3A44CDE31E6F7BA5001D7C7A /* Utils.cpp in Sources */,
 				3A44CDD71E6F71BC001D7C7A /* RigidBody.cpp in Sources */,
+				3A44CDEB1E6F7F38001D7C7A /* GroundConstraint.cpp in Sources */,
+				3A44CDEF1E6F81E4001D7C7A /* DistanceConstraint.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
