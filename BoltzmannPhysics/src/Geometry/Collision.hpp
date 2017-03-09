@@ -14,9 +14,11 @@
 
 namespace bltz {
     
+    typedef unsigned long long ull;
+    
     class Collision {
     public:
-        vector<CollisionPair> findCandidates(vector<Body> bodies);
+        set<CandidatePair> findCandidates(vector<Body> bodies, int gridSize=1);
     protected:
         
     };

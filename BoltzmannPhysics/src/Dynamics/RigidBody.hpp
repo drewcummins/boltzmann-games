@@ -19,7 +19,7 @@ namespace bltz {
     
     class RigidBody {
     public:
-        static shared_ptr<RigidBody> create(Geometry geometry, float density);
+        static shared_ptr<RigidBody> create(Shape shape, float density);
         
         vector<Geometry> geometry;
         
