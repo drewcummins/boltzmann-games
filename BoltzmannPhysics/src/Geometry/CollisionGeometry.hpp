@@ -20,7 +20,7 @@ namespace bltz {
         ShapeCache cache;
         Shape shape;
         bool operator==(const Candidate &other) const {
-            return body == other.body && shape == other.shape;
+            return body->id == other.body->id && shape->id == other.shape->id;
         }
     } Candidate;
     
@@ -30,11 +30,6 @@ namespace bltz {
         bool operator==(const CandidatePair &other) const {
             if ((c1 == other.c1 && c2 == other.c2) || (c1 == other.c2 && c2 == other.c1)) return true;
             return false;
-        };
-        
-        bool operator<(const CandidatePair& lhs, const CandidatePair& rhs)
-        {
-            return lhs.c1.body.get() < rhs.c1.body.get();
         };
 
     } CandidatePair;

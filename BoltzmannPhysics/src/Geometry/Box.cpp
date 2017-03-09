@@ -39,6 +39,7 @@ static int getProduct(vector<int> face) {
 
 Box::Box(vec3 extents) : extents(extents) {
     type = 2;
+    id = Utils::rand.nextUint();
     if (faceMap.size() < 1) {
         typeMap[1] = VERTEX;
         typeMap[2] = EDGE;

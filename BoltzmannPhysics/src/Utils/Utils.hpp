@@ -13,6 +13,7 @@
 #include "cinder/app/App.h"
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
+#include "cinder/Rand.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -33,6 +34,7 @@ namespace bltz {
         static vector<vec2> lineLineIntersction(vec2 a1, vec2 a2, vec2 b1, vec2 b2, bool clipToSegment=true);
         static vector<float> lineLineIntersctionParameters(vec2 a1, vec2 a2, vec2 b1, vec2 b2, bool clipToSegment=true);
         static bool isClockwise(vector<vec2> p);
+        static Rand rand;
     };
     
 }

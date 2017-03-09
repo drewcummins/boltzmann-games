@@ -21,6 +21,7 @@ namespace bltz {
     public:
         static shared_ptr<RigidBody> create(Shape shape, float density);
         
+        uint id;
         vector<Geometry> geometry;
         
         float m;

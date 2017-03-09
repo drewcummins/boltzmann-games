@@ -8,6 +8,7 @@
 
 #include <stdio.h>
 #include "Shape.hpp"
+#include "Utils.hpp"
 
 using namespace bltz;
 
@@ -18,6 +19,7 @@ Shape bltz::Sphere::create(float radius) {
 
 bltz::Sphere::Sphere(float radius) : r(radius) {
     type = 1;
+    id = Utils::rand.nextUint();
 }
 
 void bltz::Sphere::prepareView(gl::GlslProgRef shader, gl::GlslProgRef shadowShader) {

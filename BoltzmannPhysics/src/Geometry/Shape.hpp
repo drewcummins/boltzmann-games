@@ -33,6 +33,7 @@ namespace bltz {
         gl::BatchRef view;
         gl::BatchRef shadow;
         uint type;
+        uint id;
     };
     
     typedef shared_ptr<BaseShape> Shape;

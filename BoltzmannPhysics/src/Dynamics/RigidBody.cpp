@@ -7,6 +7,7 @@
 //
 
 #include "RigidBody.hpp"
+#include "Utils.hpp"
 
 using namespace bltz;
 
@@ -81,4 +82,6 @@ vec3 RigidBody::velocityAtPoint(vec3 p) {
 
 
 
-RigidBody::RigidBody() {}
+RigidBody::RigidBody() {
+    id = Utils::rand.nextUint();
+}

@@ -18,9 +18,13 @@ namespace bltz {
     
     class Collision {
     public:
-        set<CandidatePair> findCandidates(vector<Body> bodies, int gridSize=1);
+        int gridSize;
+        vector<CandidatePair> findCandidates(vector<Body> bodies);
+        vector<CandidatePair> bruteForceFindCandidates(vector<Body> bodies);
+        vector<Contact> findFloorContacts(vector<Body> bodies);
     protected:
-        
+        unordered_map<ull, vector<Candidate>> grid;
+        unordered_map<uint, Candidate> cache;
     };
     
 }
