@@ -13,7 +13,9 @@
 
 namespace bltz {
 
-    typedef pair<Body, Body> CollisionPair;
+    typedef struct CollisionPair {
+        Body b1, b2;
+    } CollisionPair;
     
     typedef struct Candidate {
         Body body;
@@ -50,6 +52,12 @@ namespace bltz {
     } Contact;
 
     static const Contact NULL_CONTACT = {};
+    
+    enum CollisionRoutine {
+        SPHERE_SPHERE = 1,
+        BOX_BOX = 2,
+        BOX_SPHERE = 3
+    };
     
 }
 

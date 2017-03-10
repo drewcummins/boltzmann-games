@@ -19,7 +19,13 @@ namespace bltz {
         vec3 max;
     } AABB;
     
+    enum ShapeType {
+        SPHERE = 1,
+        BOX = 2
+    };
+    
     typedef struct ShapeCache {
+        vec3 C;
         vector<vec3> vertices;
         AABB aabb;
     } ShapeCache;
@@ -32,7 +38,7 @@ namespace bltz {
         virtual ShapeCache cache(vec3 x, mat3 R, vec3 o) = 0;
         gl::BatchRef view;
         gl::BatchRef shadow;
-        uint type;
+        ShapeType type;
         uint id;
     };
     
@@ -96,6 +102,7 @@ namespace bltz {
         Shape shape;
         vec3 x; // offset
     } Geometry;
+
 }
 
 #endif /* Shape_hpp */

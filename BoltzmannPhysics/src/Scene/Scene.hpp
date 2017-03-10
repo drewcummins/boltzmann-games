@@ -35,7 +35,7 @@ namespace bltz {
         vector<Constraint> constraints;
         vector<Contact> contacts;
         
-//        CollisionDetector *collisionDetector;
+        Collision collision;
         
         void addBody(Body body);
         

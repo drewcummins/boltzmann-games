@@ -18,7 +18,7 @@ Shape bltz::Sphere::create(float radius) {
 }
 
 bltz::Sphere::Sphere(float radius) : r(radius) {
-    type = 1;
+    type = SPHERE;
     id = Utils::rand.nextUint();
 }
 
@@ -41,7 +41,7 @@ mat3 bltz::Sphere::computeInertiaTensor(float mass) {
 ShapeCache bltz::Sphere::cache(vec3 x, mat3 R, vec3 o) {
     ShapeCache sphere;
     vec3 C = x + R * o;
-    sphere.vertices = {C};
+    sphere.C = C;
     sphere.aabb.min = C - vec3(r);
     sphere.aabb.max = C + vec3(r);
     return sphere;

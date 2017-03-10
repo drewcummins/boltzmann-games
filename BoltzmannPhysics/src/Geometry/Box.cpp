@@ -38,7 +38,7 @@ static int getProduct(vector<int> face) {
 }
 
 Box::Box(vec3 extents) : extents(extents) {
-    type = 2;
+    type = BOX;
     id = Utils::rand.nextUint();
     if (faceMap.size() < 1) {
         typeMap[1] = VERTEX;
@@ -99,7 +99,8 @@ vector<vec3> Box::getVerticesInWorldSpace(vec3 x, mat3 R) {
 
 ShapeCache Box::cache(vec3 x, mat3 R, vec3 o) {
     ShapeCache box;
-    box.vertices = getVerticesInWorldSpace(x + R * o, R);
+    box.C = x + R * o;
+    box.vertices = getVerticesInWorldSpace(box.C, R);
     box.aabb.min = box.aabb.max = box.vertices[0];
     for (int i = 1; i < box.vertices.size(); i++) {
         box.aabb.min = Utils::vmin(box.aabb.min, box.vertices[i]);

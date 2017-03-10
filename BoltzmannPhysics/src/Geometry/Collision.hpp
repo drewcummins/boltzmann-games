@@ -18,13 +18,16 @@ namespace bltz {
     
     class Collision {
     public:
-        int gridSize;
-        vector<CandidatePair> findCandidates(vector<Body> bodies);
-        vector<CandidatePair> bruteForceFindCandidates(vector<Body> bodies);
-        vector<Contact> findFloorContacts(vector<Body> bodies);
+        float gridSize = 1.f;
+        vector<CandidatePair> findCandidates();
+        vector<CandidatePair> bruteForceFindCandidates();
+        vector<Contact> findFloorContacts();
+        vector<Contact> findContacts(vector<CandidatePair>);
+        void createCache(vector<Body> bodies);
+        void clearCache();
     protected:
         unordered_map<ull, vector<Candidate>> grid;
-        unordered_map<uint, Candidate> cache;
+        vector<Candidate> cache;
     };
     
 }

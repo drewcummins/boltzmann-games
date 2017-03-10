@@ -16,7 +16,7 @@ Constraint ContactConstraint::create(Contact contact) {
     return cc;
 }
 
-ContactConstraint::ContactConstraint(Contact contact) : BaseConstraint(contact.pair.first, contact.pair.second), contact(contact) {
+ContactConstraint::ContactConstraint(Contact contact) : BaseConstraint(contact.pair.b1, contact.pair.b2), contact(contact) {
     n = vector<C1DOF>(contact.manifold.size());
     u1 = vector<C1DOF>(contact.manifold.size());
     u2 = vector<C1DOF>(contact.manifold.size());
