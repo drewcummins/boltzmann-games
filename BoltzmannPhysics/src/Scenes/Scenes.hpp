@@ -15,15 +15,30 @@ using namespace std;
 using namespace bltz;
 
 
+void compositeScene(Scene *scene) {
+    auto body = RigidBody::create();
+    
+    Material wood = {3.f, 0.96, 0.f};
+    Material heavyWood = {11.f, 0.96, 0.f};
+    auto sphere = bltz::Sphere::create(1.f);
+    auto box = Box::create(vec3(2,2,2));
+    
+    body->addElement(box, heavyWood, vec3(2,3,0));
+    body->addElement(box, wood, vec3(-2,4,0));
+    
+    scene->addBody(body);
+}
+
+
 void simpleScene(Scene *scene) {
     auto box = Box::create(vec3(2,1,2));
     auto body = RigidBody::create(box, 3.f);
-    body->x = vec3(0.1, 6, 0.1);
+    body->setPosition(vec3(0.1, 6, 0.1));
     scene->addBody(body);
     
     auto sphere = bltz::Sphere::create(1.f);
     body = RigidBody::create(sphere, 3.f);
-    body->x = vec3(0, 3, 0);
+    body->setPosition(vec3(0, 3, 0));
     scene->addBody(body);
 }
 
@@ -60,22 +75,21 @@ void seesawScene(Scene *scene) {
 
 
 
-
 void stonehengeScene(Scene *scene) {
     scene->solverIterations = 50;
     Shape box = Box::create(vec3(0.5,4,3));
     Body leg1 = RigidBody::create(box, 3.f);
     Body leg2 = RigidBody::create(box, 3.f);
-    leg1->x = vec3(-1.75,2,0);
-    leg2->x = vec3(1.75,2,0);
+    leg1->setPosition(vec3(-1.75,2,0));
+    leg2->setPosition(vec3(1.75,2,0));
 
     Body top = RigidBody::create(box, 3.f);
     top->setRotation(vec3(0,0,1), glm::pi<float>()*0.5);
-    top->x.y = 4.25;
+    top->setPosition(vec3(0,4.25,0));
 
     box = Box::create(vec3(1,1,1));
     Body b = RigidBody::create(box, 3.f);
-    b->x.y = 7;
+    b->setPosition(vec3(0,7,0));
 
     scene->addBody(b);
     scene->addBody(leg1);

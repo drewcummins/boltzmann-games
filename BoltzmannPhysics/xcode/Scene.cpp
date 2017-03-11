@@ -43,8 +43,8 @@ deltaTime(deltaTime)
 
 
 void Scene::addBody(Body body) {
-    for (auto &g : body->geometry) {
-        g.shape->prepareView(shader, shader);
+    for (auto &elem : body->elements) {
+        elem.shape->prepareView(shader, shader);
     }
     bodies.push_back(body);
 }
@@ -88,7 +88,6 @@ void Scene::singleStep() {
     collision.createCache(bodies);
     
     vector<CandidatePair> candidates = collision.findCandidates();
-//    vector<CandidatePair> candidates = collision.bruteForceFindCandidates();
     
     contacts = collision.findContacts(candidates);
     
@@ -132,12 +131,12 @@ void Scene::render() {
     Rand rando(6);
     for (auto &body : bodies) {
         gl::color(0.15f+rando.nextFloat(), 0.12f+rando.nextFloat(), 0.2f+rando.nextFloat());
-        for (auto &geometry : body->geometry) {
+        for (auto &elem : body->elements) {
             gl::ScopedModelMatrix scpModelMatrix;
-            gl::translate(body->x);
+            gl::translate(body->com);
             gl::rotate(body->q);
-            gl::translate(geometry.x);
-            geometry.shape->view->draw();
+            gl::translate(elem.x + body->xModel);
+            elem.shape->view->draw();
         }
     }
     
@@ -145,17 +144,17 @@ void Scene::render() {
         constraint->render();
     }
     
-//    gl::color(1.0, 0.2, 0.2);
-//    gl::lineWidth(0.05);
-//
-//    for (auto &contact : contacts) {
-//        for (auto &cp : contact.manifold) {
-//            gl::pushModelMatrix();
-//            gl::translate(cp.p);
-//            gl::drawSphere(vec3(), 0.095f);
-//            gl::popModelMatrix();
-//        }
-//    }
+    gl::color(1.0, 0.2, 0.2);
+    gl::lineWidth(0.05);
+
+    for (auto &contact : contacts) {
+        for (auto &cp : contact.manifold) {
+            gl::pushModelMatrix();
+            gl::translate(cp.p);
+            gl::drawSphere(vec3(), 0.095f);
+            gl::popModelMatrix();
+        }
+    }
 }
 
 
@@ -204,8 +203,8 @@ void Scene::drop() {
 
 void Scene::shoot() {
     auto sphere = bltz::Sphere::create(1.f);
-    auto ball = RigidBody::create(sphere, 4.f);
-    ball->x = vec3(-25,1,0);
+    auto ball = RigidBody::create(sphere, 3.f);
+    ball->setPosition(vec3(-25,1,0));
     ball->v.x = 30;
     addBody(ball);
 }

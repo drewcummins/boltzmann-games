@@ -12,8 +12,11 @@ using namespace bltz;
 
 
 DistanceConstraint::DistanceConstraint(Body b1, vec3 r1, Body b2, vec3 r2) : BaseConstraint(b1, b2), r1(r1), r2(r2) {
-    vec3 r1ws = b1->x + b1->R * r1;
-    vec3 r2ws = b2->x + b2->R * r2;
+    r1 -= b1->xModel;
+    r2 -= b2->xModel;
+    
+    vec3 r1ws = b1->com + b1->R * r1;
+    vec3 r2ws = b2->com + b2->R * r2;
     
     distance = length(r2ws - r1ws);
 }
@@ -24,7 +27,7 @@ void DistanceConstraint::prepare(float dt) {
     r2R = b2->R * r2;
     
     // axis between these points
-    d = b2->x + r2R - b1->x - r1R;
+    d = b2->com + r2R - b1->com - r1R;
     
     // C    = x1 + r1 - x2 - r2 = 0
     // C'   = v1 . -d - ω1 x r1 x d - v2 . d + ω2 x r2 x d = 0
@@ -73,8 +76,8 @@ void DistanceConstraint::solve(float dt) {
 void DistanceConstraint::render() {
     gl::color(0.5, 0.5, 1.0);
     gl::lineWidth(5);
-    vec3 r1ws = b1->x + b1->R * r1;
-    vec3 r2ws = b2->x + b2->R * r2;
+    vec3 r1ws = b1->com + b1->R * r1;
+    vec3 r2ws = b2->com + b2->R * r2;
     gl::drawLine(r1ws, r2ws);
 }
 

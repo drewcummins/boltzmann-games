@@ -121,7 +121,7 @@ Contact Collision::OBBOBB(CandidatePair boxes) {
     
     axis = overlap.f1.axis;
     
-    vec3 dbox = box2->x - box1->x;
+    vec3 dbox = box2->com - box1->com;
     if (dot(dbox, axis) < 0) {
         axis = -axis;
     }
@@ -354,11 +354,11 @@ vector<Contact> Collision::findContacts(vector<CandidatePair> pairs) {
 
 void Collision::createCache(vector<Body> bodies) {
     for (auto &body : bodies) {
-        for (auto &gi : body->geometry) {
+        for (auto &elem : body->elements) {
             Candidate ci;
             ci.body = body;
-            ci.cache = gi.shape->cache(body->x, body->R, gi.x);
-            ci.shape = gi.shape;
+            ci.cache = elem.shape->cache(body->com, body->R, elem.x + body->xModel);
+            ci.shape = elem.shape;
             cache.push_back(ci);
         }
     }

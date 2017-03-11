@@ -48,8 +48,8 @@ void ContactConstraint::buildNonpenetrationConstraint(float dt, int i) {
     
     n[i].lambda = 0.f;
     
-    vec3 r1 = cp.p - b1->x;
-    vec3 r2 = cp.p - b2->x;
+    vec3 r1 = cp.p - b1->com;
+    vec3 r2 = cp.p - b2->com;
     
     n[i].J.L1 = cp.normal;
     n[i].J.A1 = cross(r1, cp.normal);
@@ -71,13 +71,13 @@ void ContactConstraint::buildNonpenetrationConstraint(float dt, int i) {
 void ContactConstraint::buildFrictionConstraint(float dt, int i, vec3 u, vector<C1DOF> &eqns) {
     ContactPoint cp = contact.manifold[i];
     eqns[i].J.L1 = u;
-    eqns[i].J.A1 = cross(cp.p - b1->x, u);
+    eqns[i].J.A1 = cross(cp.p - b1->com, u);
     
     eqns[i].K = dot(eqns[i].J.L1 * b1->invM, eqns[i].J.L1) + dot(eqns[i].J.A1 * b1->invIWorld, eqns[i].J.A1);
     
     if (!b2->isGround) {
         eqns[i].J.L2 = -u;
-        eqns[i].J.A2 = -cross(cp.p - b2->x, u);
+        eqns[i].J.A2 = -cross(cp.p - b2->com, u);
         eqns[i].K += dot(eqns[i].J.L2 * b1->invM, eqns[i].J.L2) + dot(eqns[i].J.A2 * b2->invIWorld, eqns[i].J.A2);
     }
 }

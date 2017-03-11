@@ -16,13 +16,13 @@ Constraint GroundConstraint::create(Body b1) {
 }
 
 GroundConstraint::GroundConstraint(Body b1) : BaseConstraint(b1, NULL) {
-    p = vec3(b1->x);
+    p = vec3(b1->com);
 }
 
 void GroundConstraint::prepare(float dt) {
     eqn.J.L1 = mat3();
     eqn.K = inverse(mat3() * b1->invM);
-    eqn.bias = (b1->x - p) * (beta/dt);
+    eqn.bias = (b1->com - p) * (beta/dt);
 }
 
 void GroundConstraint::solve(float dt) {

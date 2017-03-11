@@ -11,22 +11,34 @@
 
 #include <stdio.h>
 #include "Shape.hpp"
+#include "Material.hpp"
 
 namespace bltz {
     
     using namespace ci;
     using namespace std;
     
+    typedef struct Element {
+        Shape shape;
+        Material material;
+        vec3 x;
+        mat3 R;
+    } Element;
+    
     class RigidBody {
     public:
         static shared_ptr<RigidBody> create(Shape shape, float density);
+        static shared_ptr<RigidBody> create();
         
         uint id;
-        vector<Geometry> geometry;
+        vector<Element> elements;
         
         float m;
         float invM;
+        
         vec3 x;
+        vec3 xModel;
+        vec3 com;
         vec3 v;
         quat q;
         vec3 omega;
@@ -44,7 +56,7 @@ namespace bltz {
         
         void integrateAcceleration(float dt);
         void integrateVelocity(float dt);
-        void addShape(Shape shape, vec3 offset);
+        void addElement(Shape shape, Material material, vec3 offset=vec3(), mat3 R=mat3());
         
         void addForce(vec3 force);
         void addTorque(vec3 torque);
@@ -53,6 +65,7 @@ namespace bltz {
         void addImpulseAtPoint(vec3 p, vec3 force);
         void addImpulseAtLocalPoint(vec3 p, vec3 force);
         
+        void setPosition(vec3 position);
         void setRotation(vec3 axis, float theta);
         
         vec3 velocityAtPoint(vec3 p);

@@ -11,22 +11,53 @@
 
 using namespace bltz;
 
-shared_ptr<RigidBody> RigidBody::create(Shape shape, float density) {
+shared_ptr<RigidBody> RigidBody::create() {
     shared_ptr<RigidBody> body(new RigidBody());
-    body->m = shape->computeMass(density);
-    body->invM = 1 / body->m;
-    Geometry geom;
-    geom.shape = shape;
-    geom.x = vec3(0,0,0);
-    body->geometry.push_back(geom);
-    mat3 I = shape->computeInertiaTensor(body->m);
-    body->invIModel = inverse(I);
+    body->com = body->x;
+    body->m = body->invM = 1.f;
+    body->invIModel = mat3();
     body->q = quat(1,0,0,0);
     body->R = glm::toMat3(body->q);
     body->invIWorld = body->R * body->invIModel * glm::transpose(body->R);
     body->collisionGroup = body->collisionMask = 1;
     body->isGround = false;
     return body;
+}
+
+shared_ptr<RigidBody> RigidBody::create(Shape shape, float density) {
+    shared_ptr<RigidBody> body(new RigidBody());
+    Material material = {density, 0.96, 0.0};
+    body->addElement(shape, material);
+    body->q = quat(1,0,0,0);
+    body->R = glm::toMat3(body->q);
+    body->invIWorld = body->R * body->invIModel * glm::transpose(body->R);
+    body->collisionGroup = body->collisionMask = 1;
+    body->isGround = false;
+    return body;
+}
+
+void RigidBody::addElement(Shape shape, Material material, vec3 position, mat3 R) {
+    Element element = {shape, material, position, R};
+    elements.push_back(element);
+    
+    m = 0;
+    com = vec3();
+    mat3 I = mat3() * 0.f;
+    for (auto &elem : elements) {
+        float mass = elem.shape->computeMass(elem.material.density);
+        m += mass;
+        I += elem.shape->computeInertiaTensor(mass);
+        I += (mat3() * dot(elem.x, elem.x) - glm::outerProduct(elem.x, elem.x)) * mass;
+        com += elem.x * mass;
+    }
+    
+    invM = 1.f / m;
+    com *= invM;
+    I -= (mat3() * dot(com, com) - glm::outerProduct(com, com)) * m;
+    invIModel = inverse(I);
+    invIWorld = R * invIModel * glm::transpose(R);
+    xModel = -com;
+    com += x;
 }
 
 void RigidBody::integrateAcceleration(float dt) {
@@ -39,7 +70,7 @@ void RigidBody::integrateAcceleration(float dt) {
 }
 
 void RigidBody::integrateVelocity(float dt) {
-    x += v * dt;
+    com += v * dt;
     quat qmega = quat(0, omega.x, omega.y, omega.z);
     qmega *= q;
     q.x += qmega.x * 0.5 * dt;
@@ -49,6 +80,7 @@ void RigidBody::integrateVelocity(float dt) {
     q = normalize(q);
     R = glm::toMat3(q);
     invIWorld = R * invIModel * glm::transpose(R);
+    x = com + R * xModel;
 }
 
 void RigidBody::addForce(vec3 force) {
@@ -62,6 +94,12 @@ void RigidBody::addTorque(vec3 torque) {
 void RigidBody::addForceAtPoint(vec3 p, vec3 force) {
     addForce(force);
     addTorque(cross(p - x, force));
+}
+
+void RigidBody::setPosition(vec3 position) {
+    vec3 dx = com - x;
+    x += position;
+    com = x + dx;
 }
 
 void RigidBody::setRotation(vec3 axis, float theta) {

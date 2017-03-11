@@ -17,7 +17,8 @@ Constraint BallAndSocketJoint::create(Body b1, vec3 r1, Body b2) {
 }
 
 BallAndSocketJoint::BallAndSocketJoint(Body b1, vec3 r1, Body b2) : BaseConstraint(b1, b2), r1(r1) {
-    r2 = (b1->x + b1->R * r1 - b2->x) * inverse(b2->R);
+    r1 -= b1->xModel; // move to center of mass frame
+    r2 = (b1->com + b1->R * r1 - b2->com) * inverse(b2->R);
     eqn.lambda = vec3(0,0,0);
 }
 
@@ -25,7 +26,7 @@ void BallAndSocketJoint::prepare(float dt) {
     r1R = b1->R * r1;
     r2R = b2->R * r2;
     
-    eqn.bias = (b2->x + r2R - b1->x - r1R) * (beta/dt);
+    eqn.bias = (b2->com + r2R - b1->com - r1R) * (beta/dt);
     
     eqn.J.L1 = mat3();
     eqn.J.A1 = Utils::skew(r1R);
