@@ -20,6 +20,7 @@ namespace bltz {
         virtual void solve(float dt);
         virtual void prepare(float dt);
         vec3 r1, r2;
+        virtual void render();
     protected:
         BallAndSocketJoint(Body b1, vec3 r1, Body b2);
         C3DOF eqn;

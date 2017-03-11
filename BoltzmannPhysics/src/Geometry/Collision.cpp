@@ -190,7 +190,7 @@ vector<CandidatePair> Collision::findCandidates() {
             Candidate ci = cell.second[i];
             for (int j = i + 1; j < cell.second.size(); j++) {
                 Candidate cj = cell.second[j];
-                if (filter[ci.cache.id ^ cj.cache.id]) {
+                if (filter[ci.cache.id ^ cj.cache.id] || ci.body == cj.body) {
                     continue;
                 }
                 // i guess this is sorta risky as a false positive will
@@ -225,6 +225,9 @@ vector<Contact> Collision::findFloorContacts() {
                 cp.u1 = vec3(1,0,0);
                 cp.u2 = vec3(0,0,1);
                 
+                contact.friction = candidate.material.friction;
+                contact.bounciness = candidate.material.bounciness;
+                
                 contact.manifold = {cp};
                 contacts.push_back(contact);
                 
@@ -243,6 +246,8 @@ vector<Contact> Collision::findFloorContacts() {
                     }
                 }
                 
+                contact.friction = candidate.material.friction;
+                contact.bounciness = candidate.material.bounciness;
                 contacts.push_back(contact);
             }
         }
@@ -277,6 +282,7 @@ vector<Contact> Collision::findContacts(vector<CandidatePair> pairs) {
                 cp.u1 = cross(ut, cp.normal);
                 cp.u2 = cross(cp.u1, cp.normal);
                 contact.manifold = {cp};
+                calculateMaterialProperties(contact, candidate.c1.material, candidate.c2.material);
                 contacts.push_back(contact);
             }
             
@@ -340,11 +346,13 @@ vector<Contact> Collision::findContacts(vector<CandidatePair> pairs) {
                 cp.u1 = cross(ut, cp.normal);
                 cp.u2 = cross(cp.u1, cp.normal);
                 contact.manifold = {cp};
+                calculateMaterialProperties(contact, candidate.c1.material, candidate.c2.material);
                 contacts.push_back(contact);
             }
         } else if (routine == BOX_BOX) {
             Contact contact = OBBOBB(candidate);
             if (contact.manifold.size()) {
+                calculateMaterialProperties(contact, candidate.c1.material, candidate.c2.material);
                 contacts.push_back(contact);
             }
         }
@@ -359,6 +367,7 @@ void Collision::createCache(vector<Body> bodies) {
             ci.body = body;
             ci.cache = elem.shape->cache(body->com, body->R, elem.x + body->xModel);
             ci.shape = elem.shape;
+            ci.material = elem.material;
             cache.push_back(ci);
         }
     }
@@ -368,5 +377,8 @@ void Collision::clearCache() {
     cache.clear();
 }
 
-
+void Collision::calculateMaterialProperties(Contact &contact, Material m1, Material m2) {
+    contact.bounciness = (m1.bounciness + m2.bounciness) * 0.5;
+    contact.friction = (m1.friction + m2.friction) * 0.5;
+}
 

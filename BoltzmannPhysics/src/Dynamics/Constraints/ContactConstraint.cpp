@@ -89,7 +89,7 @@ void ContactConstraint::solveNonpenetrationConstraint(float dt, int i) {
         Cdot += dot(n[i].J.L2, b2->v) + dot(n[i].J.A2, b2->omega);
     }
     
-    float lambda = -n[i].K * ((1+k) * Cdot + n[i].bias);
+    float lambda = -n[i].K * ((1+contact.bounciness) * Cdot + n[i].bias);
     
     n[i].lambda += lambda - n[i].lambda;
     if (n[i].lambda > 0) {
@@ -114,7 +114,7 @@ void ContactConstraint::solveFrictionConstraint(float dt, int i, vec3 u, vector<
     
     float lambda = -eqns[i].K * Cdot;
     
-    float nl = fabs(n[i].lambda) * mu;
+    float nl = fabs(n[i].lambda) * contact.friction;
     lambda = Utils::clamp(lambda, -nl, nl);
     
     b1->v += b1->invM * eqns[i].J.L1 * lambda;

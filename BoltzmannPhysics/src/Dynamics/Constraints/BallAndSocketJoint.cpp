@@ -17,8 +17,8 @@ Constraint BallAndSocketJoint::create(Body b1, vec3 r1, Body b2) {
 }
 
 BallAndSocketJoint::BallAndSocketJoint(Body b1, vec3 r1, Body b2) : BaseConstraint(b1, b2), r1(r1) {
-    r1 -= b1->xModel; // move to center of mass frame
-    r2 = (b1->com + b1->R * r1 - b2->com) * inverse(b2->R);
+    this->r1 += b1->xModel; // move to center of mass frame
+    r2 = (b1->com + b1->R * this->r1 - b2->com) * inverse(b2->R);
     eqn.lambda = vec3(0,0,0);
 }
 
@@ -59,5 +59,24 @@ void BallAndSocketJoint::solve(float dt) {
         b2->v += b2->invM * lambda;
         b2->omega -= b2->invIWorld * eqn.J.A2 * lambda;
     }
+}
+
+void BallAndSocketJoint::render() {
+    gl::color(0.2, 0.2, 1.0);
+    gl::lineWidth(0.05);
+    
+    r1R = b1->R * r1;
+    
+    gl::pushModelMatrix();
+    gl::translate(b1->com + r1R);
+    gl::drawSphere(vec3(), 0.095f);
+    gl::popModelMatrix();
+    
+    r2R = b2->R * r2;
+    
+    gl::pushModelMatrix();
+    gl::translate(b2->com + r2R);
+    gl::drawSphere(vec3(), 0.095f);
+    gl::popModelMatrix();
 }
 

@@ -198,12 +198,15 @@ void Scene::togglePause() {
 }
 
 void Scene::drop() {
-    
+    auto sphere = bltz::Sphere::create(0.6f);
+    auto ball = RigidBody::create(sphere, 3.5f);
+    ball->setPosition(vec3(-2,20,0));
+    addBody(ball);
 }
 
 void Scene::shoot() {
-    auto sphere = bltz::Sphere::create(1.f);
-    auto ball = RigidBody::create(sphere, 3.f);
+    auto sphere = bltz::Sphere::create(0.6f);
+    auto ball = RigidBody::create(sphere, 3.5f);
     ball->setPosition(vec3(-25,1,0));
     ball->v.x = 30;
     addBody(ball);

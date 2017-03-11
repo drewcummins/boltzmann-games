@@ -21,6 +21,7 @@ namespace bltz {
         Body body;
         ShapeCache cache;
         Shape shape;
+        Material material;
         bool operator==(const Candidate &other) const {
             return body->id == other.body->id && cache.id == other.cache.id;
         }
@@ -49,6 +50,8 @@ namespace bltz {
     typedef struct Contact {
         Manifold manifold;
         CollisionPair pair;
+        float friction;
+        float bounciness;
     } Contact;
 
     static const Contact NULL_CONTACT = {};

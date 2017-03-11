@@ -98,7 +98,7 @@ void RigidBody::addForceAtPoint(vec3 p, vec3 force) {
 
 void RigidBody::setPosition(vec3 position) {
     vec3 dx = com - x;
-    x += position;
+    x = position;
     com = x + dx;
 }
 
