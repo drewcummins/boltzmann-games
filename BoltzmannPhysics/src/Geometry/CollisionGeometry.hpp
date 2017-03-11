@@ -22,7 +22,7 @@ namespace bltz {
         ShapeCache cache;
         Shape shape;
         bool operator==(const Candidate &other) const {
-            return body->id == other.body->id && shape->id == other.shape->id;
+            return body->id == other.body->id && cache.id == other.cache.id;
         }
     } Candidate;
     

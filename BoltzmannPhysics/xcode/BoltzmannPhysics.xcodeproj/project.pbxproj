@@ -27,7 +27,8 @@
 		3A44CDF61E70525C001D7C7A /* BallAndSocketJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A44CDF41E70525C001D7C7A /* BallAndSocketJoint.cpp */; };
 		3A44CDF91E70547F001D7C7A /* HingeJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A44CDF71E70547F001D7C7A /* HingeJoint.cpp */; };
 		3A44CDFC1E706316001D7C7A /* Collision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A44CDFA1E706316001D7C7A /* Collision.cpp */; };
-		3A44CE001E7197AD001D7C7A /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A44CDFE1E7197AD001D7C7A /* Scene.cpp */; };
+		3A44CE031E7363C8001D7C7A /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A44CE021E7363C8001D7C7A /* Scene.cpp */; };
+		3A44CE0B1E73B070001D7C7A /* Scenes.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A44CE091E73B070001D7C7A /* Scenes.hpp */; };
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		EC87B634BA93402CB24AB258 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 368F767DED1B446E9953E6EB /* CinderApp.icns */; };
@@ -72,8 +73,9 @@
 		3A44CDF81E70547F001D7C7A /* HingeJoint.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = HingeJoint.hpp; path = ../src/Dynamics/Constraints/HingeJoint.hpp; sourceTree = "<group>"; };
 		3A44CDFA1E706316001D7C7A /* Collision.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Collision.cpp; path = ../src/Geometry/Collision.cpp; sourceTree = "<group>"; };
 		3A44CDFB1E706316001D7C7A /* Collision.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Collision.hpp; path = ../src/Geometry/Collision.hpp; sourceTree = "<group>"; };
-		3A44CDFE1E7197AD001D7C7A /* Scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Scene.cpp; path = ../src/Scene/Scene.cpp; sourceTree = "<group>"; };
-		3A44CDFF1E7197AD001D7C7A /* Scene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Scene.hpp; path = ../src/Scene/Scene.hpp; sourceTree = "<group>"; };
+		3A44CE011E7363C8001D7C7A /* Scene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Scene.hpp; sourceTree = "<group>"; };
+		3A44CE021E7363C8001D7C7A /* Scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scene.cpp; sourceTree = "<group>"; };
+		3A44CE091E73B070001D7C7A /* Scenes.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Scenes.hpp; path = ../src/Scenes/Scenes.hpp; sourceTree = "<group>"; };
 		5323E6B10EAFCA74003A9687 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = /System/Library/Frameworks/CoreVideo.framework; sourceTree = "<absolute>"; };
 		6E061E20D94D4F1D8CC47034 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* BoltzmannPhysics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BoltzmannPhysics.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -113,7 +115,7 @@
 		080E96DDFE201D6D7F000001 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				3A44CDFD1E71978B001D7C7A /* Scene */,
+				3A44CDFD1E71978B001D7C7A /* Scenes */,
 				3A44CDE01E6F7B8E001D7C7A /* Utils */,
 				3A44CDD81E6F75BA001D7C7A /* Geometry */,
 				3A44CDD41E6F713A001D7C7A /* Dynamics */,
@@ -257,13 +259,14 @@
 			name = Forces;
 			sourceTree = "<group>";
 		};
-		3A44CDFD1E71978B001D7C7A /* Scene */ = {
+		3A44CDFD1E71978B001D7C7A /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				3A44CDFE1E7197AD001D7C7A /* Scene.cpp */,
-				3A44CDFF1E7197AD001D7C7A /* Scene.hpp */,
+				3A44CE011E7363C8001D7C7A /* Scene.hpp */,
+				3A44CE021E7363C8001D7C7A /* Scene.cpp */,
+				3A44CE091E73B070001D7C7A /* Scenes.hpp */,
 			);
-			name = Scene;
+			name = Scenes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -330,13 +333,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A44CDF61E70525C001D7C7A /* BallAndSocketJoint.cpp in Sources */,
-				3A44CE001E7197AD001D7C7A /* Scene.cpp in Sources */,
 				FA96CC66C0774656A1E6B1D8 /* BoltzmannPhysicsApp.cpp in Sources */,
 				3A44CDDF1E6F7B63001D7C7A /* Box.cpp in Sources */,
 				3A44CDF91E70547F001D7C7A /* HingeJoint.cpp in Sources */,
+				3A44CE0B1E73B070001D7C7A /* Scenes.hpp in Sources */,
 				3A44CDDD1E6F78E1001D7C7A /* Sphere.cpp in Sources */,
 				3A44CDE81E6F7EA1001D7C7A /* BaseConstraint.cpp in Sources */,
 				3A44CDE31E6F7BA5001D7C7A /* Utils.cpp in Sources */,
+				3A44CE031E7363C8001D7C7A /* Scene.cpp in Sources */,
 				3A44CDD71E6F71BC001D7C7A /* RigidBody.cpp in Sources */,
 				3A44CDEB1E6F7F38001D7C7A /* GroundConstraint.cpp in Sources */,
 				3A44CDEF1E6F81E4001D7C7A /* DistanceConstraint.cpp in Sources */,

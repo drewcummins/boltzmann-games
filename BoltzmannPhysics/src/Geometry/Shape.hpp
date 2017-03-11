@@ -25,6 +25,7 @@ namespace bltz {
     };
     
     typedef struct ShapeCache {
+        uint id;
         vec3 C;
         vector<vec3> vertices;
         AABB aabb;

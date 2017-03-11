@@ -99,6 +99,7 @@ vector<vec3> Box::getVerticesInWorldSpace(vec3 x, mat3 R) {
 
 ShapeCache Box::cache(vec3 x, mat3 R, vec3 o) {
     ShapeCache box;
+    box.id = Utils::rand.nextUint();
     box.C = x + R * o;
     box.vertices = getVerticesInWorldSpace(box.C, R);
     box.aabb.min = box.aabb.max = box.vertices[0];

@@ -40,6 +40,7 @@ mat3 bltz::Sphere::computeInertiaTensor(float mass) {
 
 ShapeCache bltz::Sphere::cache(vec3 x, mat3 R, vec3 o) {
     ShapeCache sphere;
+    sphere.id = Utils::rand.nextUint();
     vec3 C = x + R * o;
     sphere.C = C;
     sphere.aabb.min = C - vec3(r);

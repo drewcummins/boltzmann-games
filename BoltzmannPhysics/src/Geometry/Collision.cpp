@@ -10,6 +10,137 @@
 
 using namespace bltz;
 
+bool Collision::addBoxAxis(vec3 axis, Body box1, shared_ptr<Box> b1, vector<vec3> b1verts, Body box2, shared_ptr<Box> b2, vector<vec3> b2verts, Box::Overlap &overlap) {
+    axis = normalize(axis);
+    Box::Support s1 = b1->getSupport(b1verts, axis);
+    Box::Support s2 = b2->getSupport(b2verts, axis);
+    bool doesOverlap;
+    Box::Overlap o = Box::getOverlap(s1, s2, doesOverlap);
+    if (doesOverlap && o.overlap < overlap.overlap) {
+        overlap = o;
+        overlap.f1.axis = overlap.f2.axis = axis;
+    }
+    return doesOverlap;
+}
+
+Contact Collision::OBBOBB(CandidatePair boxes) {
+    auto box1 = boxes.c1.body;
+    auto box2 = boxes.c2.body;
+    
+    auto b1 = static_pointer_cast<Box>(boxes.c1.shape);
+    auto b2 = static_pointer_cast<Box>(boxes.c2.shape);
+    
+    vector<vec3> b1verts = boxes.c1.cache.vertices;
+    vector<vec3> b2verts = boxes.c2.cache.vertices;
+    
+    Box::Overlap overlap;
+    overlap.overlap = FLT_MAX;
+    
+    vector<vec3> axes;
+    
+    vec3 axis = box1->R * vec3(1,0,0);
+    if (!addBoxAxis(axis, box1, b1, b1verts, box2, b2, b2verts, overlap)) return NULL_CONTACT;
+    axes.push_back(axis);
+    
+    axis = box1->R * vec3(0,1,0);
+    if (!addBoxAxis(axis, box1, b1, b1verts, box2, b2, b2verts, overlap)) return NULL_CONTACT;
+    axes.push_back(axis);
+    
+    axis = box1->R * vec3(0,0,1);
+    if (!addBoxAxis(axis, box1, b1, b1verts, box2, b2, b2verts, overlap)) return NULL_CONTACT;
+    axes.push_back(axis);
+    
+    axis = box2->R * vec3(1,0,0);
+    if (!addBoxAxis(axis, box1, b1, b1verts, box2, b2, b2verts, overlap)) return NULL_CONTACT;
+    axes.push_back(axis);
+    
+    axis = box2->R * vec3(0,1,0);
+    if (!addBoxAxis(axis, box1, b1, b1verts, box2, b2, b2verts, overlap)) return NULL_CONTACT;
+    axes.push_back(axis);
+    
+    axis = box2->R * vec3(0,0,1);
+    if (!addBoxAxis(axis, box1, b1, b1verts, box2, b2, b2verts, overlap)) return NULL_CONTACT;
+    axes.push_back(axis);
+    
+    axis = cross(axes[0], axes[3]);
+    if (glm::length2(axis) > 1e-6) {
+        axis = normalize(axis);
+        if (!addBoxAxis(axis, box1, b1, b1verts, box2, b2, b2verts, overlap)) return NULL_CONTACT;
+    }
+    
+    axis = cross(axes[0], axes[4]);
+    if (glm::length2(axis) > 1e-6) {
+        axis = normalize(axis);
+        if (!addBoxAxis(axis, box1, b1, b1verts, box2, b2, b2verts, overlap)) return NULL_CONTACT;
+    }
+    
+    axis = cross(axes[0], axes[5]);
+    if (glm::length2(axis) > 1e-6) {
+        axis = normalize(axis);
+        if (!addBoxAxis(axis, box1, b1, b1verts, box2, b2, b2verts, overlap)) return NULL_CONTACT;
+    }
+    
+    axis = cross(axes[1], axes[3]);
+    if (glm::length2(axis) > 1e-6) {
+        axis = normalize(axis);
+        if (!addBoxAxis(axis, box1, b1, b1verts, box2, b2, b2verts, overlap)) return NULL_CONTACT;
+    }
+    
+    axis = cross(axes[1], axes[4]);
+    if (glm::length2(axis) > 1e-6) {
+        axis = normalize(axis);
+        if (!addBoxAxis(axis, box1, b1, b1verts, box2, b2, b2verts, overlap)) return NULL_CONTACT;
+    }
+    
+    axis = cross(axes[1], axes[5]);
+    if (glm::length2(axis) > 1e-6) {
+        axis = normalize(axis);
+        if (!addBoxAxis(axis, box1, b1, b1verts, box2, b2, b2verts, overlap)) return NULL_CONTACT;
+    }
+    
+    axis = cross(axes[2], axes[3]);
+    if (glm::length2(axis) > 1e-6) {
+        axis = normalize(axis);
+        if (!addBoxAxis(axis, box1, b1, b1verts, box2, b2, b2verts, overlap)) return NULL_CONTACT;
+    }
+    
+    axis = cross(axes[2], axes[4]);
+    if (glm::length2(axis) > 1e-6) {
+        axis = normalize(axis);
+        if (!addBoxAxis(axis, box1, b1, b1verts, box2, b2, b2verts, overlap)) return NULL_CONTACT;
+    }
+    
+    axis = cross(axes[2], axes[5]);
+    if (glm::length2(axis) > 1e-6) {
+        axis = normalize(axis);
+        if (!addBoxAxis(axis, box1, b1, b1verts, box2, b2, b2verts, overlap)) return NULL_CONTACT;
+    }
+    
+    Contact contact;
+    contact.pair = {box1, box2};
+    
+    axis = overlap.f1.axis;
+    
+    vec3 dbox = box2->x - box1->x;
+    if (dot(dbox, axis) < 0) {
+        axis = -axis;
+    }
+    
+    vector<vec3> m = Box::getManifold(overlap);
+    for (auto &p : m) {
+        ContactPoint cp;
+        cp.normal = axis;
+        cp.p = p;
+        cp.penetration = overlap.overlap;
+        vec3 ut = vec3(-p.y,p.z,p.x);
+        cp.u1 = normalize(cross(ut, cp.normal));
+        cp.u2 = normalize(cross(cp.u1, cp.normal));
+        contact.manifold.push_back(cp);
+    }
+    
+    return contact;
+}
+
 ull dumb_hash(int x, int y, int z) {
     return (ull) (((ull) (x & 0xFFFFF)) << 40) | (((ull) (y & 0xFFFFF)) << 20) | ((ull) (z & 0xFFFFF));
 }
@@ -28,6 +159,7 @@ vector<CandidatePair> Collision::bruteForceFindCandidates() {
 
 vector<CandidatePair> Collision::findCandidates() {
     vector<CandidatePair> candidates;
+    unordered_map<ull, vector<Candidate>> grid;
     
     for (auto &candidate : cache) {
         ShapeCache sc = candidate.cache;
@@ -58,12 +190,12 @@ vector<CandidatePair> Collision::findCandidates() {
             Candidate ci = cell.second[i];
             for (int j = i + 1; j < cell.second.size(); j++) {
                 Candidate cj = cell.second[j];
-                if (filter[ci.shape->id ^ cj.shape->id]) {
+                if (filter[ci.cache.id ^ cj.cache.id]) {
                     continue;
                 }
                 // i guess this is sorta risky as a false positive will
                 // mean we don't check a pair
-                filter[ci.shape->id ^ cj.shape->id] = true;
+                filter[ci.cache.id ^ cj.cache.id] = true;
                 if (!(ci == cj) && (ci.body->collisionMask & cj.body->collisionGroup)) {
                     candidates.push_back({ci, cj});
                 }
@@ -78,7 +210,7 @@ vector<CandidatePair> Collision::findCandidates() {
 vector<Contact> Collision::findFloorContacts() {
     vector<Contact> contacts;
     for (auto candidate : cache) {
-        if (candidate.cache.aabb.min.y < 0) {
+        if (candidate.cache.aabb.min.y <= 0) {
             if (candidate.shape->type == SPHERE) {
                 // sphere
                 auto sphere = static_pointer_cast<bltz::Sphere>(candidate.shape);
@@ -106,7 +238,7 @@ vector<Contact> Collision::findFloorContacts() {
                 vec3 normal = vec3(0,-1,0);
                 
                 for (auto &vertex : candidate.cache.vertices) {
-                    if (vertex.y < 0) {
+                    if (vertex.y <= 0.05) {
                         contact.manifold.push_back({normal, vertex, -vertex.y, vec3(1,0,0), vec3(0,0,1)});
                     }
                 }
@@ -153,7 +285,7 @@ vector<Contact> Collision::findContacts(vector<CandidatePair> pairs) {
             shared_ptr<Box> b;
             Body box, sphere;
             vec3 B, S;
-            if (candidate.c1.shape->type == 1) {
+            if (candidate.c1.shape->type == SPHERE) {
                 sphere = candidate.c1.body;
                 s = static_pointer_cast<bltz::Sphere>(candidate.c1.shape);
                 S = candidate.c1.cache.C;
@@ -198,16 +330,21 @@ vector<Contact> Collision::findContacts(vector<CandidatePair> pairs) {
                 Contact contact;
                 contact.pair = pair;
                 ContactPoint cp;
-                vec3 cpws = box->x + box->R * c;
-                cp.normal = cpws - sphere->x;
+                vec3 cpws = B + box->R * c;
+                cp.normal = cpws - S;
                 float len = length(cp.normal);
                 cp.normal /= len;
                 cp.p = cpws;
                 cp.penetration = s->r - len;
-                vec3 ut = vec3(-cp.normal.y, cp.normal.x, cp.normal.z);
+                vec3 ut = vec3(-cp.normal.y, cp.normal.z, cp.normal.x);
                 cp.u1 = cross(ut, cp.normal);
                 cp.u2 = cross(cp.u1, cp.normal);
                 contact.manifold = {cp};
+                contacts.push_back(contact);
+            }
+        } else if (routine == BOX_BOX) {
+            Contact contact = OBBOBB(candidate);
+            if (contact.manifold.size()) {
                 contacts.push_back(contact);
             }
         }
@@ -216,11 +353,11 @@ vector<Contact> Collision::findContacts(vector<CandidatePair> pairs) {
 }
 
 void Collision::createCache(vector<Body> bodies) {
-    for (int i = 0; i < bodies.size(); i++) {
-        for (auto &gi : bodies[i]->geometry) {
+    for (auto &body : bodies) {
+        for (auto &gi : body->geometry) {
             Candidate ci;
-            ci.body = bodies[i];
-            ci.cache = gi.shape->cache(ci.body->x, ci.body->R, gi.x);
+            ci.body = body;
+            ci.cache = gi.shape->cache(body->x, body->R, gi.x);
             ci.shape = gi.shape;
             cache.push_back(ci);
         }

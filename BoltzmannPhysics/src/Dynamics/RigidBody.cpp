@@ -13,7 +13,7 @@ using namespace bltz;
 
 shared_ptr<RigidBody> RigidBody::create(Shape shape, float density) {
     shared_ptr<RigidBody> body(new RigidBody());
-    body->m = density;
+    body->m = shape->computeMass(density);
     body->invM = 1 / body->m;
     Geometry geom;
     geom.shape = shape;
@@ -25,6 +25,7 @@ shared_ptr<RigidBody> RigidBody::create(Shape shape, float density) {
     body->R = glm::toMat3(body->q);
     body->invIWorld = body->R * body->invIModel * glm::transpose(body->R);
     body->collisionGroup = body->collisionMask = 1;
+    body->isGround = false;
     return body;
 }
 

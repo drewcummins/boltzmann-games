@@ -26,8 +26,9 @@ namespace bltz {
         void createCache(vector<Body> bodies);
         void clearCache();
     protected:
-        unordered_map<ull, vector<Candidate>> grid;
         vector<Candidate> cache;
+        Contact OBBOBB(CandidatePair boxes);
+        bool addBoxAxis(vec3 axis, Body box1, shared_ptr<Box> b1, vector<vec3> b1verts, Body box2, shared_ptr<Box> b2, vector<vec3> b2verts, Box::Overlap &overlap);
     };
     
 }

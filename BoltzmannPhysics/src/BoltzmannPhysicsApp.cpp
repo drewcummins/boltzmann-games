@@ -5,6 +5,7 @@
 #include "Shape.hpp"
 #include "Constraints.h"
 #include "Scene.hpp"
+#include "Scenes.hpp"
 
 using namespace ci;
 using namespace ci::app;
@@ -17,30 +18,52 @@ class BoltzmannPhysicsApp : public App {
 	void mouseDown( MouseEvent event ) override;
 	void update() override;
 	void draw() override;
+    void keyDown( KeyEvent event ) override;
     shared_ptr<Scene> scene;
 };
 
 void BoltzmannPhysicsApp::setup()
 {
-    scene = Scene::create();
-    
-    auto sphere = bltz::Sphere::create(1.f);
-    auto body = RigidBody::create(sphere, 1.f);
-    body->x.y = 3;
-    
-    scene->addBody(body);
-    
-    auto box = Box::create(vec3(1,2,2));
-    body = RigidBody::create(box, 1.f);
-    body->x.y = 6;
-    body->x.x = 0.1;
-    scene->addBody(body);
-    
-//    auto ground = GroundConstraint::create(body);
+    scene = Scene::create(bridgeScene);
+    scene->setup();
 }
 
 void BoltzmannPhysicsApp::mouseDown( MouseEvent event )
 {
+    
+}
+
+void BoltzmannPhysicsApp::keyDown(KeyEvent event) {
+    if(event.getCode() == KeyEvent::KEY_SPACE){
+        scene->togglePause();
+    }
+    if (event.getCode() == KeyEvent::KEY_RIGHT) {
+        scene->right();
+    }
+    if (event.getCode() == KeyEvent::KEY_LEFT) {
+        scene->left();
+    }
+    if (event.getChar() == 'w') {
+        scene->zoomIn();
+    }
+    if (event.getChar() == 's') {
+        scene->zoomOut();
+    }
+    if (event.getChar() == 'r') {
+        scene->reset();
+    }
+    if (event.getCode() == KeyEvent::KEY_UP) {
+        scene->up();
+    }
+    if (event.getCode() == KeyEvent::KEY_DOWN) {
+        scene->down();
+    }
+    if (event.getChar() == 'b') {
+        scene->shoot();
+    }
+    if (event.getChar() == 'd') {
+        scene->drop();
+    }
 }
 
 void BoltzmannPhysicsApp::update()
