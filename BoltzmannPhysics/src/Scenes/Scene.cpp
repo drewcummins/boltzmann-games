@@ -38,9 +38,9 @@ deltaTime(deltaTime)
     auto gs = Box::create(vec3(1,1,1));
     ground = RigidBody::create(gs, 1.f);
     ground->isGround = true;
-    ground->q = quat(1,0,0,0);
-    ground->R = glm::toMat3(ground->q);
-    ground->invIWorld = ground->R * ground->invIModel * glm::transpose(ground->R);
+//    ground->q = quat(1,0,0,0);
+//    ground->R = glm::toMat3(ground->q);
+//    ground->invIWorld = ground->R * ground->invIModel * glm::transpose(ground->R);
 }
 
 
@@ -86,7 +86,8 @@ void Scene::singleStep() {
     
     collision.createCache(bodies);
     
-    vector<CandidatePair> candidates = collision.bruteForceFindCandidates();
+    vector<CandidatePair> candidates = collision.findCandidates();
+//    vector<CandidatePair> candidatesb = collision.bruteForceFindCandidates();
     
     contacts = collision.findContacts(candidates);
     
@@ -101,13 +102,12 @@ void Scene::singleStep() {
         all.push_back(cc);
     }
     
-    random_shuffle(all.begin(), all.end());
-    
     for (auto &constraint : all) {
         constraint->prepare(deltaTime);
     }
     
     for (int k = 0; k < solverIterations; k++) {
+        random_shuffle(all.begin(), all.end());
         for (auto &constraint : all) {
             constraint->solve(deltaTime);
         }
