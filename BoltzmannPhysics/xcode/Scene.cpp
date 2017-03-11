@@ -184,6 +184,7 @@ void Scene::setup() {
     theta = atan2(cam.getEyePoint().z, cam.getEyePoint().x);
     radius = sqrt(cam.getEyePoint().z * cam.getEyePoint().z + cam.getEyePoint().x * cam.getEyePoint().x);
     h = cam.getEyePoint().y;
+    yTarget = 2;
 }
 
 void Scene::reset() {
@@ -202,7 +203,11 @@ void Scene::drop() {
 }
 
 void Scene::shoot() {
-    
+    auto sphere = bltz::Sphere::create(1.f);
+    auto ball = RigidBody::create(sphere, 4.f);
+    ball->x = vec3(-25,1,0);
+    ball->v.x = 30;
+    addBody(ball);
 }
 
 void Scene::zoomIn() {

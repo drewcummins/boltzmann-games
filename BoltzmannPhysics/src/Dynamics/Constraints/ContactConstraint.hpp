@@ -20,7 +20,7 @@ namespace bltz {
         static Constraint create(Contact contact);
         virtual void solve(float dt);
         virtual void prepare(float dt);
-        float mu = 1.6f;
+        float mu = 3.6f;
         float k = 0.0f;
     protected:
         ContactConstraint(Contact contact);
