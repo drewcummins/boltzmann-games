@@ -157,6 +157,33 @@ vector<CandidatePair> Collision::bruteForceFindCandidates() {
     return candidates;
 }
 
+vector<CandidatePair> Collision::findAABBCandidates() {
+    vector<CandidatePair> candidates;
+    
+    for (int i = 0; i < cache.size()-1; i++) {
+        for (int j = i+1; j < cache.size(); j++) {
+            if (cache[i].body == cache[j].body) {
+                continue;
+            }
+            AABB aabb1, aabb2;
+            aabb1 = cache[i].cache.aabb;
+            aabb2 = cache[j].cache.aabb;
+            if (    aabb1.max.x > aabb2.min.x
+                &&  aabb1.min.x < aabb2.max.x
+                &&  aabb1.max.y > aabb2.min.y
+                &&  aabb1.min.y < aabb2.max.y
+                &&  aabb1.max.z > aabb2.min.z
+                &&  aabb1.min.z < aabb2.max.z
+                ) {
+                candidates.push_back({cache[i], cache[j]});
+            }
+            
+        }
+    }
+    
+    return candidates;
+}
+
 vector<CandidatePair> Collision::findCandidates() {
     vector<CandidatePair> candidates;
     unordered_map<ull, vector<Candidate>> grid;

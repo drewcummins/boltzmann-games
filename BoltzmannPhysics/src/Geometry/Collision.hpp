@@ -20,6 +20,7 @@ namespace bltz {
     public:
         float gridSize = 1.f;
         vector<CandidatePair> findCandidates();
+        vector<CandidatePair> findAABBCandidates();
         vector<CandidatePair> bruteForceFindCandidates();
         vector<Contact> findFloorContacts();
         vector<Contact> findContacts(vector<CandidatePair>);

@@ -49,24 +49,18 @@ void seesawScene(Scene *scene) {
     
     auto plank = Box::create(vec3(10,1,1));
     Body seesaw = RigidBody::create(plank, 3.f);
-    seesaw->x.y = 3;
+    seesaw->setPosition(vec3(0,3,0));
     
     scene->addConstraint(HingeJoint::create(seesaw, vec3(), vec3(0,0,1), scene->ground));
     
     auto box = Box::create(vec3(3,1,1));
     Body actor1 = RigidBody::create(box, 3.f);
-    actor1->x = vec3(-3.5,4,0);
+    actor1->setPosition(vec3(-3.5,4,0));
     
     
     Body actor2 = RigidBody::create(box, 1.f);
     actor2->setRotation(vec3(0,0,1), glm::pi<float>()*0.5);
-    actor2->x = vec3(-1.5,5,0);
-    
-    auto sphere = bltz::Sphere::create(1.f);
-    auto body = RigidBody::create(sphere, 9.f);
-    body->x = vec3(3, 43, 0);
-    
-    scene->addBody(body);
+    actor2->setPosition(vec3(-1.5,5,0));
     
     scene->addBody(seesaw);
     scene->addBody(actor1);
@@ -76,9 +70,9 @@ void seesawScene(Scene *scene) {
 
 
 void stonehengeScene(Scene *scene) {
-    scene->solverIterations = 50;
+    scene->solverIterations = 20;
     Shape box = Box::create(vec3(0.5,4,3));
-    Body leg1 = RigidBody::create(box, 3.f);
+    Body leg1 = RigidBody::create(box, 0.6f);
     Body leg2 = RigidBody::create(box, 3.f);
     leg1->setPosition(vec3(-1.75,2,0));
     leg2->setPosition(vec3(1.75,2,0));
@@ -101,7 +95,7 @@ void stonehengeScene(Scene *scene) {
 
 void bridgeScene(Scene *scene) {
     scene->cam.lookAt(vec3(0,3,35), vec3(0,2,0));
-    scene->solverIterations = 30;
+    scene->solverIterations = 10;
     
     auto box = Box::create(vec3(2,1,1));
     auto cube = Box::create(vec3(1,1,1));
@@ -111,8 +105,8 @@ void bridgeScene(Scene *scene) {
     for (int i = 0; i < 10; i++) {
         auto body = RigidBody::create();
         body->addElement(box, material);
-        body->addElement(cube, material, vec3(0,2.5,0));
-        body->setPosition(vec3(-9+i*2, 5, 0));
+        body->addElement(cube, material, vec3(0,0.5,0));
+        body->setPosition(vec3(-9+i*2, 6.5, 0));
         scene->addBody(body);
     }
     
@@ -126,7 +120,7 @@ void bridgeScene(Scene *scene) {
     
     // create the end-joints to ground
     scene->addConstraint(HingeJoint::create(scene->bodies[0], vec3(-1,0,0), vec3(0,0,1), scene->ground));
-    scene->addConstraint(HingeJoint::create(scene->bodies[9], vec3(1,0,0), vec3(0,0,1), scene->ground));
+    scene->addConstraint(HingeJoint::create(scene->bodies[9], vec3( 1,0,0), vec3(0,0,1), scene->ground));
 }
 
 

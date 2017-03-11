@@ -8,6 +8,7 @@
 
 #include "Scene.hpp"
 #include "cinder/Rand.h"
+#include "Utils.hpp"
 
 using namespace bltz;
 
@@ -140,21 +141,21 @@ void Scene::render() {
         }
     }
     
-    for (auto &constraint : constraints) {
-        constraint->render();
-    }
-    
-    gl::color(1.0, 0.2, 0.2);
-    gl::lineWidth(0.05);
-
-    for (auto &contact : contacts) {
-        for (auto &cp : contact.manifold) {
-            gl::pushModelMatrix();
-            gl::translate(cp.p);
-            gl::drawSphere(vec3(), 0.095f);
-            gl::popModelMatrix();
-        }
-    }
+//    for (auto &constraint : constraints) {
+//        constraint->render();
+//    }
+//    
+//    gl::color(1.0, 0.2, 0.2);
+//    gl::lineWidth(0.05);
+//
+//    for (auto &contact : contacts) {
+//        for (auto &cp : contact.manifold) {
+//            gl::pushModelMatrix();
+//            gl::translate(cp.p);
+//            gl::drawSphere(vec3(), 0.095f);
+//            gl::popModelMatrix();
+//        }
+//    }
 }
 
 
@@ -198,9 +199,12 @@ void Scene::togglePause() {
 }
 
 void Scene::drop() {
-    auto sphere = bltz::Sphere::create(0.6f);
-    auto ball = RigidBody::create(sphere, 3.5f);
+    auto box = Box::create(vec3(1,2,1));
+    Material wood = {4.5f, 0.96, 0.0};
+    auto ball = RigidBody::create();
+    ball->addElement(box, wood);
     ball->setPosition(vec3(-2,20,0));
+    ball->setRotation(vec3(0,1,0), Utils::rand.nextFloat() * glm::pi<float>());
     addBody(ball);
 }
 
