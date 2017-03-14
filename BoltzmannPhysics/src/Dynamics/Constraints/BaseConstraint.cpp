@@ -7,7 +7,10 @@
 //
 
 #include "BaseConstraint.hpp"
+#include "Utils.hpp"
 
 using namespace bltz;
 
-BaseConstraint::BaseConstraint(Body b1, Body b2) : b1(b1), b2(b2) {}
+BaseConstraint::BaseConstraint(Body b1, Body b2) : b1(b1), b2(b2) {
+    id = Utils::rand.nextUint();
+}

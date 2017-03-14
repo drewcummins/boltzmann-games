@@ -13,6 +13,7 @@
 #include "RigidBody.hpp"
 #include "Constraints.h"
 #include "Collision.hpp"
+#include "Island.hpp"
 
 namespace bltz {
 
@@ -33,16 +34,12 @@ namespace bltz {
         int solverIterations;
         float deltaTime, currentTime;
         
-        vector<Body> bodies;
+        unordered_map<uint, Isle> islands;
+        Isle createIsland(uint seed, int solverIterations=-1);
+        Isle defaultIsland;
         
-        vector<Constraint> constraints;
-        vector<Contact> contacts;
-        
-        Collision collision;
-        
-        void addBody(Body body);
-        
-        void addConstraint(Constraint constraint);
+        void addBody(Body body, uint islandId=0);
+        void addConstraint(Constraint constraint, uint islandId=0);
         void removeConstraint(Constraint constraint);
         
         void step(float dt);
@@ -78,6 +75,9 @@ namespace bltz {
         float radius;
         float h;
         float yTarget;
+        
+        unordered_map<uint, Isle> bodyIslandMap;
+        unordered_map<uint, Isle> constraintIslandMap;
         
         void updateCamera();
     };

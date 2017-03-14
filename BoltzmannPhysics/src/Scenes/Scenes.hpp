@@ -97,6 +97,8 @@ void bridgeScene(Scene *scene) {
     scene->cam.lookAt(vec3(0,3,35), vec3(0,2,0));
     scene->solverIterations = 10;
     
+    Isle island = scene->createIsland(1);
+    
     auto box = Box::create(vec3(2,1,1));
     auto cube = Box::create(vec3(1,1,1));
     Material material = {3.f, 3.6, 0};
@@ -107,20 +109,20 @@ void bridgeScene(Scene *scene) {
         body->addElement(box, material);
         body->addElement(cube, material, vec3(0,0.5,0));
         body->setPosition(vec3(-9+i*2, 6.5, 0));
-        scene->addBody(body);
+        scene->addBody(body, island->id);
     }
     
     // create the joints between each neighboring pair
     for (int i = 1; i < 10; i++) {
-        auto b1 = scene->bodies[i];
-        auto b2 = scene->bodies[i-1];
+        auto b1 = island->bodies[i];
+        auto b2 = island->bodies[i-1];
         Constraint joint = HingeJoint::create(b1, vec3(-1,0,0), vec3(0,0,1), b2);
         scene->addConstraint(joint);
     }
     
     // create the end-joints to ground
-    scene->addConstraint(HingeJoint::create(scene->bodies[0], vec3(-1,0,0), vec3(0,0,1), scene->ground));
-    scene->addConstraint(HingeJoint::create(scene->bodies[9], vec3( 1,0,0), vec3(0,0,1), scene->ground));
+    scene->addConstraint(HingeJoint::create(island->bodies[0], vec3(-1,0,0), vec3(0,0,1), scene->ground), island->id);
+    scene->addConstraint(HingeJoint::create(island->bodies[9], vec3( 1,0,0), vec3(0,0,1), scene->ground), island->id);
 }
 
 

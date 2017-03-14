@@ -36,6 +36,7 @@ namespace bltz {
 
     class BaseConstraint {
     public:
+        uint id;
         Body b1, b2;
         float beta = 0.2f;
         virtual void solve(float dt) {};

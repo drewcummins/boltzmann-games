@@ -24,11 +24,11 @@ class BoltzmannPhysicsApp : public App {
 
 void BoltzmannPhysicsApp::setup()
 {
-    scene = Scene::create(simpleScene);
+    scene = Scene::create(bridgeScene);
     scene->setup();
 }
 
-void BoltzmannPhysicsApp::mouseDown( MouseEvent event )
+void BoltzmannPhysicsApp::mouseDown(MouseEvent event)
 {
     
 }
