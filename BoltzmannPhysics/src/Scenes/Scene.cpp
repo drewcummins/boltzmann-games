@@ -8,8 +8,15 @@
 
 #include "Scene.hpp"
 #include "cinder/Rand.h"
+#include "Utils.hpp"
 
 using namespace bltz;
+
+shared_ptr<Scene> Scene::create(SceneSetup sceneSetup) {
+    shared_ptr<Scene> scene(new Scene());
+    scene->sceneSetup = sceneSetup;
+    return scene;
+}
 
 shared_ptr<Scene> Scene::create(vec3 gravity, int solverIterations, float deltaTime) {
     shared_ptr<Scene> scene(new Scene(gravity, solverIterations, deltaTime));
@@ -23,47 +30,48 @@ deltaTime(deltaTime)
     currentTime = 0.f;
     cam.lookAt(vec3(0,4,20), vec3(0,2,0));
     
-//    auto img = loadImage( app::loadAsset( "BasketballColor.jpg" ) );
-//    tex = gl::Texture::create( img );
-//    tex->bind();
-    //
     auto lambert = gl::ShaderDef().lambert().color();
-    //    auto lambert = gl::ShaderDef().texture().lambert();
     shader = gl::getStockShader(lambert);
-    //    collisionDetector = new CollisionDetector();
-    //
+    
     gl::enableDepthWrite();
     gl::enableDepthRead();
     
     auto gs = Box::create(vec3(1,1,1));
     ground = RigidBody::create(gs, 1.f);
     ground->isGround = true;
-//    ground->q = quat(1,0,0,0);
-//    ground->R = glm::toMat3(ground->q);
-//    ground->invIWorld = ground->R * ground->invIModel * glm::transpose(ground->R);
+    
+    defaultIsland = createIsland(Utils::rand.nextUint());
+    
 }
 
 
 
-void Scene::addBody(Body body) {
-    for (auto &g : body->geometry) {
-        g.shape->prepareView(shader, shader);
+void Scene::addBody(Body body, uint islandId) {
+    for (auto &elem : body->elements) {
+        elem.shape->prepareView(shader, shader);
     }
-    bodies.push_back(body);
+    Isle island = islandId == 0 ? defaultIsland : islands[islandId];
+    island->addBody(body);
+    bodyIslandMap[body->id] = island;
 }
 
-void Scene::addConstraint(Constraint constraint) {
-    constraints.push_back(constraint);
+void Scene::addConstraint(Constraint constraint, uint islandId) {
+    Isle island = islandId == 0 ? defaultIsland : islands[islandId];
+    island->addConstraint(constraint);
+    constraintIslandMap[constraint->id] = island;
+}
+
+Isle Scene::createIsland(uint seed, int solverIterations) {
+    Isle island = Island::create(seed, solverIterations == -1 ? this->solverIterations : solverIterations);
+    island->ground = ground;
+    island->gravity = gravity;
+    islands[island->id] = island;
+    return island;
 }
 
 void Scene::removeConstraint(Constraint constraint) {
-    vector<Constraint>::iterator it;
-    for (it = constraints.begin(); it < constraints.end(); it++) {
-        if (*it == constraint) {
-            break;
-        }
-    }
-    constraints.erase(it);
+    Isle island = constraintIslandMap[constraint->id];
+    island->removeConstraint(constraint);
 }
 
 void Scene::step(float dt) {
@@ -77,47 +85,13 @@ void Scene::step(float dt) {
 
 void Scene::singleStep() {
     
-    for (auto &body : bodies) {
-        body->addForce(gravity*body->m);
-        body->integrateAcceleration(deltaTime);
+    if (isPaused) {
+        return;
     }
     
-    vector<Constraint> all(constraints.begin(), constraints.end());
-    
-    collision.createCache(bodies);
-    
-    vector<CandidatePair> candidates = collision.findCandidates();
-//    vector<CandidatePair> candidatesb = collision.bruteForceFindCandidates();
-    
-    contacts = collision.findContacts(candidates);
-    
-    vector<Contact> floor = collision.findFloorContacts();
-    for (auto &contact : floor) {
-        contact.pair.b2 = ground;
+    for (auto &island : islands) {
+        island.second->step(deltaTime);
     }
-    contacts.insert(contacts.end(), floor.begin(), floor.end());
-
-    for (auto &contact : contacts) {
-        Constraint cc = ContactConstraint::create(contact);
-        all.push_back(cc);
-    }
-    
-    for (auto &constraint : all) {
-        constraint->prepare(deltaTime);
-    }
-    
-    for (int k = 0; k < solverIterations; k++) {
-        random_shuffle(all.begin(), all.end());
-        for (auto &constraint : all) {
-            constraint->solve(deltaTime);
-        }
-    }
-    
-    for (auto &body : bodies) {
-        body->integrateVelocity(deltaTime);
-    }
-    
-    collision.clearCache();
 }
 
 void Scene::render() {
@@ -129,37 +103,96 @@ void Scene::render() {
     gl::setMatrices(cam);
     
     Rand rando(6);
-    for (auto &body : bodies) {
-        gl::color(0.15f+rando.nextFloat(), 0.12f+rando.nextFloat(), 0.2f+rando.nextFloat());
-        for (auto &geometry : body->geometry) {
-            gl::ScopedModelMatrix scpModelMatrix;
-            gl::translate(body->x);
-            gl::rotate(body->q);
-            gl::translate(geometry.x);
-            geometry.shape->view->draw();
-        }
-    }
-    
-    for (auto &constraint : constraints) {
-        constraint->render();
-    }
-    
-        gl::color(1.0, 0.2, 0.2);
-        gl::lineWidth(0.05);
-    
-        for (auto &contact : contacts) {
-            for (auto &cp : contact.manifold) {
-                gl::pushModelMatrix();
-                gl::translate(cp.p);
-                gl::drawSphere(vec3(), 0.095f);
-                gl::popModelMatrix();
+    for (auto &island : islands) {
+        for (auto &body : island.second->bodies) {
+            gl::color(0.15f+rando.nextFloat(), 0.12f+rando.nextFloat(), 0.2f+rando.nextFloat());
+            for (auto &elem : body->elements) {
+                gl::ScopedModelMatrix scpModelMatrix;
+                gl::translate(body->com);
+                gl::rotate(body->q);
+                gl::translate(elem.x + body->xModel);
+                elem.shape->view->draw();
             }
         }
-    
-    //    gl::setMatricesWindow( app::getWindowSize() );
-    //    Rectf drawRect( 0, 0, tex->getWidth() / 3,
-    //                   tex->getHeight() / 3 );
-    //    gl::draw( tex, drawRect );
+        for (auto &constraint : island.second->constraints) {
+            constraint->render();
+        }
+    }
 }
+
+
+void Scene::left() {
+    theta += 0.05;
+    updateCamera();
+}
+
+void Scene::right() {
+    theta -= 0.05;
+    updateCamera();
+}
+
+void Scene::up() {
+    h += 1;
+    updateCamera();
+}
+
+void Scene::down() {
+    h -= 1;
+    updateCamera();
+}
+
+void Scene::setup() {
+    sceneSetup(this);
+    theta = atan2(cam.getEyePoint().z, cam.getEyePoint().x);
+    radius = sqrt(cam.getEyePoint().z * cam.getEyePoint().z + cam.getEyePoint().x * cam.getEyePoint().x);
+    h = cam.getEyePoint().y;
+    yTarget = 2;
+}
+
+void Scene::reset() {
+    islands.clear();
+    islands[defaultIsland->id] = defaultIsland;
+    setup();
+}
+
+void Scene::togglePause() {
+    isPaused = !isPaused;
+}
+
+void Scene::drop() {
+    auto box = Box::create(vec3(1,2,1));
+    Material wood = {4.5f, 0.96, 0.0};
+    auto ball = RigidBody::create();
+    ball->addElement(box, wood);
+    ball->setPosition(vec3(-2,20,0));
+    ball->setRotation(vec3(0,1,0), Utils::rand.nextFloat() * glm::pi<float>());
+    addBody(ball);
+}
+
+void Scene::shoot() {
+    auto sphere = bltz::Sphere::create(0.6f);
+    auto ball = RigidBody::create(sphere, 3.5f);
+    ball->setPosition(vec3(-25,1,0));
+    ball->v.x = 30;
+    addBody(ball);
+}
+
+void Scene::zoomIn() {
+    radius -= 0.5;
+    updateCamera();
+}
+
+void Scene::zoomOut() {
+    radius += 0.5;
+    updateCamera();
+}
+
+
+void Scene::updateCamera() {
+    cam.lookAt(vec3(cos(theta) * radius, h, sin(theta) * radius), vec3(0,yTarget,0));
+}
+
+
+
 
 

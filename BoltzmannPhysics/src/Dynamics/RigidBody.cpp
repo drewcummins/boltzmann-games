@@ -93,7 +93,7 @@ void RigidBody::addTorque(vec3 torque) {
 
 void RigidBody::addForceAtPoint(vec3 p, vec3 force) {
     addForce(force);
-    addTorque(cross(p - x, force));
+    addTorque(cross(p - com, force));
 }
 
 void RigidBody::setPosition(vec3 position) {
@@ -111,14 +111,16 @@ void RigidBody::setRotation(vec3 axis, float theta) {
 
 void RigidBody::addImpulseAtPoint(vec3 p, vec3 impulse) {
     v += impulse;
-    omega += cross(p - x, impulse);
+    omega += cross(p - com, impulse);
 }
 
 vec3 RigidBody::velocityAtPoint(vec3 p) {
     return v + cross(omega, p);
 }
 
-
+vec3 RigidBody::getPositionInCOMSpace(vec3 p) {
+    return p + xModel;
+}
 
 
 RigidBody::RigidBody() {

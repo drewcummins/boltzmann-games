@@ -16,6 +16,8 @@
 		00B784B60FF439BC000DE1D7 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B20FF439BC000DE1D7 /* CoreAudio.framework */; };
 		00B9955A1B128DF400A5C623 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B995581B128DF400A5C623 /* IOKit.framework */; };
 		00B9955B1B128DF400A5C623 /* IOSurface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B995591B128DF400A5C623 /* IOSurface.framework */; };
+		3A1733421E78A94400C60D7B /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A1733411E78A94400C60D7B /* Scene.cpp */; };
+		3A17334A1E78A9DC00C60D7B /* Muscle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A1733481E78A9DC00C60D7B /* Muscle.cpp */; };
 		3A44CDD71E6F71BC001D7C7A /* RigidBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A44CDD51E6F71BC001D7C7A /* RigidBody.cpp */; };
 		3A44CDDD1E6F78E1001D7C7A /* Sphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A44CDDC1E6F78E1001D7C7A /* Sphere.cpp */; };
 		3A44CDDF1E6F7B63001D7C7A /* Box.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A44CDDE1E6F7B63001D7C7A /* Box.cpp */; };
@@ -27,7 +29,6 @@
 		3A44CDF61E70525C001D7C7A /* BallAndSocketJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A44CDF41E70525C001D7C7A /* BallAndSocketJoint.cpp */; };
 		3A44CDF91E70547F001D7C7A /* HingeJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A44CDF71E70547F001D7C7A /* HingeJoint.cpp */; };
 		3A44CDFC1E706316001D7C7A /* Collision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A44CDFA1E706316001D7C7A /* Collision.cpp */; };
-		3A44CE031E7363C8001D7C7A /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A44CE021E7363C8001D7C7A /* Scene.cpp */; };
 		3A44CE0B1E73B070001D7C7A /* Scenes.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A44CE091E73B070001D7C7A /* Scenes.hpp */; };
 		3A44CE0F1E7460A0001D7C7A /* Material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A44CE0D1E7460A0001D7C7A /* Material.cpp */; };
 		3A44CE121E783D3F001D7C7A /* Island.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A44CE101E783D3F001D7C7A /* Island.cpp */; };
@@ -52,6 +53,11 @@
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		368F767DED1B446E9953E6EB /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = CinderApp.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; };
+		3A1733401E78A94400C60D7B /* Scene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Scene.hpp; path = ../src/Scenes/Scene.hpp; sourceTree = "<group>"; };
+		3A1733411E78A94400C60D7B /* Scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Scene.cpp; path = ../src/Scenes/Scene.cpp; sourceTree = "<group>"; };
+		3A1733431E78A96500C60D7B /* Force.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Force.hpp; path = ../src/Dynamics/Force.hpp; sourceTree = "<group>"; };
+		3A1733481E78A9DC00C60D7B /* Muscle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Muscle.cpp; path = ../src/CharacterEngine/Muscles/Muscle.cpp; sourceTree = "<group>"; };
+		3A1733491E78A9DC00C60D7B /* Muscle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Muscle.hpp; path = ../src/CharacterEngine/Muscles/Muscle.hpp; sourceTree = "<group>"; };
 		3A44CDD51E6F71BC001D7C7A /* RigidBody.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RigidBody.cpp; path = ../src/Dynamics/RigidBody.cpp; sourceTree = "<group>"; };
 		3A44CDD61E6F71BC001D7C7A /* RigidBody.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = RigidBody.hpp; path = ../src/Dynamics/RigidBody.hpp; sourceTree = "<group>"; };
 		3A44CDDA1E6F75FF001D7C7A /* Shape.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Shape.hpp; path = ../src/Geometry/Shape.hpp; sourceTree = "<group>"; };
@@ -75,8 +81,6 @@
 		3A44CDF81E70547F001D7C7A /* HingeJoint.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = HingeJoint.hpp; path = ../src/Dynamics/Constraints/HingeJoint.hpp; sourceTree = "<group>"; };
 		3A44CDFA1E706316001D7C7A /* Collision.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Collision.cpp; path = ../src/Geometry/Collision.cpp; sourceTree = "<group>"; };
 		3A44CDFB1E706316001D7C7A /* Collision.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Collision.hpp; path = ../src/Geometry/Collision.hpp; sourceTree = "<group>"; };
-		3A44CE011E7363C8001D7C7A /* Scene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Scene.hpp; sourceTree = "<group>"; };
-		3A44CE021E7363C8001D7C7A /* Scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scene.cpp; sourceTree = "<group>"; };
 		3A44CE091E73B070001D7C7A /* Scenes.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Scenes.hpp; path = ../src/Scenes/Scenes.hpp; sourceTree = "<group>"; };
 		3A44CE0D1E7460A0001D7C7A /* Material.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Material.cpp; path = ../src/Dynamics/Materials/Material.cpp; sourceTree = "<group>"; };
 		3A44CE0E1E7460A0001D7C7A /* Material.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Material.hpp; path = ../src/Dynamics/Materials/Material.hpp; sourceTree = "<group>"; };
@@ -121,6 +125,7 @@
 		080E96DDFE201D6D7F000001 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				3A1733461E78A99300C60D7B /* CharacterEngine */,
 				3A44CDFD1E71978B001D7C7A /* Scenes */,
 				3A44CDE01E6F7B8E001D7C7A /* Utils */,
 				3A44CDD81E6F75BA001D7C7A /* Geometry */,
@@ -205,6 +210,23 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		3A1733461E78A99300C60D7B /* CharacterEngine */ = {
+			isa = PBXGroup;
+			children = (
+				3A1733471E78A99D00C60D7B /* Muscles */,
+			);
+			name = CharacterEngine;
+			sourceTree = "<group>";
+		};
+		3A1733471E78A99D00C60D7B /* Muscles */ = {
+			isa = PBXGroup;
+			children = (
+				3A1733481E78A9DC00C60D7B /* Muscle.cpp */,
+				3A1733491E78A9DC00C60D7B /* Muscle.hpp */,
+			);
+			name = Muscles;
+			sourceTree = "<group>";
+		};
 		3A44CDD41E6F713A001D7C7A /* Dynamics */ = {
 			isa = PBXGroup;
 			children = (
@@ -264,6 +286,7 @@
 		3A44CDE51E6F7E78001D7C7A /* Forces */ = {
 			isa = PBXGroup;
 			children = (
+				3A1733431E78A96500C60D7B /* Force.hpp */,
 			);
 			name = Forces;
 			sourceTree = "<group>";
@@ -271,8 +294,8 @@
 		3A44CDFD1E71978B001D7C7A /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				3A44CE011E7363C8001D7C7A /* Scene.hpp */,
-				3A44CE021E7363C8001D7C7A /* Scene.cpp */,
+				3A1733401E78A94400C60D7B /* Scene.hpp */,
+				3A1733411E78A94400C60D7B /* Scene.cpp */,
 				3A44CE091E73B070001D7C7A /* Scenes.hpp */,
 			);
 			name = Scenes;
@@ -352,15 +375,16 @@
 			files = (
 				3A44CDF61E70525C001D7C7A /* BallAndSocketJoint.cpp in Sources */,
 				FA96CC66C0774656A1E6B1D8 /* BoltzmannPhysicsApp.cpp in Sources */,
+				3A17334A1E78A9DC00C60D7B /* Muscle.cpp in Sources */,
 				3A44CDDF1E6F7B63001D7C7A /* Box.cpp in Sources */,
 				3A44CDF91E70547F001D7C7A /* HingeJoint.cpp in Sources */,
 				3A44CE0B1E73B070001D7C7A /* Scenes.hpp in Sources */,
 				3A44CDDD1E6F78E1001D7C7A /* Sphere.cpp in Sources */,
 				3A44CE121E783D3F001D7C7A /* Island.cpp in Sources */,
 				3A44CDE81E6F7EA1001D7C7A /* BaseConstraint.cpp in Sources */,
+				3A1733421E78A94400C60D7B /* Scene.cpp in Sources */,
 				3A44CDE31E6F7BA5001D7C7A /* Utils.cpp in Sources */,
 				3A44CE0F1E7460A0001D7C7A /* Material.cpp in Sources */,
-				3A44CE031E7363C8001D7C7A /* Scene.cpp in Sources */,
 				3A44CDD71E6F71BC001D7C7A /* RigidBody.cpp in Sources */,
 				3A44CDEB1E6F7F38001D7C7A /* GroundConstraint.cpp in Sources */,
 				3A44CDEF1E6F81E4001D7C7A /* DistanceConstraint.cpp in Sources */,

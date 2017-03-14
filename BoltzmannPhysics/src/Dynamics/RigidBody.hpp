@@ -68,6 +68,8 @@ namespace bltz {
         void setPosition(vec3 position);
         void setRotation(vec3 axis, float theta);
         
+        vec3 getPositionInCOMSpace(vec3 p);
+        
         vec3 velocityAtPoint(vec3 p);
         vec3 velocityAtLocalPoint(vec3 p);
     protected:
