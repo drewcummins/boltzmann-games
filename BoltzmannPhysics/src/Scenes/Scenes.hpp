@@ -21,17 +21,14 @@ void bodyScene(Scene *scene) {
     
     Character character;
     character.setup(vec3(0,8,0));
-    scene->addBody(character.luleg);
-    scene->addBody(character.llleg);
-    scene->addBody(character.ruleg);
-    scene->addBody(character.rlleg);
-    scene->addBody(character.torso);
-    scene->addBody(character.pelvis);
-    scene->addConstraint(character.lknee);
-    scene->addConstraint(character.rknee);
-    scene->addConstraint(character.lhip);
-    scene->addConstraint(character.rhip);
-    scene->addConstraint(character.back);
+    
+    for (auto &bone : character.getBones()) {
+        scene->addBody(bone);
+    }
+    
+    for (auto &joint : character.getJoints()) {
+        scene->addConstraint(joint);
+    }
     
     scene->addConstraint(BallAndSocketJoint::create(character.pelvis, vec3(0,0,0), scene->ground));
 }

@@ -69,3 +69,11 @@ void Character::setup(vec3 pelvisX) {
     back->setLimits(-glm::pi<float>()*0.15, glm::pi<float>()*0.15);
     
 }
+
+vector<Body> Character::getBones() {
+    return {torso, pelvis, luleg, ruleg, llleg, rlleg};
+}
+
+vector<Constraint> Character::getJoints() {
+    return {lhip, rhip, lknee, rknee, back};
+}
