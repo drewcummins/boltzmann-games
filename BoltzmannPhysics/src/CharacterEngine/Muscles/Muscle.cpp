@@ -38,3 +38,7 @@ void SimpleMuscle::actuate() {
     bone1->addForceAtPoint(x1ws, dx * dl * stiffness);
     bone2->addForceAtPoint(x2ws,-dx * dl * stiffness);
 }
+
+void SimpleMuscle::update(float dt) {
+    
+}

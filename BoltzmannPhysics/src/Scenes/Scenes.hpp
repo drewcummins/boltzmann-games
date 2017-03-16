@@ -10,9 +10,25 @@
 #include "Constraints.h"
 #include "RigidBody.hpp"
 #include "Shape.hpp"
+#include "Character.hpp"
 
 using namespace std;
 using namespace bltz;
+
+void bodyScene(Scene *scene) {
+    scene->cam.lookAt(vec3(0,4,25), vec3(0,2,0));
+    
+    Character character;
+    character.setup(vec3(0,15,0));
+    scene->addBody(character.luleg);
+    scene->addBody(character.llleg);
+    scene->addBody(character.ruleg);
+    scene->addBody(character.rlleg);
+    scene->addBody(character.torso);
+    scene->addBody(character.pelvis);
+    scene->addConstraint(character.lknee);
+    scene->addConstraint(character.rknee);
+}
 
 
 void compositeScene(Scene *scene) {
@@ -95,7 +111,7 @@ void stonehengeScene(Scene *scene) {
 
 void bridgeScene(Scene *scene) {
     scene->cam.lookAt(vec3(0,3,35), vec3(0,2,0));
-    scene->solverIterations = 10;
+    scene->solverIterations = 30;
     
     Isle island = scene->createIsland(1);
     
@@ -116,7 +132,8 @@ void bridgeScene(Scene *scene) {
     for (int i = 1; i < 10; i++) {
         auto b1 = island->bodies[i];
         auto b2 = island->bodies[i-1];
-        Constraint joint = HingeJoint::create(b1, vec3(-1,0,0), vec3(0,0,1), b2);
+        Hinge joint = HingeJoint::create(b1, vec3(-1,0,0), vec3(0,0,1), b2);
+        joint->setLimits(-0.1, 0.1);
         scene->addConstraint(joint);
     }
     

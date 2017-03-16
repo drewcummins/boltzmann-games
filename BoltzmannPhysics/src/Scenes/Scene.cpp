@@ -151,6 +151,7 @@ void Scene::setup() {
 
 void Scene::reset() {
     islands.clear();
+    defaultIsland = createIsland(defaultIsland->id);
     islands[defaultIsland->id] = defaultIsland;
     setup();
 }

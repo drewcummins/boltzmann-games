@@ -16,7 +16,7 @@ namespace bltz {
     
     class HingeJoint : public BallAndSocketJoint {
     public:
-        static Constraint create(Body b1, vec3 r1, vec3 axis, Body b2);
+        static shared_ptr<HingeJoint> create(Body b1, vec3 r1, vec3 axis, Body b2);
         virtual void solve(float dt);
         virtual void prepare(float dt);
         vec3 a1, a2;
@@ -32,6 +32,7 @@ namespace bltz {
         void solveLimit(C1DOF limit, float dt);
     };
     
+    typedef shared_ptr<HingeJoint> Hinge;
 }
 
 #endif /* HingeJoint_hpp */

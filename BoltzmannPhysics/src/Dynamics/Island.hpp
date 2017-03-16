@@ -44,6 +44,7 @@ namespace bltz {
     protected:
         Island();
         Collision collision;
+        unordered_map<uint, bool> jointMap;
     };
     
     typedef shared_ptr<Island> Isle;

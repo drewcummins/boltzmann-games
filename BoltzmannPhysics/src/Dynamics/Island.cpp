@@ -24,6 +24,8 @@ void Island::addBody(Body body) {
 }
 
 void Island::addConstraint(Constraint constraint) {
+    uint id = constraint->b1->id ^ constraint->b2->id;
+    jointMap[id] = true;
     constraints.push_back(constraint);
 }
 
@@ -59,6 +61,10 @@ void Island::step(float dt) {
     vector<Constraint> all(constraints.begin(), constraints.end());
     
     for (auto &contact : contacts) {
+        uint id = contact.pair.b1->id ^ contact.pair.b2->id;
+        if (jointMap[id]) {
+            continue;
+        }
         Constraint cc = ContactConstraint::create(contact);
         all.push_back(cc);
     }

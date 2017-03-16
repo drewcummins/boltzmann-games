@@ -11,8 +11,8 @@
 
 using namespace bltz;
 
-Constraint HingeJoint::create(Body b1, vec3 r1, vec3 axis, Body b2) {
-    Constraint hinge(new HingeJoint(b1, r1, axis, b2));
+Hinge HingeJoint::create(Body b1, vec3 r1, vec3 axis, Body b2) {
+    Hinge hinge(new HingeJoint(b1, r1, axis, b2));
     return hinge;
 }
 
@@ -131,6 +131,7 @@ void HingeJoint::prepareLimits(float dt) {
 
 void HingeJoint::solveLimit(C1DOF limit, float dt) {
     float Cdot = dot(limit.J.A1, b1->omega);
+    
     if (!b2->isGround) {
         Cdot += dot(limit.J.A2, b2->omega);
     }

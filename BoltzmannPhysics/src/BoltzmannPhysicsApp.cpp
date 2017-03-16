@@ -24,7 +24,7 @@ class BoltzmannPhysicsApp : public App {
 
 void BoltzmannPhysicsApp::setup()
 {
-    scene = Scene::create(bridgeScene);
+    scene = Scene::create(bodyScene);
     scene->setup();
 }
 
