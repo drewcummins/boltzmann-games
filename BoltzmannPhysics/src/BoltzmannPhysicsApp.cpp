@@ -64,6 +64,9 @@ void BoltzmannPhysicsApp::keyDown(KeyEvent event) {
     if (event.getChar() == 'd') {
         scene->drop();
     }
+    if (event.getChar() == 'x') {
+        scene->breakConstraint();
+    }
 }
 
 void BoltzmannPhysicsApp::update()

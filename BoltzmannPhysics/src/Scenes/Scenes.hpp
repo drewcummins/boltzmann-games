@@ -16,10 +16,11 @@ using namespace std;
 using namespace bltz;
 
 void bodyScene(Scene *scene) {
-    scene->cam.lookAt(vec3(0,4,25), vec3(0,2,0));
+    scene->cam.lookAt(vec3(0,4,35), vec3(0,2,0));
+    scene->solverIterations = 30;
     
     Character character;
-    character.setup(vec3(0,15,0));
+    character.setup(vec3(0,8,0));
     scene->addBody(character.luleg);
     scene->addBody(character.llleg);
     scene->addBody(character.ruleg);
@@ -28,6 +29,11 @@ void bodyScene(Scene *scene) {
     scene->addBody(character.pelvis);
     scene->addConstraint(character.lknee);
     scene->addConstraint(character.rknee);
+    scene->addConstraint(character.lhip);
+    scene->addConstraint(character.rhip);
+    scene->addConstraint(character.back);
+    
+    scene->addConstraint(BallAndSocketJoint::create(character.pelvis, vec3(0,0,0), scene->ground));
 }
 
 

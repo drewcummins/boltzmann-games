@@ -62,6 +62,7 @@ namespace bltz {
         virtual void shoot();
         virtual void zoomIn();
         virtual void zoomOut();
+        virtual void breakConstraint();
         
     protected:
         Scene(vec3 gravity=vec3(0,-9.8,0), int solverIterations=10, float deltaTime=1/60.f);

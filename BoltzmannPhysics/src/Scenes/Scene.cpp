@@ -193,6 +193,12 @@ void Scene::updateCamera() {
     cam.lookAt(vec3(cos(theta) * radius, h, sin(theta) * radius), vec3(0,yTarget,0));
 }
 
+void Scene::breakConstraint() {
+    if (defaultIsland->constraints.size() > 0) {
+        Constraint constraint = defaultIsland->constraints[defaultIsland->constraints.size()-1];
+        defaultIsland->removeConstraint(constraint);
+    }
+}
 
 
 

@@ -30,7 +30,13 @@ void Island::addConstraint(Constraint constraint) {
 }
 
 void Island::removeConstraint(Constraint constraint) {
-    
+    vector<Constraint>::iterator it;
+    for (it = constraints.begin(); it < constraints.end(); it++) {
+        if (*it == constraint) {
+            break;
+        }
+    }
+    constraints.erase(it);
 }
 
 void Island::reset() {
