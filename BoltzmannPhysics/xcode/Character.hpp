@@ -21,7 +21,7 @@ namespace bltz {
     public:
         Body torso, pelvis, luleg, ruleg, llleg, rlleg;
         Hinge back, lhip, rhip, lknee, rknee;
-        void setup(vec3 pelvisX);
+        void setup(float height, vec3 pelvisX);
         vector<Body> getBones();
         vector<Constraint> getJoints();
     };

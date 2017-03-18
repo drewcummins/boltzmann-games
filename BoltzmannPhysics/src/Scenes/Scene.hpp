@@ -63,6 +63,10 @@ namespace bltz {
         virtual void zoomIn();
         virtual void zoomOut();
         virtual void breakConstraint();
+        float theta = 0.f;
+        float radius;
+        float h;
+        float yTarget = 2;
         
     protected:
         Scene(vec3 gravity=vec3(0,-9.8,0), int solverIterations=10, float deltaTime=1/60.f);
@@ -72,10 +76,7 @@ namespace bltz {
         double time = -1;
         
         bool isPaused = false;
-        float theta = 0.f;
-        float radius;
-        float h;
-        float yTarget;
+        
         
         unordered_map<uint, Isle> bodyIslandMap;
         unordered_map<uint, Isle> constraintIslandMap;

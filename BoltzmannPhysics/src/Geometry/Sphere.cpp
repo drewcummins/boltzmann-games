@@ -12,8 +12,8 @@
 
 using namespace bltz;
 
-Shape bltz::Sphere::create(float radius) {
-    Shape sphere(new bltz::Sphere(radius));
+shared_ptr<bltz::Sphere> bltz::Sphere::create(float radius) {
+    shared_ptr<bltz::Sphere> sphere(new bltz::Sphere(radius));
     return sphere;
 }
 

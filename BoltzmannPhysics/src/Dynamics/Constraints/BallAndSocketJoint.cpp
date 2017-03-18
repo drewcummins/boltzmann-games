@@ -69,14 +69,14 @@ void BallAndSocketJoint::render() {
     
     gl::pushModelMatrix();
     gl::translate(b1->com + r1R);
-    gl::drawSphere(vec3(), 0.095f);
+    gl::drawSphere(vec3(), 0.015f);
     gl::popModelMatrix();
     
     r2R = b2->R * r2;
     
     gl::pushModelMatrix();
     gl::translate(b2->com + r2R);
-    gl::drawSphere(vec3(), 0.095f);
+    gl::drawSphere(vec3(), 0.015f);
     gl::popModelMatrix();
 }
 

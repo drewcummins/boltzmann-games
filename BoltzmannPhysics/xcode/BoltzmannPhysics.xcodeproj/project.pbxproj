@@ -61,6 +61,7 @@
 		3A1733491E78A9DC00C60D7B /* Muscle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Muscle.hpp; path = ../src/CharacterEngine/Muscles/Muscle.hpp; sourceTree = "<group>"; };
 		3A17334C1E7A143500C60D7B /* Character.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Character.cpp; sourceTree = "<group>"; };
 		3A17334D1E7A143500C60D7B /* Character.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Character.hpp; sourceTree = "<group>"; };
+		3A1733501E7D9B5100C60D7B /* Constants.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Constants.hpp; sourceTree = "<group>"; };
 		3A44CDD51E6F71BC001D7C7A /* RigidBody.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RigidBody.cpp; path = ../src/Dynamics/RigidBody.cpp; sourceTree = "<group>"; };
 		3A44CDD61E6F71BC001D7C7A /* RigidBody.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = RigidBody.hpp; path = ../src/Dynamics/RigidBody.hpp; sourceTree = "<group>"; };
 		3A44CDDA1E6F75FF001D7C7A /* Shape.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Shape.hpp; path = ../src/Geometry/Shape.hpp; sourceTree = "<group>"; };
@@ -250,6 +251,7 @@
 				3A44CDD61E6F71BC001D7C7A /* RigidBody.hpp */,
 				3A44CE101E783D3F001D7C7A /* Island.cpp */,
 				3A44CE111E783D3F001D7C7A /* Island.hpp */,
+				3A1733501E7D9B5100C60D7B /* Constants.hpp */,
 			);
 			name = Dynamics;
 			sourceTree = "<group>";

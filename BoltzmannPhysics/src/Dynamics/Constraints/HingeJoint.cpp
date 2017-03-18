@@ -27,6 +27,10 @@ void HingeJoint::setLimits(float minTheta, float maxTheta) {
     this->maxTheta = maxTheta;
     q0 = b2->q * inverse(b1->q);
     q0 = normalize(q0);
+    
+    cout << b1->invIWorld << endl;
+    
+    lim1.lambda = lim2.lambda = 0.f;
     hasLimits = true;
 }
 
@@ -126,19 +130,26 @@ void HingeJoint::prepareLimits(float dt) {
         lim1.K += dot(lim1.J.A2, b2->invIWorld * lim1.J.A2);
     }
     
+    lim1.K = 1/lim1.K;
+    
     lim2.K = lim1.K;
 }
 
-void HingeJoint::solveLimit(C1DOF limit, float dt) {
+void HingeJoint::solveLimit(C1DOF &limit, float dt) {
     float Cdot = dot(limit.J.A1, b1->omega);
     
     if (!b2->isGround) {
         Cdot += dot(limit.J.A2, b2->omega);
     }
-    limit.lambda = -limit.K * (Cdot + limit.bias);
-    b1->omega += limit.J.A1 * b1->invIWorld * limit.lambda;
+    
+    float lambda = -limit.K * (Cdot + limit.bias);
+    float temp = limit.lambda;
+    limit.lambda = max(limit.lambda + lambda, 0.f);
+    lambda = limit.lambda - temp;
+    
+    b1->omega += limit.J.A1 * b1->invIWorld * lambda;
     if (!b2->isGround) {
-        b2->omega += limit.J.A2 * b2->invIWorld * limit.lambda;
+        b2->omega += limit.J.A2 * b2->invIWorld * lambda;
     }
 }
 

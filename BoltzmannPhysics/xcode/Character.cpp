@@ -7,12 +7,13 @@
 //
 
 #include "Character.hpp"
+#include "Constants.hpp"
 
 using namespace bltz;
 
-void Character::setup(vec3 pelvisX) {
+void Character::setup(float height, vec3 pelvisX) {
     
-    float s = 3.f;
+    float s = M2U(height * 0.3);
     
     auto leg = Box::create(vec3(s/3,s,s/3));
     auto foot = bltz::Sphere::create(s/4);
@@ -21,7 +22,7 @@ void Character::setup(vec3 pelvisX) {
     auto torsoGeom = Box::create(vec3(s/2,s,s/2));
     
     Material animal;
-    animal.density = 3.f;
+    animal.density = 1.f;
     animal.friction = 0.96;
     animal.bounciness = 0.f;
     

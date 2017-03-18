@@ -47,7 +47,7 @@ namespace bltz {
     
     class Sphere : public BaseShape {
     public:
-        static Shape create(float radius);
+        static shared_ptr<Sphere> create(float radius);
         virtual float computeMass(float density);
         virtual mat3 computeInertiaTensor(float mass);
         virtual void prepareView(gl::GlslProgRef shader, gl::GlslProgRef shadowShader);
@@ -80,7 +80,7 @@ namespace bltz {
             float overlap;
         } Overlap;
         
-        static Shape create(vec3 extents);
+        static shared_ptr<Box> create(vec3 extents);
         virtual float computeMass(float density);
         virtual mat3 computeInertiaTensor(float mass);
         virtual void prepareView(gl::GlslProgRef shader, gl::GlslProgRef shadowShader);

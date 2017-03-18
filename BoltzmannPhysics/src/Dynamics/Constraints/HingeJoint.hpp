@@ -29,7 +29,7 @@ namespace bltz {
         float minTheta, maxTheta;
         C1DOF lim1, lim2;
         void prepareLimits(float dt);
-        void solveLimit(C1DOF limit, float dt);
+        void solveLimit(C1DOF &limit, float dt);
     };
     
     typedef shared_ptr<HingeJoint> Hinge;

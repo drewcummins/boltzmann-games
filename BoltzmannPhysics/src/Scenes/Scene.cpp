@@ -9,6 +9,7 @@
 #include "Scene.hpp"
 #include "cinder/Rand.h"
 #include "Utils.hpp"
+#include "Constants.hpp"
 
 using namespace bltz;
 
@@ -29,6 +30,8 @@ deltaTime(deltaTime)
 {
     currentTime = 0.f;
     cam.lookAt(vec3(0,4,20), vec3(0,2,0));
+    
+    this->gravity *= METERS_TO_UNITS;
     
     auto lambert = gl::ShaderDef().lambert().color();
     shader = gl::getStockShader(lambert);
@@ -146,7 +149,6 @@ void Scene::setup() {
     theta = atan2(cam.getEyePoint().z, cam.getEyePoint().x);
     radius = sqrt(cam.getEyePoint().z * cam.getEyePoint().z + cam.getEyePoint().x * cam.getEyePoint().x);
     h = cam.getEyePoint().y;
-    yTarget = 2;
 }
 
 void Scene::reset() {

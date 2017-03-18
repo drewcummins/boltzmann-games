@@ -24,8 +24,10 @@ void Island::addBody(Body body) {
 }
 
 void Island::addConstraint(Constraint constraint) {
-    uint id = constraint->b1->id ^ constraint->b2->id;
-    jointMap[id] = true;
+    if (!constraint->b2->isGround) {
+        uint id = constraint->b1->id ^ constraint->b2->id;
+        jointMap[id] = true;
+    }
     constraints.push_back(constraint);
 }
 

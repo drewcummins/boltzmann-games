@@ -12,8 +12,8 @@
 
 using namespace bltz;
 
-Shape Box::create(vec3 extents) {
-    Shape box(new Box(extents));
+shared_ptr<Box> Box::create(vec3 extents) {
+    shared_ptr<Box> box(new Box(extents));
     return box;
 }
 
@@ -77,6 +77,7 @@ float Box::computeMass(float density) {
 mat3 Box::computeInertiaTensor(float mass) {
     mat3 I = mat3();
     vec3 inflated(extents * 1.25f);
+//    inflated = Utils::vmax(inflated, vec3(1.2,1.2,1.2));
     I[0][0] = (inflated.y*inflated.y + inflated.z*inflated.z) / 12.f;
     I[1][1] = (inflated.x*inflated.x + inflated.z*inflated.z) / 12.f;
     I[2][2] = (inflated.y*inflated.y + inflated.x*inflated.x) / 12.f;

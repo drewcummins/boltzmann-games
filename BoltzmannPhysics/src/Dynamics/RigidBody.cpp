@@ -26,7 +26,7 @@ shared_ptr<RigidBody> RigidBody::create() {
 
 shared_ptr<RigidBody> RigidBody::create(Shape shape, float density) {
     shared_ptr<RigidBody> body(new RigidBody());
-    Material material = {density, 0.96, 0.0};
+    Material material = {density, 0.8, 0.0};
     body->addElement(shape, material);
     body->q = quat(1,0,0,0);
     body->R = glm::toMat3(body->q);
