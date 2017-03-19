@@ -69,7 +69,6 @@ void SineMuscle::update(float dt) {
     sineCounter += dt*2;
     float t = sin(sineCounter);
     targetLength = restLength - 0.2 + t * restLength * 0.2;
-    cout << restLength << " - " << targetLength;
     SimpleMuscle::update(dt);
 }
 
@@ -80,18 +79,17 @@ shared_ptr<MotorMuscle> MotorMuscle::create(shared_ptr<HingeJoint> joint) {
 
 MotorMuscle::MotorMuscle(shared_ptr<HingeJoint> joint) {
     this->joint = joint;
-    sineCounter = Utils::rand.nextFloat();// * glm::pi<float>();
-//    this->joint->setMotor(4);
+    sineCounter = 0; //Utils::rand.nextFloat();// * glm::pi<float>();
+    frequency = 1; //+Utils::rand.nextFloat()*4;
 }
 
 void MotorMuscle::update(float dt) {
     float thetaRange = joint->maxTheta - joint->minTheta;
     float mid = joint->minTheta + thetaRange * 0.5;
-    sineCounter += dt;
+    sineCounter += dt*frequency;
     float target = mid + sin(sineCounter) * thetaRange * 0.5;
     float current = joint->cacheTheta();
     float speed = (target - current)/dt;
-    cout << current << " - " << target << " - " << speed << endl;
     joint->setMotor(speed);
 }
 

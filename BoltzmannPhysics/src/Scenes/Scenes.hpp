@@ -36,7 +36,7 @@ void motorScene(Scene *scene) {
 
 void muscleScene(CharacterScene *scene) {
     scene->cam.lookAt(vec3(0,3,11), vec3(0,2,0));
-    scene->solverIterations = 30;
+    scene->solverIterations = 10;
     scene->yTarget = 1.f;
     scene->addCharacter(1.f);
 }

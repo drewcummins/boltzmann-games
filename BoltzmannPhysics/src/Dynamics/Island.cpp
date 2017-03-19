@@ -14,6 +14,7 @@ using namespace bltz;
 Isle Island::create(uint seed, uint solverIterations) {
     shared_ptr<Island> island(new Island());
     island->seed = seed;
+    island->rng = Rand(seed);
     island->solverIterations = solverIterations;
     island->reset();
     return island;
@@ -57,7 +58,7 @@ void Island::step(float dt) {
     collision.createCache(bodies);
     
     vector<CandidatePair> candidates = collision.findCandidates();
-    vector<Contact> contacts;// = collision.findContacts(candidates);
+    vector<Contact> contacts = collision.findContacts(candidates);
     vector<Contact> floorContacts = collision.findFloorContacts();
     
     for (auto &contact : floorContacts) {

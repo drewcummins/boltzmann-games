@@ -91,6 +91,9 @@ void Character::setup(float height, vec3 pelvisX) {
     motor = MotorMuscle::create(rknee);
     motors.push_back(motor);
     
+    motor = MotorMuscle::create(back);
+    motors.push_back(motor);
+    
 }
 
 vector<Body> Character::getBones() {

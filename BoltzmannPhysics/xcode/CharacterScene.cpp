@@ -7,6 +7,7 @@
 //
 
 #include "CharacterScene.hpp"
+#include "Utils.hpp"
 
 using namespace bltz;
 
@@ -18,6 +19,13 @@ shared_ptr<Scene> CharacterScene::create(CharacterSceneSetup sceneSetup) {
 
 void CharacterScene::setup() {
     characterSetup(this);
+    for (auto &character : characters) {
+        for (auto &motor : character.motors) {
+            Isle island = bodyIslandMap[character.getBones()[0]->id];
+            motor->sineCounter = island->rng.nextFloat();// * glm::pi<float>();
+            motor->frequency = 1+island->rng.nextFloat()*4;
+        }
+    }
     theta = atan2(cam.getEyePoint().z, cam.getEyePoint().x);
     radius = sqrt(cam.getEyePoint().z * cam.getEyePoint().z + cam.getEyePoint().x * cam.getEyePoint().x);
     h = cam.getEyePoint().y;
@@ -41,7 +49,7 @@ void CharacterScene::addCharacter(float height) {
     }
     
     addConstraint(BallAndSocketJoint::create(character.pelvis, vec3(0,0,0), ground));
-//    addConstraint(GroundConstraint::create(character.pelvis));
+
     characters.push_back(character);
 }
 

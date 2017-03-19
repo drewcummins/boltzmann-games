@@ -105,10 +105,13 @@ void Scene::render() {
     
     gl::setMatrices(cam);
     
-    Rand rando(6);
+    Rand rando(31);
     for (auto &island : islands) {
+        float baseR = 0.15f+rando.nextFloat();
+        float baseG = 0.12f+rando.nextFloat();
+        float baseB = 0.2f+rando.nextFloat();
         for (auto &body : island.second->bodies) {
-            gl::color(0.15f+rando.nextFloat(), 0.12f+rando.nextFloat(), 0.2f+rando.nextFloat());
+            gl::color(baseR + rando.nextGaussian() * 0.1, baseG + rando.nextGaussian() * 0.1, baseB + rando.nextGaussian() * 0.1);
             for (auto &elem : body->elements) {
                 gl::ScopedModelMatrix scpModelMatrix;
                 gl::translate(body->com);
@@ -153,7 +156,7 @@ void Scene::setup() {
 
 void Scene::reset() {
     islands.clear();
-    defaultIsland = createIsland(defaultIsland->id);
+    defaultIsland = createIsland(defaultIsland->seed);
     islands[defaultIsland->id] = defaultIsland;
     setup();
 }

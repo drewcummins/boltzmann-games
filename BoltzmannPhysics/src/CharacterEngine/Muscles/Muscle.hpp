@@ -56,8 +56,9 @@ namespace bltz {
         static shared_ptr<MotorMuscle> create(shared_ptr<HingeJoint> joint);
         shared_ptr<HingeJoint> joint;
         virtual void update(float dt);
-    protected:
         float sineCounter;
+        float frequency;
+    protected:
         MotorMuscle(shared_ptr<HingeJoint> joint);
     };
     

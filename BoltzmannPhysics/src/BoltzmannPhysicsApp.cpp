@@ -28,6 +28,8 @@ void BoltzmannPhysicsApp::setup()
 //    scene = Scene::create(motorScene);
     scene = CharacterScene::create(muscleScene);
     scene->setup();
+    scene->breakConstraint();
+    scene->togglePause();
 }
 
 void BoltzmannPhysicsApp::mouseDown(MouseEvent event)
@@ -53,6 +55,8 @@ void BoltzmannPhysicsApp::keyDown(KeyEvent event) {
     }
     if (event.getChar() == 'r') {
         scene->reset();
+        scene->breakConstraint();
+        scene->togglePause();
     }
     if (event.getCode() == KeyEvent::KEY_UP) {
         scene->up();
