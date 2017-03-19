@@ -35,10 +35,11 @@ void motorScene(Scene *scene) {
 }
 
 void muscleScene(CharacterScene *scene) {
-    scene->cam.lookAt(vec3(0,3,11), vec3(0,2,0));
+    scene->cam.lookAt(vec3(0,1,17), vec3(0,0.5,0));
     scene->solverIterations = 10;
-    scene->yTarget = 1.f;
-    scene->addCharacter(1.f);
+//    scene->deltaTime = 1/120.f;
+    scene->yTarget = 0.5f;
+    scene->addCharacter(1.3f);
 }
 
 void hingeScene(Scene *scene) {

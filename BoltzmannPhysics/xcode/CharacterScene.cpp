@@ -8,6 +8,7 @@
 
 #include "CharacterScene.hpp"
 #include "Utils.hpp"
+#include "Constants.hpp"
 
 using namespace bltz;
 
@@ -38,7 +39,7 @@ void CharacterScene::reset() {
 
 void CharacterScene::addCharacter(float height) {
     Character character;
-    character.setup(height, vec3(0,3,0));
+    character.setup(height, vec3(0,M2U(height),0));
     
     for (auto &bone : character.getBones()) {
         addBody(bone);

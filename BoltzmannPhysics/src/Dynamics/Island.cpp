@@ -85,6 +85,7 @@ void Island::step(float dt) {
     }
     
     for (int i = 0; i < solverIterations; i++) {
+        random_shuffle(all.begin(), all.end());
         for (auto &constraint : all) {
             constraint->solve(dt);
         }

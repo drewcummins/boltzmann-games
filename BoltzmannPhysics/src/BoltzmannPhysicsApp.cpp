@@ -78,6 +78,8 @@ void BoltzmannPhysicsApp::keyDown(KeyEvent event) {
 void BoltzmannPhysicsApp::update()
 {
     scene->step(1/60.f);
+//    scene->step(1/120.f);
+//    scene->step(1/120.f);
 }
 
 void BoltzmannPhysicsApp::draw()

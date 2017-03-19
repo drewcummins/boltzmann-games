@@ -76,7 +76,7 @@ float Box::computeMass(float density) {
 
 mat3 Box::computeInertiaTensor(float mass) {
     mat3 I = mat3();
-    vec3 inflated(extents * 1.25f);
+    vec3 inflated(extents * 1.2f);
 //    inflated = Utils::vmax(inflated, vec3(1.2,1.2,1.2));
     I[0][0] = (inflated.y*inflated.y + inflated.z*inflated.z) / 12.f;
     I[1][1] = (inflated.x*inflated.x + inflated.z*inflated.z) / 12.f;

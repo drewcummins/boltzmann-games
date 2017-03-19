@@ -22,7 +22,7 @@ void Character::setup(float height, vec3 pelvisX) {
     auto torsoGeom = Box::create(vec3(s/2,s,s/2));
     
     Material animal;
-    animal.density = 1.f;
+    animal.density = 3.f;
     animal.friction = 0.96;
     animal.bounciness = 0.f;
     

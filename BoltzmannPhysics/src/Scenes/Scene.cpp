@@ -31,7 +31,7 @@ deltaTime(deltaTime)
     currentTime = 0.f;
     cam.lookAt(vec3(0,4,20), vec3(0,2,0));
     
-    this->gravity *= METERS_TO_UNITS;
+    this->gravity *= METERS_TO_UNITS; // * 0.7;
     
     auto lambert = gl::ShaderDef().lambert().color();
     shader = gl::getStockShader(lambert);
