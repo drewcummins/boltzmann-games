@@ -18,8 +18,10 @@
 		00B9955B1B128DF400A5C623 /* IOSurface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B995591B128DF400A5C623 /* IOSurface.framework */; };
 		3A1733421E78A94400C60D7B /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A1733411E78A94400C60D7B /* Scene.cpp */; };
 		3A17334A1E78A9DC00C60D7B /* Muscle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A1733481E78A9DC00C60D7B /* Muscle.cpp */; };
-		3A17334E1E7A143500C60D7B /* Character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A17334C1E7A143500C60D7B /* Character.cpp */; };
-		3A1733541E7DB0E400C60D7B /* CharacterScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A1733521E7DB0E400C60D7B /* CharacterScene.cpp */; };
+		3A17335B1E7EDD6200C60D7B /* Brain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A17335A1E7EDD6200C60D7B /* Brain.cpp */; };
+		3A17335E1E7EDD6C00C60D7B /* Character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A17335D1E7EDD6C00C60D7B /* Character.cpp */; };
+		3A1733611E7EDD7D00C60D7B /* CharacterScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A1733601E7EDD7D00C60D7B /* CharacterScene.cpp */; };
+		3A1733691E7EE11700C60D7B /* Evolution.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A1733671E7EE11700C60D7B /* Evolution.cpp */; };
 		3A44CDD71E6F71BC001D7C7A /* RigidBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A44CDD51E6F71BC001D7C7A /* RigidBody.cpp */; };
 		3A44CDDD1E6F78E1001D7C7A /* Sphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A44CDDC1E6F78E1001D7C7A /* Sphere.cpp */; };
 		3A44CDDF1E6F7B63001D7C7A /* Box.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A44CDDE1E6F7B63001D7C7A /* Box.cpp */; };
@@ -60,11 +62,16 @@
 		3A1733431E78A96500C60D7B /* Force.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Force.hpp; path = ../src/Dynamics/Force.hpp; sourceTree = "<group>"; };
 		3A1733481E78A9DC00C60D7B /* Muscle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Muscle.cpp; path = ../src/CharacterEngine/Muscles/Muscle.cpp; sourceTree = "<group>"; };
 		3A1733491E78A9DC00C60D7B /* Muscle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Muscle.hpp; path = ../src/CharacterEngine/Muscles/Muscle.hpp; sourceTree = "<group>"; };
-		3A17334C1E7A143500C60D7B /* Character.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Character.cpp; sourceTree = "<group>"; };
-		3A17334D1E7A143500C60D7B /* Character.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Character.hpp; sourceTree = "<group>"; };
-		3A1733501E7D9B5100C60D7B /* Constants.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Constants.hpp; sourceTree = "<group>"; };
-		3A1733521E7DB0E400C60D7B /* CharacterScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CharacterScene.cpp; sourceTree = "<group>"; };
-		3A1733531E7DB0E400C60D7B /* CharacterScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CharacterScene.hpp; sourceTree = "<group>"; };
+		3A1733591E7EDD6200C60D7B /* Brain.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Brain.hpp; sourceTree = "<group>"; };
+		3A17335A1E7EDD6200C60D7B /* Brain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Brain.cpp; sourceTree = "<group>"; };
+		3A17335C1E7EDD6C00C60D7B /* Character.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Character.hpp; sourceTree = "<group>"; };
+		3A17335D1E7EDD6C00C60D7B /* Character.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Character.cpp; sourceTree = "<group>"; };
+		3A17335F1E7EDD7D00C60D7B /* CharacterScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CharacterScene.hpp; sourceTree = "<group>"; };
+		3A1733601E7EDD7D00C60D7B /* CharacterScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CharacterScene.cpp; sourceTree = "<group>"; };
+		3A1733621E7EDD8C00C60D7B /* Constants.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Constants.hpp; sourceTree = "<group>"; };
+		3A1733651E7EDF2600C60D7B /* EvolutionModel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = EvolutionModel.hpp; path = ../src/CharacterEngine/EvolutionModel.hpp; sourceTree = "<group>"; };
+		3A1733671E7EE11700C60D7B /* Evolution.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Evolution.cpp; path = ../src/CharacterEngine/Evolution/Evolution.cpp; sourceTree = "<group>"; };
+		3A1733681E7EE11700C60D7B /* Evolution.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Evolution.hpp; path = ../src/CharacterEngine/Evolution/Evolution.hpp; sourceTree = "<group>"; };
 		3A44CDD51E6F71BC001D7C7A /* RigidBody.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RigidBody.cpp; path = ../src/Dynamics/RigidBody.cpp; sourceTree = "<group>"; };
 		3A44CDD61E6F71BC001D7C7A /* RigidBody.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = RigidBody.hpp; path = ../src/Dynamics/RigidBody.hpp; sourceTree = "<group>"; };
 		3A44CDDA1E6F75FF001D7C7A /* Shape.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Shape.hpp; path = ../src/Geometry/Shape.hpp; sourceTree = "<group>"; };
@@ -220,6 +227,8 @@
 		3A1733461E78A99300C60D7B /* CharacterEngine */ = {
 			isa = PBXGroup;
 			children = (
+				3A1733631E7EDEF600C60D7B /* Evolution */,
+				3A1733551E7EDC9A00C60D7B /* AI */,
 				3A17334B1E7A13E300C60D7B /* Characters */,
 				3A1733471E78A99D00C60D7B /* Muscles */,
 			);
@@ -238,15 +247,35 @@
 		3A17334B1E7A13E300C60D7B /* Characters */ = {
 			isa = PBXGroup;
 			children = (
-				3A17334C1E7A143500C60D7B /* Character.cpp */,
-				3A17334D1E7A143500C60D7B /* Character.hpp */,
+				3A17335C1E7EDD6C00C60D7B /* Character.hpp */,
+				3A17335D1E7EDD6C00C60D7B /* Character.cpp */,
 			);
 			name = Characters;
+			sourceTree = "<group>";
+		};
+		3A1733551E7EDC9A00C60D7B /* AI */ = {
+			isa = PBXGroup;
+			children = (
+				3A1733591E7EDD6200C60D7B /* Brain.hpp */,
+				3A17335A1E7EDD6200C60D7B /* Brain.cpp */,
+			);
+			name = AI;
+			sourceTree = "<group>";
+		};
+		3A1733631E7EDEF600C60D7B /* Evolution */ = {
+			isa = PBXGroup;
+			children = (
+				3A1733651E7EDF2600C60D7B /* EvolutionModel.hpp */,
+				3A1733671E7EE11700C60D7B /* Evolution.cpp */,
+				3A1733681E7EE11700C60D7B /* Evolution.hpp */,
+			);
+			name = Evolution;
 			sourceTree = "<group>";
 		};
 		3A44CDD41E6F713A001D7C7A /* Dynamics */ = {
 			isa = PBXGroup;
 			children = (
+				3A1733621E7EDD8C00C60D7B /* Constants.hpp */,
 				3A44CE0C1E74607B001D7C7A /* Materials */,
 				3A44CDE51E6F7E78001D7C7A /* Forces */,
 				3A44CDE41E6F7E6C001D7C7A /* Constraints */,
@@ -254,7 +283,6 @@
 				3A44CDD61E6F71BC001D7C7A /* RigidBody.hpp */,
 				3A44CE101E783D3F001D7C7A /* Island.cpp */,
 				3A44CE111E783D3F001D7C7A /* Island.hpp */,
-				3A1733501E7D9B5100C60D7B /* Constants.hpp */,
 			);
 			name = Dynamics;
 			sourceTree = "<group>";
@@ -315,8 +343,8 @@
 				3A1733401E78A94400C60D7B /* Scene.hpp */,
 				3A1733411E78A94400C60D7B /* Scene.cpp */,
 				3A44CE091E73B070001D7C7A /* Scenes.hpp */,
-				3A1733521E7DB0E400C60D7B /* CharacterScene.cpp */,
-				3A1733531E7DB0E400C60D7B /* CharacterScene.hpp */,
+				3A17335F1E7EDD7D00C60D7B /* CharacterScene.hpp */,
+				3A1733601E7EDD7D00C60D7B /* CharacterScene.cpp */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -393,15 +421,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A17335B1E7EDD6200C60D7B /* Brain.cpp in Sources */,
 				3A44CDF61E70525C001D7C7A /* BallAndSocketJoint.cpp in Sources */,
 				FA96CC66C0774656A1E6B1D8 /* BoltzmannPhysicsApp.cpp in Sources */,
 				3A17334A1E78A9DC00C60D7B /* Muscle.cpp in Sources */,
-				3A17334E1E7A143500C60D7B /* Character.cpp in Sources */,
+				3A17335E1E7EDD6C00C60D7B /* Character.cpp in Sources */,
 				3A44CDDF1E6F7B63001D7C7A /* Box.cpp in Sources */,
+				3A1733611E7EDD7D00C60D7B /* CharacterScene.cpp in Sources */,
 				3A44CDF91E70547F001D7C7A /* HingeJoint.cpp in Sources */,
 				3A44CE0B1E73B070001D7C7A /* Scenes.hpp in Sources */,
 				3A44CDDD1E6F78E1001D7C7A /* Sphere.cpp in Sources */,
-				3A1733541E7DB0E400C60D7B /* CharacterScene.cpp in Sources */,
+				3A1733691E7EE11700C60D7B /* Evolution.cpp in Sources */,
 				3A44CE121E783D3F001D7C7A /* Island.cpp in Sources */,
 				3A44CDE81E6F7EA1001D7C7A /* BaseConstraint.cpp in Sources */,
 				3A1733421E78A94400C60D7B /* Scene.cpp in Sources */,
