@@ -93,7 +93,7 @@ void RigidBody::addTorque(vec3 torque) {
 
 void RigidBody::addForceAtPoint(vec3 p, vec3 force) {
     addForce(force);
-    addTorque(cross(p - com, force));
+    addTorque(cross(force, p - com));
 }
 
 void RigidBody::setPosition(vec3 position) {

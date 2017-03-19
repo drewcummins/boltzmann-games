@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include "RigidBody.hpp"
 #include "Force.hpp"
+#include "Constraints.h"
 
 using namespace std;
 
@@ -31,7 +32,7 @@ namespace bltz {
     
     class SimpleMuscle : public BaseMuscle {
     public:
-        static Muscle create(Body b1, vec3 x1, Body b2, vec3 x2, float k);
+        static shared_ptr<SimpleMuscle> create(Body b1, vec3 x1, Body b2, vec3 x2, float k);
         virtual void update(float dt);
         float restLength;
         float targetLength;
@@ -43,11 +44,21 @@ namespace bltz {
     
     class SineMuscle : public SimpleMuscle {
     public:
-        static Muscle create(Body b1, vec3 x1, Body b2, vec3 x2, float k, float sineCounter=0);
+        static shared_ptr<SineMuscle> create(Body b1, vec3 x1, Body b2, vec3 x2, float k, float sineCounter=0);
         float sineCounter;
         virtual void update(float dt);
     protected:
         SineMuscle(Body b1, vec3 x1, Body b2, vec3 x2, float k, float sineCounter=0);
+    };
+    
+    class MotorMuscle {
+    public:
+        static shared_ptr<MotorMuscle> create(shared_ptr<HingeJoint> joint);
+        shared_ptr<HingeJoint> joint;
+        virtual void update(float dt);
+    protected:
+        float sineCounter;
+        MotorMuscle(shared_ptr<HingeJoint> joint);
     };
     
 }

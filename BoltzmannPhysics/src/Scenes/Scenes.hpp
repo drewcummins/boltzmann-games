@@ -11,9 +11,35 @@
 #include "RigidBody.hpp"
 #include "Shape.hpp"
 #include "Character.hpp"
+#include "CharacterScene.hpp"
 
 using namespace std;
 using namespace bltz;
+
+void motorScene(Scene *scene) {
+    scene->cam.lookAt(vec3(0,3,15), vec3(0,2,0));
+    scene->deltaTime = 1/200.f;
+    scene->defaultIsland->solverIterations = 10;
+    
+    float s = 1;
+    
+    auto box = Box::create(vec3(s,s/2,s/2));
+    auto body = RigidBody::create(box, 1.f);
+    
+    body->setPosition(vec3(0,4,0));
+    scene->addBody(body);
+    
+    auto hinge = HingeJoint::create(body, vec3(box->extents.x/2,0,0), vec3(0,0,1), scene->ground);
+    hinge->setMotor(12);
+    scene->addConstraint(hinge);
+}
+
+void muscleScene(CharacterScene *scene) {
+    scene->cam.lookAt(vec3(0,3,11), vec3(0,2,0));
+    scene->solverIterations = 30;
+    scene->yTarget = 1.f;
+    scene->addCharacter(1.f);
+}
 
 void hingeScene(Scene *scene) {
     scene->cam.lookAt(vec3(0,3,15), vec3(0,2,0));
@@ -39,7 +65,7 @@ void bodyScene(Scene *scene) {
     scene->yTarget = 1.f;
     
     Character character;
-    character.setup(2.0, vec3(0,8,0));
+    character.setup(1.0, vec3(0,8,0));
     
     for (auto &bone : character.getBones()) {
         scene->addBody(bone);

@@ -12,6 +12,9 @@ using namespace bltz;
 
 Constraint GroundConstraint::create(Body b1) {
     Constraint ground(new GroundConstraint(b1));
+    Body fg = RigidBody::create();
+    fg->isGround = true;
+    ground->b2 = fg;
     return ground;
 }
 
@@ -27,6 +30,6 @@ void GroundConstraint::prepare(float dt) {
 
 void GroundConstraint::solve(float dt) {
     vec3 Cdot = eqn.J.L1 * b1->v;
-    vec3 lambda = -eqn.K * (Cdot - eqn.bias);
+    vec3 lambda = -eqn.K * (Cdot + eqn.bias);
     b1->v += eqn.J.L1 * lambda * b1->invM;
 }

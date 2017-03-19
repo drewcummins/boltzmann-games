@@ -42,14 +42,14 @@ namespace bltz {
         void addConstraint(Constraint constraint, uint islandId=0);
         void removeConstraint(Constraint constraint);
         
-        void step(float dt);
-        void singleStep();
+        virtual void step(float dt);
+        virtual void singleStep();
         
         // view
         gl::GlslProgRef shader;
         
         CameraPersp cam;
-        void render();
+        virtual void render();
         
         virtual void left();
         virtual void right();
@@ -67,11 +67,10 @@ namespace bltz {
         float radius;
         float h;
         float yTarget = 2;
+        SceneSetup sceneSetup;
         
     protected:
         Scene(vec3 gravity=vec3(0,-9.8,0), int solverIterations=10, float deltaTime=1/60.f);
-        
-        SceneSetup sceneSetup;
         
         double time = -1;
         

@@ -19,6 +19,7 @@
 		3A1733421E78A94400C60D7B /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A1733411E78A94400C60D7B /* Scene.cpp */; };
 		3A17334A1E78A9DC00C60D7B /* Muscle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A1733481E78A9DC00C60D7B /* Muscle.cpp */; };
 		3A17334E1E7A143500C60D7B /* Character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A17334C1E7A143500C60D7B /* Character.cpp */; };
+		3A1733541E7DB0E400C60D7B /* CharacterScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A1733521E7DB0E400C60D7B /* CharacterScene.cpp */; };
 		3A44CDD71E6F71BC001D7C7A /* RigidBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A44CDD51E6F71BC001D7C7A /* RigidBody.cpp */; };
 		3A44CDDD1E6F78E1001D7C7A /* Sphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A44CDDC1E6F78E1001D7C7A /* Sphere.cpp */; };
 		3A44CDDF1E6F7B63001D7C7A /* Box.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A44CDDE1E6F7B63001D7C7A /* Box.cpp */; };
@@ -62,6 +63,8 @@
 		3A17334C1E7A143500C60D7B /* Character.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Character.cpp; sourceTree = "<group>"; };
 		3A17334D1E7A143500C60D7B /* Character.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Character.hpp; sourceTree = "<group>"; };
 		3A1733501E7D9B5100C60D7B /* Constants.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Constants.hpp; sourceTree = "<group>"; };
+		3A1733521E7DB0E400C60D7B /* CharacterScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CharacterScene.cpp; sourceTree = "<group>"; };
+		3A1733531E7DB0E400C60D7B /* CharacterScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CharacterScene.hpp; sourceTree = "<group>"; };
 		3A44CDD51E6F71BC001D7C7A /* RigidBody.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RigidBody.cpp; path = ../src/Dynamics/RigidBody.cpp; sourceTree = "<group>"; };
 		3A44CDD61E6F71BC001D7C7A /* RigidBody.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = RigidBody.hpp; path = ../src/Dynamics/RigidBody.hpp; sourceTree = "<group>"; };
 		3A44CDDA1E6F75FF001D7C7A /* Shape.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Shape.hpp; path = ../src/Geometry/Shape.hpp; sourceTree = "<group>"; };
@@ -312,6 +315,8 @@
 				3A1733401E78A94400C60D7B /* Scene.hpp */,
 				3A1733411E78A94400C60D7B /* Scene.cpp */,
 				3A44CE091E73B070001D7C7A /* Scenes.hpp */,
+				3A1733521E7DB0E400C60D7B /* CharacterScene.cpp */,
+				3A1733531E7DB0E400C60D7B /* CharacterScene.hpp */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -396,6 +401,7 @@
 				3A44CDF91E70547F001D7C7A /* HingeJoint.cpp in Sources */,
 				3A44CE0B1E73B070001D7C7A /* Scenes.hpp in Sources */,
 				3A44CDDD1E6F78E1001D7C7A /* Sphere.cpp in Sources */,
+				3A1733541E7DB0E400C60D7B /* CharacterScene.cpp in Sources */,
 				3A44CE121E783D3F001D7C7A /* Island.cpp in Sources */,
 				3A44CDE81E6F7EA1001D7C7A /* BaseConstraint.cpp in Sources */,
 				3A1733421E78A94400C60D7B /* Scene.cpp in Sources */,

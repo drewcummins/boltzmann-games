@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include "RigidBody.hpp"
 #include "Constraints.h"
+#include "Muscle.hpp"
 
 using namespace ci;
 using namespace std;
@@ -22,8 +23,11 @@ namespace bltz {
         Body torso, pelvis, luleg, ruleg, llleg, rlleg;
         Hinge back, lhip, rhip, lknee, rknee;
         void setup(float height, vec3 pelvisX);
+        void update(float dt);
         vector<Body> getBones();
         vector<Constraint> getJoints();
+        vector<Muscle> muscles;
+        vector<shared_ptr<MotorMuscle>> motors;
     };
 }
 

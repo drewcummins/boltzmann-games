@@ -48,14 +48,16 @@ void Island::reset() {
 void Island::step(float dt) {
     
     for (auto &body : bodies) {
-        body->addForce(gravity*body->m);
-        body->integrateAcceleration(dt);
+        if (!body->isGround) {
+            body->addForce(gravity*body->m);
+            body->integrateAcceleration(dt);
+        }
     }
     
     collision.createCache(bodies);
     
     vector<CandidatePair> candidates = collision.findCandidates();
-    vector<Contact> contacts = collision.findContacts(candidates);
+    vector<Contact> contacts;// = collision.findContacts(candidates);
     vector<Contact> floorContacts = collision.findFloorContacts();
     
     for (auto &contact : floorContacts) {
@@ -88,7 +90,9 @@ void Island::step(float dt) {
     }
     
     for (auto &body : bodies) {
-        body->integrateVelocity(dt);
+        if (!body->isGround) {
+            body->integrateVelocity(dt);
+        }
     }
     
     collision.clearCache();

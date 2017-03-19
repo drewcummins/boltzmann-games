@@ -6,6 +6,7 @@
 #include "Constraints.h"
 #include "Scene.hpp"
 #include "Scenes.hpp"
+#include "CharacterScene.hpp"
 
 using namespace ci;
 using namespace ci::app;
@@ -24,7 +25,8 @@ class BoltzmannPhysicsApp : public App {
 
 void BoltzmannPhysicsApp::setup()
 {
-    scene = Scene::create(bodyScene);
+//    scene = Scene::create(motorScene);
+    scene = CharacterScene::create(muscleScene);
     scene->setup();
 }
 

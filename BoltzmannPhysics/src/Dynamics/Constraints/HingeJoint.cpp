@@ -28,10 +28,13 @@ void HingeJoint::setLimits(float minTheta, float maxTheta) {
     q0 = b2->q * inverse(b1->q);
     q0 = normalize(q0);
     
-    cout << b1->invIWorld << endl;
-    
     lim1.lambda = lim2.lambda = 0.f;
     hasLimits = true;
+}
+
+void HingeJoint::setMotor(float speed) {
+    motorSpeed = speed;
+    hasMotor = true;
 }
 
 void HingeJoint::prepare(float dt) {
@@ -64,7 +67,7 @@ void HingeJoint::prepare(float dt) {
     
     rqn.bias = vec2(dot(a1ws, b2ws), dot(a1ws, c2ws)) * (beta/dt);
     
-    if (hasLimits) {
+    if (hasLimits || hasMotor) {
         prepareLimits(dt);
     }
 }
@@ -84,6 +87,10 @@ void HingeJoint::solve(float dt) {
         b2->omega += rqn.J.A1 * b2->invIWorld * rqn.lambda[0] + rqn.J.A2 * b2->invIWorld * rqn.lambda[1];
     }
     
+    if (hasMotor) {
+        solveMotor(dt);
+    }
+    
     if (hasLimits) {
         if (lim1.bias <= 0) {
             solveLimit(lim1, dt);
@@ -93,8 +100,7 @@ void HingeJoint::solve(float dt) {
     }
 }
 
-
-void HingeJoint::prepareLimits(float dt) {
+float HingeJoint::cacheTheta() {
     quat qt = normalize(b2->q * inverse(b1->q));
     quat dq = normalize(qt * inverse(q0));
     vec3 v = vec3(dq.x, dq.y, dq.z);
@@ -117,6 +123,15 @@ void HingeJoint::prepareLimits(float dt) {
     } else if (theta > glm::pi<float>()) {
         theta = theta - 2*glm::pi<float>();
     }
+    
+    return theta;
+}
+
+
+void HingeJoint::prepareLimits(float dt) {
+    float theta = cacheTheta();
+    
+    vec3 a1ws = b1->R * a1;
     
     lim1.J.A1 = -a1ws;
     lim2.J.A1 =  a1ws;
@@ -152,4 +167,20 @@ void HingeJoint::solveLimit(C1DOF &limit, float dt) {
         b2->omega += limit.J.A2 * b2->invIWorld * lambda;
     }
 }
+
+void HingeJoint::solveMotor(float dt) {
+    float Cdot = dot(lim1.J.A1, b1->omega);
+    if(!b2->isGround) {
+        Cdot += dot(lim1.J.A2, b2->omega);
+    }
+    
+    float lambda = -lim1.K * (Cdot - motorSpeed);
+    b1->omega += lim1.J.A1 * b1->invIWorld * lambda;
+    if (!b2->isGround) {
+        b2->omega += lim1.J.A2 * b2->invIWorld * lambda;
+    }
+}
+
+
+
 
