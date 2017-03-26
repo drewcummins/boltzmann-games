@@ -23,6 +23,7 @@ namespace bltz {
         virtual void update(float input, float dt) = 0;
         virtual vector<Gene> toGenes() = 0;
         virtual void fromGenes(vector<Gene> genes) = 0;
+        
         float output;
     };
     
@@ -37,16 +38,55 @@ namespace bltz {
         virtual void update(float input, float dt);
         virtual vector<Gene> toGenes();
         virtual void fromGenes(vector<Gene> genes);
+        
     protected:
         StandardNeuron(float tau, float bias);
     };
     
+    
+    
+    typedef struct MatsuokaNeuron {
+        float u, v, y;
+        uint64_t mask = 0; //std::numeric_limits<uint64_t>::max();
+        vector<float> W;
+        vector<Gene> toGenes();
+        void fromGenes(vector<Gene> genes);
+        bool hasSynapse(int idx);
+        void connect(int idx);
+        void disconnect(int idx);
+    } MatsuokaNeuron;
+    
+    class MatsuokaCPG : public AbstractNeuron {
+    public:
+        static shared_ptr<MatsuokaCPG> create();
+        MatsuokaNeuron m1, m2;
+        float tauu=0.025, tauv=0.3, beta=2.5, u0=1;
+        virtual void update(float input, float dt);
+        virtual void update(MatsuokaNeuron &m, float input, float dt);
+        virtual vector<Gene> toGenes();
+        virtual void fromGenes(vector<Gene> genes);
+    };
+    
+    
+    
+    
+    
     class Brain : public Evolvable {
     public:
+        Brain();
         Brain(int n);
         vector<Neuron> network;
         vector<vector<float> > W;
-        void update(float dt);
+        virtual void update(float dt);
+        virtual vector<Gene> toGenome();
+        virtual void fromGenome(vector<Gene> genome);
+    };
+    
+    class MatsuokaNetwork : public Brain {
+    public:
+        MatsuokaNetwork(int n);
+        vector<shared_ptr<MatsuokaCPG>> network;
+        virtual void update(float dt);
         virtual vector<Gene> toGenome();
         virtual void fromGenome(vector<Gene> genome);
     };

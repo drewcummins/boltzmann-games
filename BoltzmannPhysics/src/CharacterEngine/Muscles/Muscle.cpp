@@ -79,17 +79,15 @@ shared_ptr<MotorMuscle> MotorMuscle::create(shared_ptr<HingeJoint> joint) {
 
 MotorMuscle::MotorMuscle(shared_ptr<HingeJoint> joint) {
     this->joint = joint;
-    sineCounter = 0; //Utils::rand.nextFloat();// * glm::pi<float>();
-    frequency = 1; //+Utils::rand.nextFloat()*4;
+    t = 0.5;
 }
 
 void MotorMuscle::update(float dt) {
     float thetaRange = joint->maxTheta - joint->minTheta;
-    float mid = joint->minTheta + thetaRange * 0.5;
-    sineCounter += dt*frequency;
-    float target = mid + sin(sineCounter) * thetaRange * 0.5;
+    float target = joint->minTheta + thetaRange * t;;
     float current = joint->cacheTheta();
     float speed = (target - current)/dt;
+//    cout << speed << endl;
     joint->setMotor(speed);
 }
 

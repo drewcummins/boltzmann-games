@@ -7,6 +7,8 @@
 #include "Scene.hpp"
 #include "Scenes.hpp"
 #include "CharacterScene.hpp"
+#include "Evolution.hpp"
+#include "Constants.hpp"
 
 using namespace ci;
 using namespace ci::app;
@@ -25,11 +27,46 @@ class BoltzmannPhysicsApp : public App {
 
 void BoltzmannPhysicsApp::setup()
 {
+    
+//    MatsuokaNeuron neuron;
+//    neuron.mask = std::numeric_limits<uint64_t>::max();
+//    cout << neuron.mask << endl;
+//    cout << neuron.hasSynapse(62) << endl;
+//    neuron.disconnect(62);
+//    cout << neuron.mask << endl;
+//    cout << neuron.hasSynapse(62) << endl;
+//    neuron.connect(62);
+//    cout << neuron.mask << endl;
+//    cout << neuron.hasSynapse(62) << endl;
+    
+    MatsuokaNetwork *brain = new MatsuokaNetwork(5);
+    for (int i = 0; i < 1000; i++) {
+        brain->update(1/100.f);
+//        cout << brain->network[0]->output << ", " << brain->network[1]->output << endl;
+    }
+    
+    Evolution *evolution = new Evolution(50);
+    evolution->runSimulation(100);
+    
+    
+    
 //    scene = Scene::create(motorScene);
-    scene = CharacterScene::create(muscleScene);
+//    scene = CharacterScene::create(muscleScene);
+    
+    scene = CharacterScene::create([](CharacterScene *cs) {
+        
+        cs->cam.lookAt(vec3(0,3,25), vec3(0,2,0));
+        
+        Character character;
+        character.setup(1.3, vec3(0,M2U(2*1.3/3.0),0));
+        character.brain = shared_ptr<Brain>(new Brain(10));
+        character.brain->fromGenome(Evolution::getInstance()->winner().genes);
+        
+        Isle island = cs->createIsland(3);
+        cs->addCharacter(character, island->id);
+    });
+    
     scene->setup();
-    scene->breakConstraint();
-    scene->togglePause();
 }
 
 void BoltzmannPhysicsApp::mouseDown(MouseEvent event)
@@ -55,8 +92,6 @@ void BoltzmannPhysicsApp::keyDown(KeyEvent event) {
     }
     if (event.getChar() == 'r') {
         scene->reset();
-        scene->breakConstraint();
-        scene->togglePause();
     }
     if (event.getCode() == KeyEvent::KEY_UP) {
         scene->up();

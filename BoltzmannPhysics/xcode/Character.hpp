@@ -13,6 +13,7 @@
 #include "RigidBody.hpp"
 #include "Constraints.h"
 #include "Muscle.hpp"
+#include "Brain.hpp"
 
 using namespace ci;
 using namespace std;
@@ -20,14 +21,17 @@ using namespace std;
 namespace bltz {
     class Character {
     public:
+        uint islandId;
         Body torso, pelvis, luleg, ruleg, llleg, rlleg;
         Hinge back, lhip, rhip, lknee, rknee;
+        shared_ptr<Brain> brain;
         void setup(float height, vec3 pelvisX);
         void update(float dt);
         vector<Body> getBones();
         vector<Constraint> getJoints();
-        vector<Muscle> muscles;
-        vector<shared_ptr<MotorMuscle>> motors;
+        vector<shared_ptr<MotorMuscle>> muscles;
+        float sy;
+        int ticks;
     };
 }
 

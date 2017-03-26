@@ -8,6 +8,7 @@
 
 #include "Island.hpp"
 #include "Utils.hpp"
+#include "Constants.hpp"
 
 using namespace bltz;
 
@@ -17,6 +18,7 @@ Isle Island::create(uint seed, uint solverIterations) {
     island->rng = Rand(seed);
     island->solverIterations = solverIterations;
     island->reset();
+    island->gravity = vec3(0,-9.8,0) * METERS_TO_UNITS;
     return island;
 }
 
@@ -85,7 +87,7 @@ void Island::step(float dt) {
     }
     
     for (int i = 0; i < solverIterations; i++) {
-        random_shuffle(all.begin(), all.end());
+//        random_shuffle(all.begin(), all.end());
         for (auto &constraint : all) {
             constraint->solve(dt);
         }

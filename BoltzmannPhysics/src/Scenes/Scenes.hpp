@@ -39,7 +39,7 @@ void muscleScene(CharacterScene *scene) {
     scene->solverIterations = 10;
 //    scene->deltaTime = 1/120.f;
     scene->yTarget = 0.5f;
-    scene->addCharacter(1.3f);
+//    scene->addCharacter(1.3f);
 }
 
 void hingeScene(Scene *scene) {

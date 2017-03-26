@@ -10,7 +10,7 @@
 
 using namespace bltz;
 
-Rand Utils::rand = Rand(6);
+Rand Utils::rand = Rand(arc4random());
 
 mat3 Utils::skew(vec3 v) {
     return mat3( 0.0, -v.z,  v.y,

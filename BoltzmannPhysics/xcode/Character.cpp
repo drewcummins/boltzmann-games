@@ -33,7 +33,9 @@ void Character::setup(float height, vec3 pelvisX) {
     pelvis = RigidBody::create();
     torso = RigidBody::create();
     
-    torso->addElement(torsoGeom, animal);
+    Material lt = {1.f,0.96,0.f};
+    
+    torso->addElement(torsoGeom, lt);
     pelvis->addElement(pelvisGeom, animal);
 //    pelvis->isGround = true;
     
@@ -80,19 +82,22 @@ void Character::setup(float height, vec3 pelvisX) {
     back->setLimits(-glm::pi<float>()*0.15, glm::pi<float>()*0.15);
     
     auto motor = MotorMuscle::create(lknee);
-    motors.push_back(motor);
+    muscles.push_back(motor);
     
     motor = MotorMuscle::create(lhip);
-    motors.push_back(motor);
+    muscles.push_back(motor);
     
     motor = MotorMuscle::create(rhip);
-    motors.push_back(motor);
+    muscles.push_back(motor);
     
     motor = MotorMuscle::create(rknee);
-    motors.push_back(motor);
+    muscles.push_back(motor);
     
     motor = MotorMuscle::create(back);
-    motors.push_back(motor);
+    muscles.push_back(motor);
+    
+    sy = pelvis->com.z;
+    ticks = 0;
     
 }
 
@@ -105,12 +110,15 @@ vector<Constraint> Character::getJoints() {
 }
 
 void Character::update(float dt) {
-    for (auto &muscle : muscles) {
-        muscle->update(dt);
+    if (brain) {
+        brain->update(dt);
     }
     
-    for (auto &motor : motors) {
-        motor->update(dt);
+//    cout << pelvis->com.y << endl;
+    
+    for (int i = 0; i < muscles.size(); i++) {
+        muscles[i]->t = brain->network[muscles.size() - (1+i)]->output;
+        muscles[i]->update(dt);
     }
 }
 
