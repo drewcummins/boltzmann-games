@@ -59,12 +59,15 @@ namespace bltz {
     class MatsuokaCPG : public AbstractNeuron {
     public:
         static shared_ptr<MatsuokaCPG> create();
+        int index;
         MatsuokaNeuron m1, m2;
         float tauu=0.025, tauv=0.3, beta=2.5, u0=1;
         virtual void update(float input, float dt);
         virtual void update(MatsuokaNeuron &m, float input, float dt);
         virtual vector<Gene> toGenes();
         virtual void fromGenes(vector<Gene> genes);
+    protected:
+        MatsuokaCPG();
     };
     
     

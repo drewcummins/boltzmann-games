@@ -23,6 +23,8 @@ class BoltzmannPhysicsApp : public App {
 	void draw() override;
     void keyDown( KeyEvent event ) override;
     shared_ptr<Scene> scene;
+    Evolution *evolution;
+    bool isLearning;
 };
 
 void BoltzmannPhysicsApp::setup()
@@ -44,9 +46,10 @@ void BoltzmannPhysicsApp::setup()
 //        brain->update(1/100.f);
 //        cout << brain->network[0]->output << ", " << brain->network[1]->output << endl;
 //    }
+    isLearning = true;
     
-    Evolution *evolution = new Evolution(100);
-    evolution->runSimulation(50);
+    evolution = new Evolution(150);
+//    evolution->runSimulation(20);
     
     
     
@@ -67,7 +70,7 @@ void BoltzmannPhysicsApp::setup()
         cs->addCharacter(character, island->id);
     });
     
-    scene->setup();
+//    scene->setup();
 }
 
 void BoltzmannPhysicsApp::mouseDown(MouseEvent event)
@@ -76,6 +79,14 @@ void BoltzmannPhysicsApp::mouseDown(MouseEvent event)
 }
 
 void BoltzmannPhysicsApp::keyDown(KeyEvent event) {
+    if (isLearning) {
+        if(event.getCode() == KeyEvent::KEY_SPACE){
+            isLearning = false;
+            scene->reset();
+            scene->setup();
+        }
+        return;
+    }
     if(event.getCode() == KeyEvent::KEY_SPACE){
         scene->togglePause();
     }
@@ -88,6 +99,12 @@ void BoltzmannPhysicsApp::keyDown(KeyEvent event) {
     if (event.getChar() == 'w') {
         scene->zoomIn();
     }
+    
+    if (event.getChar() == 'e') {
+        isLearning = true;
+        return;
+    }
+    
     if (event.getChar() == 's') {
         scene->zoomOut();
     }
@@ -113,14 +130,26 @@ void BoltzmannPhysicsApp::keyDown(KeyEvent event) {
 
 void BoltzmannPhysicsApp::update()
 {
-    scene->step(1/60.f);
+    if (isLearning) {
+        evolution->next();
+        if (evolution->currentGeneration > 500) {
+            isLearning = false;
+            scene->reset();
+            scene->setup();
+        }
+    } else {
+        scene->step(1/60.f);
+    }
 //    scene->step(1/120.f);
 //    scene->step(1/120.f);
 }
 
 void BoltzmannPhysicsApp::draw()
 {
-    scene->render();
+    if (!isLearning) {
+        scene->render();
+    }
+    
 }
 
 CINDER_APP( BoltzmannPhysicsApp, RendererGl( RendererGl::Options().msaa( 4 ) ) )

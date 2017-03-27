@@ -43,6 +43,7 @@ namespace bltz {
         Genome winner();
         void step(float dt);
         void next();
+        int currentGeneration;
         unordered_map<uint, Isle> islandMap;
         unordered_map<uint, Member> islandMemberMap;
         static Evolution *instance;

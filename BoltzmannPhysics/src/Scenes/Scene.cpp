@@ -105,7 +105,7 @@ void Scene::render() {
     
     gl::setMatrices(cam);
     
-    Rand rando(31);
+    Rand rando(32);
     for (auto &island : islands) {
         float baseR = 0.15f+rando.nextFloat();
         float baseG = 0.12f+rando.nextFloat();

@@ -19,7 +19,7 @@ Genome::Genome(vector<Gene> genes) : genes(genes){}
 void Genome::mutate(float rate) {
     for (auto &gene : genes) {
         if (Utils::rand.nextFloat() < rate) {
-//            gene.bmutate(rate);
+//            gene.bmutate(rate*0.2);
             gene.fmutate(rate);
 //            gene.fvalue = gene.mean + Utils::rand.nextGaussian() * gene.sigma;
 //            gene.fvalue = Utils::clamp(gene.fvalue, gene.min, gene.max);
@@ -56,22 +56,12 @@ Evolution *Evolution::getInstance() {
 
 Evolution::Evolution(int populationSize) : populationSize(populationSize) {
     instance = this;
-}
-
-void Evolution::step(float dt) {
-    
-}
-
-void Evolution::next() {
-    
-}
-
-void Evolution::runSimulation(int numGenerations) {
+    currentGeneration = 1;
     for (int i = 0; i < populationSize; i++) {
         Member member;
         Character character;
         character.setup(1.3, vec3(0,M2U(2*1.3/3.0),0));
-//        character.brain = shared_ptr<Brain>(new Brain(10));
+        //        character.brain = shared_ptr<Brain>(new Brain(10));
         character.brain = shared_ptr<MatsuokaNetwork>(new MatsuokaNetwork(5));
         
         member.character = character;
@@ -95,6 +85,65 @@ void Evolution::runSimulation(int numGenerations) {
         islandMap[island->id] = island;
         islandMemberMap[island->id] = member;
     }
+}
+
+void Evolution::step(float dt) {
+    
+}
+
+void Evolution::next() {
+    cout << "Running generation " << currentGeneration << endl;
+    for (int j = 0; j < 1200; j++) {
+        for (auto &island : islandMap) {
+            Member member = islandMemberMap[island.second->id];
+            if (!member.objective->isDead) {
+                member.character.update(1/60.f);
+                island.second->step(1/60.f);
+                member.objective->update();
+            }
+        }
+    }
+    
+    select();
+    islandMap.clear();
+    islandMemberMap.clear();
+    generation.clear();
+    
+    for (int j = 0; j < populationSize; j++) {
+        
+        Member member;
+        Character character;
+        character.setup(1.3, vec3(0,M2U(2*1.3/3.0),0));
+        //            character.brain = shared_ptr<Brain>(new Brain(10));
+        character.brain = shared_ptr<MatsuokaNetwork>(new MatsuokaNetwork(5));
+        character.brain->fromGenome(nextGen[j].genes);
+        
+        member.character = character;
+        member.objective = shared_ptr<Objective>(new TorsoUpObjective(character));
+        
+        generation.push_back(member);
+        
+        Isle island = Island::create(3);
+        
+        island->ground = RigidBody::create();
+        island->ground->isGround = true;
+        
+        for (auto &bone : character.getBones()) {
+            island->addBody(bone);
+        }
+        
+        for (auto &joint : character.getJoints()) {
+            island->addConstraint(joint);
+        }
+        
+        islandMap[island->id] = island;
+        islandMemberMap[island->id] = member;
+    }
+    
+    currentGeneration++;
+}
+
+void Evolution::runSimulation(int numGenerations) {
     
     for (int i = 0; i < numGenerations; i++) {
         cout << "Running generation " << i+1 << endl;
@@ -163,7 +212,7 @@ void Evolution::select() {
         for (int i = 0; i < 1+populationSize/2; i++) {
             vector<Gene> genes = generation[i].character.brain->toGenome();
             Genome genome(genes);
-            genome.mutate(0.15);
+            genome.mutate(0.075);
             nextGen.push_back(genome);
         }
     }
@@ -190,23 +239,23 @@ TorsoUpObjective::TorsoUpObjective(Character character) : character(character) {
 void TorsoUpObjective::update() {
     vec3 q = character.torso->R * vec3(0,1,0);
     float qdott = dot(vec3(0,1,0), q);
-    
     time += 1/60.f;
-    if (character.pelvis->com.y/y < 0.65) {
+    if (character.pelvis->com.y/y < 0.7 || qdott < 0.8) {
         if (!no) {
             no = true;
             isDead = true;
-            float len = length(vec2(character.luleg->com.x, character.luleg->com.z));
+//            float len = length(vec2(character.luleg->com.x, character.luleg->com.z));
+            float len = character.luleg->com.z - fabs(character.luleg->com.x);
             dist = U2M(len);
         }
         
+    } else {
+        if(!isDead) dy += U2M(character.pelvis->com.y);
     }
     
     if (!no) {
         qdot += qdott/240.f;
     }
-    
-    dy += character.pelvis->com.y;
     
 //    dy += fabs(character.pelvis->com.y - y);
     
@@ -215,9 +264,9 @@ void TorsoUpObjective::update() {
 float TorsoUpObjective::fitness() {
     
 //    return qdot*dy/(y*time);
-    
+    return (dy/600.0)/U2M(y);
     if (!no) {
-        float len = length(vec2(character.luleg->com.x, character.luleg->com.z));
+        float len = character.luleg->com.z - fabs(character.luleg->com.x); // length(vec2(character.luleg->com.x, character.luleg->com.z));
         dist = U2M(len);
     }
     return dist;

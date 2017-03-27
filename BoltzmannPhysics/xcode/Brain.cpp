@@ -119,6 +119,8 @@ shared_ptr<MatsuokaCPG> MatsuokaCPG::create() {
     return shared_ptr<MatsuokaCPG>(new MatsuokaCPG());
 }
 
+MatsuokaCPG::MatsuokaCPG(){}
+
 void MatsuokaCPG::update(float input, float dt) {}
 
 
@@ -134,7 +136,7 @@ void MatsuokaNeuron::fromGenes(vector<Gene> genes) {
 vector<Gene> MatsuokaNeuron::toGenes() {
     vector<Gene> genes;
     for (int i = 0; i < W.size(); i++) {
-        Gene gene = {W[i], 1, 0, -2.5, 2.5};
+        Gene gene = {W[i], 0.75, 0, -3, 3};
         genes.push_back(gene);
     }
     genes.push_back({mask, (uint) W.size()});
@@ -169,10 +171,10 @@ vector<Gene> MatsuokaCPG::toGenes() {
 }
 
 void MatsuokaCPG::fromGenes(vector<Gene> genes) {
-    u0 = genes[0].floatValue();
-    beta = genes[1].floatValue();
-    tauu = genes[2].floatValue();
-    tauv = genes[3].floatValue();
+//    u0 = genes[0].floatValue();
+//    beta = genes[1].floatValue();
+//    tauu = genes[2].floatValue();
+//    tauv = genes[3].floatValue();
     
     int weightSize = (genes.size() - 4)/2;
     m1.fromGenes(vector<Gene>(genes.begin()+4, genes.begin()+4+weightSize));
@@ -235,11 +237,20 @@ void MatsuokaNetwork::update(float dt) {
         
         for (int j = 0; j < y.size(); j++) {
             if (cpg->m1.hasSynapse(j)) {
-                in1 += cpg->m1.W[j] * y[j];
+                if (false) { //j == i*2+1) {
+                    in1 += -2 * y[j];
+                } else {
+                    in1 += cpg->m1.W[j] * y[j];
+                }
+                
             }
             
             if (cpg->m2.hasSynapse(j)) {
-                in2 += cpg->m2.W[j] * y[j];
+                if (false) { //j == i*2) {
+                    in1 += -2 * y[j];
+                } else {
+                    in2 += cpg->m2.W[j] * y[j];
+                }
             }
             
         }

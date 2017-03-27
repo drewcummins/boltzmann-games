@@ -81,13 +81,9 @@ void Character::setup(float height, vec3 pelvisX) {
     back = HingeJoint::create(torso, vec3(0,-s/2,0), vec3(1,0,0), pelvis);
     back->setLimits(-glm::pi<float>()*0.15, glm::pi<float>()*0.15);
     
-    auto motor = MotorMuscle::create(lknee);
-    muscles.push_back(motor);
     
-    motor = MotorMuscle::create(lhip);
-    muscles.push_back(motor);
     
-    motor = MotorMuscle::create(rhip);
+    auto motor = MotorMuscle::create(rhip);
     muscles.push_back(motor);
     
     motor = MotorMuscle::create(rknee);
@@ -95,6 +91,14 @@ void Character::setup(float height, vec3 pelvisX) {
     
     motor = MotorMuscle::create(back);
     muscles.push_back(motor);
+    
+    motor = MotorMuscle::create(lhip);
+    muscles.push_back(motor);
+    
+    motor = MotorMuscle::create(lknee);
+    muscles.push_back(motor);
+    
+    
     
     sy = pelvis->com.z;
     ticks = 0;
