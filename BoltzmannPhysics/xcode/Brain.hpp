@@ -85,7 +85,7 @@ namespace bltz {
     class MatsuokaNetwork : public Brain {
     public:
         MatsuokaNetwork(int n);
-        vector<shared_ptr<MatsuokaCPG>> network;
+//        vector<shared_ptr<MatsuokaCPG>> network;
         virtual void update(float dt);
         virtual vector<Gene> toGenome();
         virtual void fromGenome(vector<Gene> genome);

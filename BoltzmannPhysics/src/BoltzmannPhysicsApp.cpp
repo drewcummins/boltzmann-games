@@ -39,14 +39,14 @@ void BoltzmannPhysicsApp::setup()
 //    cout << neuron.mask << endl;
 //    cout << neuron.hasSynapse(62) << endl;
     
-    MatsuokaNetwork *brain = new MatsuokaNetwork(5);
-    for (int i = 0; i < 1000; i++) {
-        brain->update(1/100.f);
+//    MatsuokaNetwork *brain = new MatsuokaNetwork(5);
+//    for (int i = 0; i < 1000; i++) {
+//        brain->update(1/100.f);
 //        cout << brain->network[0]->output << ", " << brain->network[1]->output << endl;
-    }
+//    }
     
-    Evolution *evolution = new Evolution(50);
-    evolution->runSimulation(100);
+    Evolution *evolution = new Evolution(100);
+    evolution->runSimulation(50);
     
     
     
@@ -59,7 +59,8 @@ void BoltzmannPhysicsApp::setup()
         
         Character character;
         character.setup(1.3, vec3(0,M2U(2*1.3/3.0),0));
-        character.brain = shared_ptr<Brain>(new Brain(10));
+//        character.brain = shared_ptr<Brain>(new Brain(10));
+        character.brain = shared_ptr<MatsuokaNetwork>(new MatsuokaNetwork(5));
         character.brain->fromGenome(Evolution::getInstance()->winner().genes);
         
         Isle island = cs->createIsland(3);

@@ -19,8 +19,10 @@ Genome::Genome(vector<Gene> genes) : genes(genes){}
 void Genome::mutate(float rate) {
     for (auto &gene : genes) {
         if (Utils::rand.nextFloat() < rate) {
-            gene.fvalue = gene.mean + Utils::rand.nextGaussian() * gene.sigma;
-            gene.fvalue = Utils::clamp(gene.fvalue, gene.min, gene.max);
+//            gene.bmutate(rate);
+            gene.fmutate(rate);
+//            gene.fvalue = gene.mean + Utils::rand.nextGaussian() * gene.sigma;
+//            gene.fvalue = Utils::clamp(gene.fvalue, gene.min, gene.max);
         }
     }
 }
@@ -69,7 +71,8 @@ void Evolution::runSimulation(int numGenerations) {
         Member member;
         Character character;
         character.setup(1.3, vec3(0,M2U(2*1.3/3.0),0));
-        character.brain = shared_ptr<Brain>(new Brain(10));
+//        character.brain = shared_ptr<Brain>(new Brain(10));
+        character.brain = shared_ptr<MatsuokaNetwork>(new MatsuokaNetwork(5));
         
         member.character = character;
         member.objective = shared_ptr<Objective>(new TorsoUpObjective(character));
@@ -116,7 +119,8 @@ void Evolution::runSimulation(int numGenerations) {
             Member member;
             Character character;
             character.setup(1.3, vec3(0,M2U(2*1.3/3.0),0));
-            character.brain = shared_ptr<Brain>(new Brain(10));
+//            character.brain = shared_ptr<Brain>(new Brain(10));
+            character.brain = shared_ptr<MatsuokaNetwork>(new MatsuokaNetwork(5));
             character.brain->fromGenome(nextGen[j].genes);
             
             member.character = character;
@@ -159,7 +163,7 @@ void Evolution::select() {
         for (int i = 0; i < 1+populationSize/2; i++) {
             vector<Gene> genes = generation[i].character.brain->toGenome();
             Genome genome(genes);
-            genome.mutate(0.015);
+            genome.mutate(0.15);
             nextGen.push_back(genome);
         }
     }

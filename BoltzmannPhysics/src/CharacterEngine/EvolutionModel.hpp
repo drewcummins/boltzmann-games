@@ -26,7 +26,9 @@ namespace bltz {
         
         Gene(float fvalue, float sigma, float mean, float min, float max) : fvalue(fvalue), sigma(sigma), mean(mean), min(min), max(max) {}
         
-        Gene(uint64_t bvalue, uint numBits) : bvalue(bvalue), numBits(numBits) {}
+        Gene(uint64_t bvalue, uint numBits) : bvalue(bvalue), numBits(numBits) {
+            isBinary = true;
+        }
         
         float fvalue;
         float sigma;
@@ -36,6 +38,7 @@ namespace bltz {
         
         uint64_t bvalue;
         uint numBits;
+        bool isBinary = false;
         
         virtual float floatValue() {
             return fvalue;
@@ -58,11 +61,14 @@ namespace bltz {
         }
         
         virtual void init() {
-            binit();
+//            binit();
             finit();
         }
         
         virtual void bmutate(float rate) {
+            if (!isBinary) {
+                return;
+            }
             for (int i = 0; i < numBits; i++) {
                 if (Utils::rand.nextFloat() < rate) {
                     bvalue ^= (uint64_t) 1 << static_cast<uint64_t>(i);

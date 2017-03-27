@@ -115,9 +115,8 @@ void Character::update(float dt) {
     }
     
 //    cout << pelvis->com.y << endl;
-    
     for (int i = 0; i < muscles.size(); i++) {
-        muscles[i]->t = brain->network[muscles.size() - (1+i)]->output;
+        muscles[i]->t = Utils::clamp(brain->network[i]->output, 0.0, 1.0);
         muscles[i]->update(dt);
     }
 }

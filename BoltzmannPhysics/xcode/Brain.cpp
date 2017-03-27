@@ -178,7 +178,7 @@ void MatsuokaCPG::fromGenes(vector<Gene> genes) {
     m1.fromGenes(vector<Gene>(genes.begin()+4, genes.begin()+4+weightSize));
     m2.fromGenes(vector<Gene>(genes.begin()+4+weightSize, genes.end()));
     
-    m1.u = 1;
+//    m1.u = 1;
 }
 
 
@@ -198,8 +198,8 @@ MatsuokaNetwork::MatsuokaNetwork(int n) : Brain() {
     for (int i = 0; i < n; i++) {
         auto neuron = MatsuokaCPG::create();
         for (int j = 0; j < n*2; j++) {
-            neuron->m1.W.push_back(0);
-            neuron->m2.W.push_back(0);
+            neuron->m1.W.push_back(-2);
+            neuron->m2.W.push_back(-2);
         }
         // make internal neurons always connected to start
         neuron->m2.connect(i*2);
@@ -224,24 +224,24 @@ MatsuokaNetwork::MatsuokaNetwork(int n) : Brain() {
 void MatsuokaNetwork::update(float dt) {
     vector<float> y;
     for (auto &neuron : network) {
-        y.push_back(neuron->m1.y);
-        y.push_back(neuron->m2.y);
+        shared_ptr<MatsuokaCPG> matsuoka = static_pointer_cast<MatsuokaCPG>(neuron);
+        y.push_back(matsuoka->m1.y);
+        y.push_back(matsuoka->m2.y);
     }
     
     for (int i = 0; i < network.size(); i++) {
-        auto &cpg = network[i];
+        auto cpg = static_pointer_cast<MatsuokaCPG>(network[i]);
         float in1 = 0.f, in2 = 0.f;
         
         for (int j = 0; j < y.size(); j++) {
             if (cpg->m1.hasSynapse(j)) {
                 in1 += cpg->m1.W[j] * y[j];
-            } else {
-                cout << "no on " << i << ", " << j << endl;
             }
             
-            if (cpg->m2.hasSynapse(j+1)) {
-                in2 += cpg->m2.W[j+1] * y[j+1];
+            if (cpg->m2.hasSynapse(j)) {
+                in2 += cpg->m2.W[j] * y[j];
             }
+            
         }
         
         cpg->update(cpg->m1, in1, dt);
@@ -264,14 +264,14 @@ vector<Gene> MatsuokaNetwork::toGenome() {
 
 void MatsuokaNetwork::fromGenome(vector<Gene> genes) {
     network.clear();
-    // A network is a set of n neurons, each having 2 sets of n input weights
-    // and 4 neuron parameter genes.
+    // N = number of genes
+    // n = number of network nodes
+    // sizeof(node) in genes is: 2 x 2n (weights) + 2 (synapse maps) + 4 (CPG parameters)
+    // this gives us N = 4n^2 + 6n
     //
-    // So the length of genes should be:
-    // n(2n + 6)
-    // solving for n we get:
-    cout << (sqrt(2*genes.size() + 9) - 3)/2 << endl;
-    int n = (sqrt(2*genes.size() + 9) - 3)/2;
+    // solution is n = 1/4 (√[4N + 9] - 3)
+    
+    int n = (sqrt(4*genes.size() + 9) - 3)/4;
     int neuronSize = genes.size()/n;
     for (int i = 0; i < n; i++) {
         auto neuron = MatsuokaCPG::create();
