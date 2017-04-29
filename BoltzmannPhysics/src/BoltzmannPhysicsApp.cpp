@@ -48,7 +48,7 @@ void BoltzmannPhysicsApp::setup()
 //    }
     isLearning = true;
     
-    evolution = new Evolution(150);
+    evolution = new Evolution(1);
 //    evolution->runSimulation(20);
     
     

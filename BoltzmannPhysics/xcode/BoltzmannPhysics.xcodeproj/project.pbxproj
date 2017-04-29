@@ -99,7 +99,7 @@
 		3A44CE0E1E7460A0001D7C7A /* Material.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Material.hpp; path = ../src/Dynamics/Materials/Material.hpp; sourceTree = "<group>"; };
 		3A44CE101E783D3F001D7C7A /* Island.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Island.cpp; path = ../src/Dynamics/Island.cpp; sourceTree = "<group>"; };
 		3A44CE111E783D3F001D7C7A /* Island.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Island.hpp; path = ../src/Dynamics/Island.hpp; sourceTree = "<group>"; };
-		3AF695511E80E4F700AB2C9F /* CharacterScene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = CharacterScene.hpp; path = ../src/Scenes/CharacterScene.hpp; sourceTree = "<group>"; };
+		3ADFF9511EB52CDE008D882E /* CharacterScene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CharacterScene.hpp; sourceTree = "<group>"; };
 		5323E6B10EAFCA74003A9687 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = /System/Library/Frameworks/CoreVideo.framework; sourceTree = "<absolute>"; };
 		6E061E20D94D4F1D8CC47034 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* BoltzmannPhysics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BoltzmannPhysics.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -343,7 +343,7 @@
 				3A1733401E78A94400C60D7B /* Scene.hpp */,
 				3A1733411E78A94400C60D7B /* Scene.cpp */,
 				3A44CE091E73B070001D7C7A /* Scenes.hpp */,
-				3AF695511E80E4F700AB2C9F /* CharacterScene.hpp */,
+				3ADFF9511EB52CDE008D882E /* CharacterScene.hpp */,
 				3A1733601E7EDD7D00C60D7B /* CharacterScene.cpp */,
 			);
 			name = Scenes;
