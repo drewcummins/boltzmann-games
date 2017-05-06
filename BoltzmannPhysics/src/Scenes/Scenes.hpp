@@ -12,6 +12,7 @@
 #include "Shape.hpp"
 #include "Character.hpp"
 #include "CharacterScene.hpp"
+#include "Constants.hpp"
 
 using namespace std;
 using namespace bltz;
@@ -40,6 +41,18 @@ void muscleScene(CharacterScene *scene) {
 //    scene->deltaTime = 1/120.f;
     scene->yTarget = 0.5f;
 //    scene->addCharacter(1.3f);
+}
+
+void dudeScene(CharacterScene *scene) {
+    scene->cam.lookAt(vec3(0,3,25), vec3(0,2,0));
+    
+    Character character;
+    character.setup(1.3, vec3(0,M2U(2*1.3/3.0),0));
+    //        character.brain = shared_ptr<Brain>(new Brain(10));
+    character.brain = shared_ptr<MatsuokaNetwork>(new MatsuokaNetwork(10));
+    
+    Isle island = scene->createIsland(3);
+    scene->addCharacter(character, island->id);
 }
 
 void hingeScene(Scene *scene) {

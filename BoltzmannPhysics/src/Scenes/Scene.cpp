@@ -156,6 +156,7 @@ void Scene::setup() {
 
 void Scene::reset() {
     islands.clear();
+    Utils::rand = Rand(1);
     defaultIsland = createIsland(defaultIsland->seed);
     islands[defaultIsland->id] = defaultIsland;
     setup();

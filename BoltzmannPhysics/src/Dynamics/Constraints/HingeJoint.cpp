@@ -20,6 +20,7 @@ HingeJoint::HingeJoint(Body b1, vec3 r1, vec3 axis, Body b2) : BallAndSocketJoin
     a1 = axis;
     a2 = inverse(b2->R) * (b1->R * a1);
     hasLimits = false;
+    hasMotor = false;
 }
 
 void HingeJoint::setLimits(float minTheta, float maxTheta) {

@@ -16,7 +16,7 @@ Isle Island::create(uint seed, uint solverIterations) {
     shared_ptr<Island> island(new Island());
     island->seed = seed;
     island->rng = Rand(seed);
-    island->solverIterations = solverIterations;
+    island->solverIterations = 30; //solverIterations;
     island->reset();
     island->gravity = vec3(0,-9.8,0) * METERS_TO_UNITS;
     return island;
@@ -59,8 +59,8 @@ void Island::step(float dt) {
     
     collision.createCache(bodies);
     
-    vector<CandidatePair> candidates = collision.findCandidates();
-    vector<Contact> contacts = collision.findContacts(candidates);
+//    vector<CandidatePair> candidates = collision.findCandidates();
+    vector<Contact> contacts = {}; //collision.findContacts(candidates);
     vector<Contact> floorContacts = collision.findFloorContacts();
     
     for (auto &contact : floorContacts) {

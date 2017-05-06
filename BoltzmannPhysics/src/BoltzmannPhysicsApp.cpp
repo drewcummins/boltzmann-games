@@ -29,26 +29,14 @@ class BoltzmannPhysicsApp : public App {
 
 void BoltzmannPhysicsApp::setup()
 {
-    
-//    MatsuokaNeuron neuron;
-//    neuron.mask = std::numeric_limits<uint64_t>::max();
-//    cout << neuron.mask << endl;
-//    cout << neuron.hasSynapse(62) << endl;
-//    neuron.disconnect(62);
-//    cout << neuron.mask << endl;
-//    cout << neuron.hasSynapse(62) << endl;
-//    neuron.connect(62);
-//    cout << neuron.mask << endl;
-//    cout << neuron.hasSynapse(62) << endl;
-    
-//    MatsuokaNetwork *brain = new MatsuokaNetwork(5);
-//    for (int i = 0; i < 1000; i++) {
-//        brain->update(1/100.f);
-//        cout << brain->network[0]->output << ", " << brain->network[1]->output << endl;
-//    }
+//    isLearning = false;
+//    scene = CharacterScene::create(dudeScene);
+//    scene->setup();
+//    return;
+
     isLearning = true;
     
-    evolution = new Evolution(1);
+    evolution = new Evolution(200);
 //    evolution->runSimulation(20);
     
     
@@ -63,7 +51,7 @@ void BoltzmannPhysicsApp::setup()
         Character character;
         character.setup(1.3, vec3(0,M2U(2*1.3/3.0),0));
 //        character.brain = shared_ptr<Brain>(new Brain(10));
-        character.brain = shared_ptr<MatsuokaNetwork>(new MatsuokaNetwork(5));
+        character.brain = shared_ptr<MatsuokaNetwork>(new MatsuokaNetwork(10));
         character.brain->fromGenome(Evolution::getInstance()->winner().genes);
         
         Isle island = cs->createIsland(3);
@@ -132,7 +120,7 @@ void BoltzmannPhysicsApp::update()
 {
     if (isLearning) {
         evolution->next();
-        if (evolution->currentGeneration > 500) {
+        if (evolution->currentGeneration > 5000) {
             isLearning = false;
             scene->reset();
             scene->setup();

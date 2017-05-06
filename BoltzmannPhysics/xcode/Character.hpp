@@ -22,8 +22,8 @@ namespace bltz {
     class Character {
     public:
         uint islandId;
-        Body torso, pelvis, luleg, ruleg, llleg, rlleg;
-        Hinge back, lhip, rhip, lknee, rknee;
+        Body torso, pelvis, luleg, ruleg, llleg, rlleg, torsoLat, lhipLat, rhipLat;
+        Hinge back, lhip, rhip, lknee, rknee, backLat, lhipLatJoint, rhipLatJoint;
         shared_ptr<Brain> brain;
         void setup(float height, vec3 pelvisX);
         void update(float dt);
