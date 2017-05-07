@@ -63,6 +63,18 @@ namespace bltz {
         float qdot;
         float time;
     };
+    
+    class TorsoTrajectoryObjective : public Objective {
+    public:
+        TorsoTrajectoryObjective(Character character, float speed = 1.0f);
+        Character character;
+        vec3 target, start;
+        float speed;
+        float time;
+        virtual void update();
+        virtual float fitness();
+        float error;
+    };
 }
 
 #endif /* Evolution_hpp */

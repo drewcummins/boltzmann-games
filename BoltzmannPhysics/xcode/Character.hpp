@@ -25,8 +25,8 @@ namespace bltz {
         Body torso, pelvis, luleg, ruleg, llleg, rlleg, torsoLat, lhipLat, rhipLat;
         Hinge back, lhip, rhip, lknee, rknee, backLat, lhipLatJoint, rhipLatJoint;
         shared_ptr<Brain> brain;
-        void setup(float height, vec3 pelvisX);
-        void update(float dt);
+        virtual void setup(float height, vec3 pelvisX);
+        virtual void update(float dt);
         vector<Body> getBones();
         vector<Constraint> getJoints();
         vector<shared_ptr<MotorMuscle>> muscles;

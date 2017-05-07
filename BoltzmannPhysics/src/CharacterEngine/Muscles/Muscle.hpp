@@ -57,6 +57,7 @@ namespace bltz {
         shared_ptr<HingeJoint> joint;
         virtual void update(float dt);
         float t;
+        void mapThetaToT(float theta);
     protected:
         MotorMuscle(shared_ptr<HingeJoint> joint);
     };

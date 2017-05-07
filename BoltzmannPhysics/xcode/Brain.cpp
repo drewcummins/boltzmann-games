@@ -206,12 +206,12 @@ MatsuokaNetwork::MatsuokaNetwork(int n) : Brain() {
         // make internal neurons always connected to start
         neuron->m2.connect(i*2);
         neuron->m1.connect(i*2+1);
-//        if (i > 0) {
-//            neuron->m1.connect(i*2-1);
-//            neuron->m1.connect(i*2-2);
-//            neuron->m2.connect(i*2-1);
-//            neuron->m2.connect(i*2-2);
-//        }
+        if (i > 0) {
+            neuron->m1.connect(i*2-1);
+            neuron->m1.connect(i*2-2);
+            neuron->m2.connect(i*2-1);
+            neuron->m2.connect(i*2-2);
+        }
         network.push_back(neuron);
     }
     

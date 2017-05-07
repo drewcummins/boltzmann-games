@@ -18,10 +18,9 @@
 		00B9955B1B128DF400A5C623 /* IOSurface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B995591B128DF400A5C623 /* IOSurface.framework */; };
 		3A1733421E78A94400C60D7B /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A1733411E78A94400C60D7B /* Scene.cpp */; };
 		3A17334A1E78A9DC00C60D7B /* Muscle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A1733481E78A9DC00C60D7B /* Muscle.cpp */; };
-		3A17335B1E7EDD6200C60D7B /* Brain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A17335A1E7EDD6200C60D7B /* Brain.cpp */; };
-		3A17335E1E7EDD6C00C60D7B /* Character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A17335D1E7EDD6C00C60D7B /* Character.cpp */; };
-		3A1733611E7EDD7D00C60D7B /* CharacterScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A1733601E7EDD7D00C60D7B /* CharacterScene.cpp */; };
 		3A1733691E7EE11700C60D7B /* Evolution.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A1733671E7EE11700C60D7B /* Evolution.cpp */; };
+		3A3357CF1EBFE3A10000FC97 /* CharacterScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A3357CE1EBFE3A10000FC97 /* CharacterScene.cpp */; };
+		3A3357D31EBFE3D70000FC97 /* Character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A3357D21EBFE3D70000FC97 /* Character.cpp */; };
 		3A44CDD71E6F71BC001D7C7A /* RigidBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A44CDD51E6F71BC001D7C7A /* RigidBody.cpp */; };
 		3A44CDDD1E6F78E1001D7C7A /* Sphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A44CDDC1E6F78E1001D7C7A /* Sphere.cpp */; };
 		3A44CDDF1E6F7B63001D7C7A /* Box.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A44CDDE1E6F7B63001D7C7A /* Box.cpp */; };
@@ -36,6 +35,8 @@
 		3A44CE0B1E73B070001D7C7A /* Scenes.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A44CE091E73B070001D7C7A /* Scenes.hpp */; };
 		3A44CE0F1E7460A0001D7C7A /* Material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A44CE0D1E7460A0001D7C7A /* Material.cpp */; };
 		3A44CE121E783D3F001D7C7A /* Island.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A44CE101E783D3F001D7C7A /* Island.cpp */; };
+		3ADFF9541EBF89E1008D882E /* SimbiconCharacter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3ADFF9521EBF89E1008D882E /* SimbiconCharacter.cpp */; };
+		3ADFF95B1EBFE299008D882E /* Brain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3ADFF95A1EBFE299008D882E /* Brain.cpp */; };
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		EC87B634BA93402CB24AB258 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 368F767DED1B446E9953E6EB /* CinderApp.icns */; };
@@ -62,15 +63,14 @@
 		3A1733431E78A96500C60D7B /* Force.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Force.hpp; path = ../src/Dynamics/Force.hpp; sourceTree = "<group>"; };
 		3A1733481E78A9DC00C60D7B /* Muscle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Muscle.cpp; path = ../src/CharacterEngine/Muscles/Muscle.cpp; sourceTree = "<group>"; };
 		3A1733491E78A9DC00C60D7B /* Muscle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Muscle.hpp; path = ../src/CharacterEngine/Muscles/Muscle.hpp; sourceTree = "<group>"; };
-		3A1733591E7EDD6200C60D7B /* Brain.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Brain.hpp; sourceTree = "<group>"; };
-		3A17335A1E7EDD6200C60D7B /* Brain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Brain.cpp; sourceTree = "<group>"; };
-		3A17335C1E7EDD6C00C60D7B /* Character.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Character.hpp; sourceTree = "<group>"; };
-		3A17335D1E7EDD6C00C60D7B /* Character.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Character.cpp; sourceTree = "<group>"; };
-		3A1733601E7EDD7D00C60D7B /* CharacterScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CharacterScene.cpp; sourceTree = "<group>"; };
-		3A1733621E7EDD8C00C60D7B /* Constants.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Constants.hpp; sourceTree = "<group>"; };
 		3A1733651E7EDF2600C60D7B /* EvolutionModel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = EvolutionModel.hpp; path = ../src/CharacterEngine/EvolutionModel.hpp; sourceTree = "<group>"; };
 		3A1733671E7EE11700C60D7B /* Evolution.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Evolution.cpp; path = ../src/CharacterEngine/Evolution/Evolution.cpp; sourceTree = "<group>"; };
 		3A1733681E7EE11700C60D7B /* Evolution.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Evolution.hpp; path = ../src/CharacterEngine/Evolution/Evolution.hpp; sourceTree = "<group>"; };
+		3A3357CD1EBFE3A10000FC97 /* CharacterScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CharacterScene.hpp; sourceTree = "<group>"; };
+		3A3357CE1EBFE3A10000FC97 /* CharacterScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CharacterScene.cpp; sourceTree = "<group>"; };
+		3A3357D01EBFE3B00000FC97 /* Constants.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Constants.hpp; sourceTree = "<group>"; };
+		3A3357D11EBFE3D70000FC97 /* Character.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Character.hpp; sourceTree = "<group>"; };
+		3A3357D21EBFE3D70000FC97 /* Character.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Character.cpp; sourceTree = "<group>"; };
 		3A44CDD51E6F71BC001D7C7A /* RigidBody.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RigidBody.cpp; path = ../src/Dynamics/RigidBody.cpp; sourceTree = "<group>"; };
 		3A44CDD61E6F71BC001D7C7A /* RigidBody.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = RigidBody.hpp; path = ../src/Dynamics/RigidBody.hpp; sourceTree = "<group>"; };
 		3A44CDDA1E6F75FF001D7C7A /* Shape.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Shape.hpp; path = ../src/Geometry/Shape.hpp; sourceTree = "<group>"; };
@@ -99,7 +99,10 @@
 		3A44CE0E1E7460A0001D7C7A /* Material.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Material.hpp; path = ../src/Dynamics/Materials/Material.hpp; sourceTree = "<group>"; };
 		3A44CE101E783D3F001D7C7A /* Island.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Island.cpp; path = ../src/Dynamics/Island.cpp; sourceTree = "<group>"; };
 		3A44CE111E783D3F001D7C7A /* Island.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Island.hpp; path = ../src/Dynamics/Island.hpp; sourceTree = "<group>"; };
-		3ADFF9511EB52CDE008D882E /* CharacterScene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CharacterScene.hpp; sourceTree = "<group>"; };
+		3ADFF9521EBF89E1008D882E /* SimbiconCharacter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SimbiconCharacter.cpp; path = ../src/CharacterEngine/Characters/SimbiconCharacter.cpp; sourceTree = "<group>"; };
+		3ADFF9531EBF89E1008D882E /* SimbiconCharacter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SimbiconCharacter.hpp; path = ../src/CharacterEngine/Characters/SimbiconCharacter.hpp; sourceTree = "<group>"; };
+		3ADFF9591EBFE299008D882E /* Brain.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Brain.hpp; sourceTree = "<group>"; };
+		3ADFF95A1EBFE299008D882E /* Brain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Brain.cpp; sourceTree = "<group>"; };
 		5323E6B10EAFCA74003A9687 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = /System/Library/Frameworks/CoreVideo.framework; sourceTree = "<absolute>"; };
 		6E061E20D94D4F1D8CC47034 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* BoltzmannPhysics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BoltzmannPhysics.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -247,8 +250,10 @@
 		3A17334B1E7A13E300C60D7B /* Characters */ = {
 			isa = PBXGroup;
 			children = (
-				3A17335C1E7EDD6C00C60D7B /* Character.hpp */,
-				3A17335D1E7EDD6C00C60D7B /* Character.cpp */,
+				3A3357D11EBFE3D70000FC97 /* Character.hpp */,
+				3A3357D21EBFE3D70000FC97 /* Character.cpp */,
+				3ADFF9521EBF89E1008D882E /* SimbiconCharacter.cpp */,
+				3ADFF9531EBF89E1008D882E /* SimbiconCharacter.hpp */,
 			);
 			name = Characters;
 			sourceTree = "<group>";
@@ -256,8 +261,8 @@
 		3A1733551E7EDC9A00C60D7B /* AI */ = {
 			isa = PBXGroup;
 			children = (
-				3A1733591E7EDD6200C60D7B /* Brain.hpp */,
-				3A17335A1E7EDD6200C60D7B /* Brain.cpp */,
+				3ADFF9591EBFE299008D882E /* Brain.hpp */,
+				3ADFF95A1EBFE299008D882E /* Brain.cpp */,
 			);
 			name = AI;
 			sourceTree = "<group>";
@@ -275,7 +280,7 @@
 		3A44CDD41E6F713A001D7C7A /* Dynamics */ = {
 			isa = PBXGroup;
 			children = (
-				3A1733621E7EDD8C00C60D7B /* Constants.hpp */,
+				3A3357D01EBFE3B00000FC97 /* Constants.hpp */,
 				3A44CE0C1E74607B001D7C7A /* Materials */,
 				3A44CDE51E6F7E78001D7C7A /* Forces */,
 				3A44CDE41E6F7E6C001D7C7A /* Constraints */,
@@ -343,8 +348,8 @@
 				3A1733401E78A94400C60D7B /* Scene.hpp */,
 				3A1733411E78A94400C60D7B /* Scene.cpp */,
 				3A44CE091E73B070001D7C7A /* Scenes.hpp */,
-				3ADFF9511EB52CDE008D882E /* CharacterScene.hpp */,
-				3A1733601E7EDD7D00C60D7B /* CharacterScene.cpp */,
+				3A3357CD1EBFE3A10000FC97 /* CharacterScene.hpp */,
+				3A3357CE1EBFE3A10000FC97 /* CharacterScene.cpp */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -421,22 +426,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A17335B1E7EDD6200C60D7B /* Brain.cpp in Sources */,
+				3A3357CF1EBFE3A10000FC97 /* CharacterScene.cpp in Sources */,
 				3A44CDF61E70525C001D7C7A /* BallAndSocketJoint.cpp in Sources */,
 				FA96CC66C0774656A1E6B1D8 /* BoltzmannPhysicsApp.cpp in Sources */,
+				3ADFF9541EBF89E1008D882E /* SimbiconCharacter.cpp in Sources */,
 				3A17334A1E78A9DC00C60D7B /* Muscle.cpp in Sources */,
-				3A17335E1E7EDD6C00C60D7B /* Character.cpp in Sources */,
 				3A44CDDF1E6F7B63001D7C7A /* Box.cpp in Sources */,
-				3A1733611E7EDD7D00C60D7B /* CharacterScene.cpp in Sources */,
 				3A44CDF91E70547F001D7C7A /* HingeJoint.cpp in Sources */,
 				3A44CE0B1E73B070001D7C7A /* Scenes.hpp in Sources */,
 				3A44CDDD1E6F78E1001D7C7A /* Sphere.cpp in Sources */,
+				3A3357D31EBFE3D70000FC97 /* Character.cpp in Sources */,
 				3A1733691E7EE11700C60D7B /* Evolution.cpp in Sources */,
 				3A44CE121E783D3F001D7C7A /* Island.cpp in Sources */,
 				3A44CDE81E6F7EA1001D7C7A /* BaseConstraint.cpp in Sources */,
 				3A1733421E78A94400C60D7B /* Scene.cpp in Sources */,
 				3A44CDE31E6F7BA5001D7C7A /* Utils.cpp in Sources */,
 				3A44CE0F1E7460A0001D7C7A /* Material.cpp in Sources */,
+				3ADFF95B1EBFE299008D882E /* Brain.cpp in Sources */,
 				3A44CDD71E6F71BC001D7C7A /* RigidBody.cpp in Sources */,
 				3A44CDEB1E6F7F38001D7C7A /* GroundConstraint.cpp in Sources */,
 				3A44CDEF1E6F81E4001D7C7A /* DistanceConstraint.cpp in Sources */,

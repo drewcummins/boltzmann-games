@@ -39,6 +39,7 @@ namespace bltz {
         virtual ShapeCache cache(vec3 x, mat3 R, vec3 o) = 0;
         gl::BatchRef view;
         gl::BatchRef shadow;
+        bool didCollideWithGround = false;
         ShapeType type;
         uint id;
     };

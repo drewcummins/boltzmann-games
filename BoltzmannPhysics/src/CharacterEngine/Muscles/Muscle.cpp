@@ -82,12 +82,15 @@ MotorMuscle::MotorMuscle(shared_ptr<HingeJoint> joint) {
     t = 0.5;
 }
 
+void MotorMuscle::mapThetaToT(float theta) {
+    t = (theta - joint->minTheta) / (joint->maxTheta - joint->minTheta);
+}
+
 void MotorMuscle::update(float dt) {
     float thetaRange = joint->maxTheta - joint->minTheta;
-    float target = joint->minTheta + thetaRange * t;;
+    float target = joint->minTheta + thetaRange * t;
     float current = joint->cacheTheta();
     float speed = (target - current)/(dt*5.f);
-//    cout << speed << endl;
     joint->setMotor(speed);
 }
 

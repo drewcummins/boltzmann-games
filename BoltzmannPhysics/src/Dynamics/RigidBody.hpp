@@ -54,6 +54,8 @@ namespace bltz {
         
         bool isGround;
         
+        bool didCollideWithGround = false;
+        
         void integrateAcceleration(float dt);
         void integrateVelocity(float dt);
         void addElement(Shape shape, Material material, vec3 offset=vec3(), mat3 R=mat3());

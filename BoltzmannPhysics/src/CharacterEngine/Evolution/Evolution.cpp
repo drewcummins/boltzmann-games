@@ -65,7 +65,8 @@ Evolution::Evolution(int populationSize) : populationSize(populationSize) {
         character.brain = shared_ptr<MatsuokaNetwork>(new MatsuokaNetwork(10));
         
         member.character = character;
-        member.objective = shared_ptr<Objective>(new TorsoUpObjective(character));
+//        member.objective = shared_ptr<Objective>(new TorsoUpObjective(character));
+        member.objective = shared_ptr<Objective>(new TorsoTrajectoryObjective(character));
         
         generation.push_back(member);
         
@@ -99,8 +100,8 @@ void Evolution::next() {
             if (!member.objective->isDead) {
                 member.character.update(1/60.f);
                 island.second->step(1/60.f);
-                member.objective->update();
             }
+            member.objective->update();
         }
     }
     
@@ -119,7 +120,8 @@ void Evolution::next() {
         character.brain->fromGenome(nextGen[j].genes);
         
         member.character = character;
-        member.objective = shared_ptr<Objective>(new TorsoUpObjective(character));
+//        member.objective = shared_ptr<Objective>(new TorsoUpObjective(character));
+        member.objective = shared_ptr<Objective>(new TorsoTrajectoryObjective(character));
         
         generation.push_back(member);
         
@@ -144,7 +146,7 @@ void Evolution::next() {
 }
 
 void Evolution::runSimulation(int numGenerations) {
-    
+    /*
     for (int i = 0; i < numGenerations; i++) {
         cout << "Running generation " << i+1 << endl;
         for (int j = 0; j < 480; j++) {
@@ -153,8 +155,8 @@ void Evolution::runSimulation(int numGenerations) {
                 if (!member.objective->isDead) {
                     member.character.update(1/60.f);
                     island.second->step(1/60.f);
-                    member.objective->update();
                 }
+                member.objective->update();
             }
         }
         
@@ -173,7 +175,8 @@ void Evolution::runSimulation(int numGenerations) {
             character.brain->fromGenome(nextGen[j].genes);
             
             member.character = character;
-            member.objective = shared_ptr<Objective>(new TorsoUpObjective(character));
+//            member.objective = shared_ptr<Objective>(new TorsoUpObjective(character));
+            member.objective = shared_ptr<Objective>(new TorsoTrajectoryObjective(character));
             
             generation.push_back(member);
             
@@ -194,6 +197,7 @@ void Evolution::runSimulation(int numGenerations) {
             islandMemberMap[island->id] = member;
         }
     }
+     */
 }
 
 void Evolution::select() {
@@ -212,7 +216,7 @@ void Evolution::select() {
         for (int i = 0; i < 1+populationSize/2; i++) {
             vector<Gene> genes = generation[i].character.brain->toGenome();
             Genome genome(genes);
-            genome.mutate(0.075);
+            genome.mutate(0.15); //2.0/genes.size());
             nextGen.push_back(genome);
         }
     }
@@ -221,6 +225,30 @@ void Evolution::select() {
 
 Genome Evolution::winner() {
     return nextGen[0];
+}
+
+
+
+TorsoTrajectoryObjective::TorsoTrajectoryObjective(Character character, float speed) : character(character), speed(speed) {
+    start = character.torso->com;
+    time = error = 0.f;
+}
+
+void TorsoTrajectoryObjective::update() {
+    time += 1/60.f;
+    target = start + vec3(0,0,1) * speed * time;
+    error += length(target - character.torso->com);
+    vec3 q = character.torso->R * vec3(0,1,0);
+    float qdott = dot(vec3(0,1,0), q);
+    q = character.torso->R * vec3(0,0,1);
+    float qdot2 = dot(vec3(0,0,1), q);
+    if (character.torso->com.y/start.y < 0.7 || qdott < 0.8 || qdot2 < 0.8) {
+        isDead = true;
+    }
+}
+
+float TorsoTrajectoryObjective::fitness() {
+    return -U2M(error);
 }
 
 

@@ -36,7 +36,7 @@ void BoltzmannPhysicsApp::setup()
 
     isLearning = true;
     
-    evolution = new Evolution(200);
+    evolution = new Evolution(120);
 //    evolution->runSimulation(20);
     
     

@@ -20,13 +20,7 @@ shared_ptr<Scene> CharacterScene::create(CharacterSceneSetup sceneSetup) {
 
 void CharacterScene::setup() {
     characterSetup(this);
-    for (auto &character : characters) {
-        for (auto &motor : character.motors) {
-            Isle island = bodyIslandMap[character.getBones()[0]->id];
-            motor->sineCounter = island->rng.nextFloat();// * glm::pi<float>();
-            motor->frequency = 1+island->rng.nextFloat()*4;
-        }
-    }
+    
     theta = atan2(cam.getEyePoint().z, cam.getEyePoint().x);
     radius = sqrt(cam.getEyePoint().z * cam.getEyePoint().z + cam.getEyePoint().x * cam.getEyePoint().x);
     h = cam.getEyePoint().y;
@@ -37,22 +31,19 @@ void CharacterScene::reset() {
     Scene::reset();
 }
 
-void CharacterScene::addCharacter(float height) {
-    Character character;
-    character.setup(height, vec3(0,M2U(height),0));
-    
+void CharacterScene::addCharacter(Character character, uint islandId) {
     for (auto &bone : character.getBones()) {
-        addBody(bone);
+        addBody(bone, islandId);
     }
     
     for (auto &joint : character.getJoints()) {
-        addConstraint(joint);
+        addConstraint(joint, islandId);
     }
     
-    addConstraint(BallAndSocketJoint::create(character.pelvis, vec3(0,0,0), ground));
-
+    character.islandId = islandId;
     characters.push_back(character);
 }
+
 
 void CharacterScene::singleStep() {
     if (isPaused) {
@@ -72,13 +63,12 @@ void CharacterScene::render() {
     Scene::render();
     gl::color(0.6, 1.0, 0.4);
     for (auto &character : characters) {
-        for (auto &muscle : character.muscles) {
-            vec3 x1, x2;
-            float len = muscle->getMuscleLength(x1, x2);
-            
-//            gl::ScopedModelMatrix scpModelMatrix;
-//            gl::translate(x1);
-            gl::drawVector(x1, x2);
-        }
+//        for (auto &muscle : character.muscles) {
+//            vec3 x1, x2;
+//            
+////            gl::ScopedModelMatrix scpModelMatrix;
+////            gl::translate(x1);
+//            gl::drawVector(x1, x2);
+//        }
     }
 }

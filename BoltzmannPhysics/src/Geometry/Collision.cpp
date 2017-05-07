@@ -239,6 +239,8 @@ vector<Contact> Collision::findFloorContacts() {
     for (auto candidate : cache) {
         if (candidate.cache.aabb.min.y <= 0) {
             if (candidate.shape->type == SPHERE) {
+                
+                candidate.body->didCollideWithGround = true;
                 // sphere
                 auto sphere = static_pointer_cast<bltz::Sphere>(candidate.shape);
                 
@@ -261,6 +263,8 @@ vector<Contact> Collision::findFloorContacts() {
             } else if (candidate.shape->type == BOX) {
                 // box
                 auto box = static_pointer_cast<Box>(candidate.shape);
+                
+                candidate.body->didCollideWithGround = true;
                 
                 Contact contact;
                 contact.pair = {candidate.body};
@@ -389,6 +393,7 @@ vector<Contact> Collision::findContacts(vector<CandidatePair> pairs) {
 
 void Collision::createCache(vector<Body> bodies) {
     for (auto &body : bodies) {
+        body->didCollideWithGround = false;
         for (auto &elem : body->elements) {
             Candidate ci;
             ci.body = body;
