@@ -21,6 +21,18 @@ using namespace std;
 namespace bltz {
     class Character {
     public:
+        
+        enum MUSCLE {
+            BACKLAT = 0,
+            BACK = 1,
+            LHIPLAT = 2,
+            LHIP = 3,
+            LKNEE = 4,
+            RHIPLAT = 5,
+            RHIP = 6,
+            RKNEE = 7
+        };
+        
         uint islandId;
         Body torso, pelvis, luleg, ruleg, llleg, rlleg, torsoLat, lhipLat, rhipLat;
         Hinge back, lhip, rhip, lknee, rknee, backLat, lhipLatJoint, rhipLatJoint;

@@ -25,6 +25,7 @@ namespace bltz {
     public:
         
         float time;
+        bool leftRight;
         virtual void transitionIn() {
             time = 0.f;
         }
@@ -82,7 +83,7 @@ namespace bltz {
         }
     };
     
-    class SimbiconCharacter : public Character {
+    class SimbiconCharacter : public bltz::Character {
     public:
         FSM fsm;
         virtual void setup(float height, vec3 pelvisX);
