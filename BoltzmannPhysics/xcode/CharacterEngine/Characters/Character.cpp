@@ -130,6 +130,14 @@ void Character::setup(float height, vec3 pelvisX) {
     
 }
 
+vec3 Character::leftAnkle() {
+    return vec3();
+}
+
+vec3 Character::rightAnkle() {
+    return vec3();
+}
+
 vector<Body> Character::getBones() {
     return {torso, pelvis, luleg, ruleg, llleg, rlleg, torsoLat, lhipLat, rhipLat};
 }

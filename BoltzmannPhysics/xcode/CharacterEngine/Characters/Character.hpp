@@ -42,6 +42,8 @@ namespace bltz {
         vector<Body> getBones();
         vector<Constraint> getJoints();
         vector<shared_ptr<MotorMuscle>> muscles;
+        vec3 leftAnkle();
+        vec3 rightAnkle();
         float sy;
         int ticks;
     };
