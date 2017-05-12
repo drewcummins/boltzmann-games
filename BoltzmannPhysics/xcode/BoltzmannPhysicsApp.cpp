@@ -29,14 +29,14 @@ class BoltzmannPhysicsApp : public App {
 
 void BoltzmannPhysicsApp::setup()
 {
-//    isLearning = false;
-//    scene = CharacterScene::create(dudeScene);
-//    scene->setup();
-//    return;
+    isLearning = false;
+    scene = CharacterScene::create(simbiconScene);
+    scene->setup();
+    return;
 
     isLearning = true;
     
-    evolution = new Evolution(120);
+    evolution = new Evolution(1);
 //    evolution->runSimulation(20);
     
     
@@ -48,11 +48,11 @@ void BoltzmannPhysicsApp::setup()
         
         cs->cam.lookAt(vec3(0,3,25), vec3(0,2,0));
         
-        Character character;
-        character.setup(1.3, vec3(0,M2U(2*1.3/3.0),0));
+        shared_ptr<Character> character = Character::create();
+        character->setup(1.3, vec3(0,M2U(2*1.3/3.0),0));
 //        character.brain = shared_ptr<Brain>(new Brain(10));
-        character.brain = shared_ptr<MatsuokaNetwork>(new MatsuokaNetwork(10));
-        character.brain->fromGenome(Evolution::getInstance()->winner().genes);
+        character->brain = shared_ptr<MatsuokaNetwork>(new MatsuokaNetwork(10));
+        character->brain->fromGenome(Evolution::getInstance()->winner().genes);
         
         Isle island = cs->createIsland(3);
         cs->addCharacter(character, island->id);

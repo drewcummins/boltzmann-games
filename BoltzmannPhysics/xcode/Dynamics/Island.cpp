@@ -48,6 +48,66 @@ void Island::reset() {
     rng = Rand(seed);
 }
 
+
+
+vector<Constraint> Island::integrateDVAndFindCollisions(float dt) {
+    for (auto &body : bodies) {
+        if (!body->isGround) {
+            body->addForce(gravity*body->m);
+            body->integrateAcceleration(dt);
+        }
+    }
+    
+    collision.createCache(bodies);
+    
+    //    vector<CandidatePair> candidates = collision.findCandidates();
+    vector<Contact> contacts = {}; //collision.findContacts(candidates);
+    vector<Contact> floorContacts = collision.findFloorContacts();
+    
+    for (auto &contact : floorContacts) {
+        // make all collisions with the floor immovable
+        contact.pair.b2 = ground;
+    }
+    
+    // add floor contacts to contacts
+    contacts.insert(contacts.end(), floorContacts.begin(), floorContacts.end());
+    
+    vector<Constraint> all(constraints.begin(), constraints.end());
+    
+    for (auto &contact : contacts) {
+        uint id = contact.pair.b1->id ^ contact.pair.b2->id;
+        if (jointMap[id]) {
+            continue;
+        }
+        Constraint cc = ContactConstraint::create(contact);
+        all.push_back(cc);
+    }
+    
+    for (auto &constraint : all) {
+        constraint->prepare(dt);
+    }
+    
+    return all;
+}
+
+void Island::integratePosition(float dt, vector<Constraint> all) {
+    for (int i = 0; i < solverIterations; i++) {
+        //        random_shuffle(all.begin(), all.end());
+        for (auto &constraint : all) {
+            constraint->solve(dt);
+        }
+    }
+    
+    for (auto &body : bodies) {
+        if (!body->isGround) {
+            body->integrateVelocity(dt);
+        }
+    }
+    
+    collision.clearCache();
+}
+
+
 void Island::step(float dt) {
     
     for (auto &body : bodies) {

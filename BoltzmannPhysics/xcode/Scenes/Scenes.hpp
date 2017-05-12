@@ -11,6 +11,7 @@
 #include "RigidBody.hpp"
 #include "Shape.hpp"
 #include "Character.hpp"
+#include "SimbiconCharacter.hpp"
 #include "CharacterScene.hpp"
 #include "Constants.hpp"
 
@@ -46,13 +47,23 @@ void muscleScene(CharacterScene *scene) {
 void dudeScene(CharacterScene *scene) {
     scene->cam.lookAt(vec3(0,3,25), vec3(0,2,0));
     
-    Character character;
-    character.setup(1.3, vec3(0,M2U(2*1.3/3.0),0));
+    shared_ptr<Character> character = Character::create();
+    character->setup(1.3, vec3(0,M2U(2*1.3/3.0),0));
     //        character.brain = shared_ptr<Brain>(new Brain(10));
-    character.brain = shared_ptr<MatsuokaNetwork>(new MatsuokaNetwork(10));
+    character->brain = shared_ptr<MatsuokaNetwork>(new MatsuokaNetwork(10));
     
     Isle island = scene->createIsland(3);
     scene->addCharacter(character, island->id);
+}
+
+void simbiconScene(CharacterScene *scene) {
+    scene->cam.lookAt(vec3(0,3,25), vec3(0,2,0));
+    
+    shared_ptr<SimbiconCharacter> character = SimbiconCharacter::create();
+    character->setup(1.3, vec3(0,M2U(2*1.3/3.0),0));
+    
+//    Isle island = scene->createIsland(3);
+    scene->addCharacter(character, 0);
 }
 
 void hingeScene(Scene *scene) {

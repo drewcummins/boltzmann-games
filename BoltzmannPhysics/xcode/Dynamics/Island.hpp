@@ -41,6 +41,8 @@ namespace bltz {
         void removeConstraint(Constraint constraint);
         void removeBody(Body body);
         void step(float dt);
+        vector<Constraint> integrateDVAndFindCollisions(float dt);
+        void integratePosition(float dt, vector<Constraint> all);
     protected:
         Island();
         Collision collision;

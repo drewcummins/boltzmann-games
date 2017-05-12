@@ -43,7 +43,8 @@ deltaTime(deltaTime)
     ground = RigidBody::create(gs, 1.f);
     ground->isGround = true;
     
-    defaultIsland = createIsland(Utils::rand.nextUint());
+    // Change this for evolution god this is a mess
+    defaultIsland = createIsland(3); //Utils::rand.nextUint());
     
 }
 
@@ -156,7 +157,6 @@ void Scene::setup() {
 
 void Scene::reset() {
     islands.clear();
-    Utils::rand = Rand(1);
     defaultIsland = createIsland(defaultIsland->seed);
     islands[defaultIsland->id] = defaultIsland;
     setup();

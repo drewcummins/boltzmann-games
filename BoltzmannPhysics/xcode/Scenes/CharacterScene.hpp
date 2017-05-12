@@ -18,8 +18,8 @@ namespace bltz {
     public:
         typedef void(*CharacterSceneSetup)(CharacterScene*);
         
-        void addCharacter(Character character, uint islandId);
-        vector<Character> characters;
+        void addCharacter(shared_ptr<Character> character, uint islandId);
+        vector<shared_ptr<Character>> characters;
         static shared_ptr<Scene> create(CharacterSceneSetup sceneSetup);
         virtual void setup();
         virtual void reset();

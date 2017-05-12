@@ -33,14 +33,19 @@ namespace bltz {
             RKNEE = 7
         };
         
+        static shared_ptr<Character> create();
+        
+        float s;
         uint islandId;
+        Element lfootElem, rfootElem;
         Body torso, pelvis, luleg, ruleg, llleg, rlleg, torsoLat, lhipLat, rhipLat;
         Hinge back, lhip, rhip, lknee, rknee, backLat, lhipLatJoint, rhipLatJoint;
         shared_ptr<Brain> brain;
         virtual void setup(float height, vec3 pelvisX);
         virtual void update(float dt);
-        vector<Body> getBones();
-        vector<Constraint> getJoints();
+        vec3 com();
+        virtual vector<Body> getBones();
+        virtual vector<Constraint> getJoints();
         vector<shared_ptr<MotorMuscle>> muscles;
         vec3 leftAnkle();
         vec3 rightAnkle();

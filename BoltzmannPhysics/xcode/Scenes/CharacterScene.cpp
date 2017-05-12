@@ -31,16 +31,16 @@ void CharacterScene::reset() {
     Scene::reset();
 }
 
-void CharacterScene::addCharacter(Character character, uint islandId) {
-    for (auto &bone : character.getBones()) {
+void CharacterScene::addCharacter(shared_ptr<Character> character, uint islandId) {
+    for (auto &bone : character->getBones()) {
         addBody(bone, islandId);
     }
     
-    for (auto &joint : character.getJoints()) {
+    for (auto &joint : character->getJoints()) {
         addConstraint(joint, islandId);
     }
     
-    character.islandId = islandId;
+    character->islandId = islandId;
     characters.push_back(character);
 }
 
@@ -50,13 +50,24 @@ void CharacterScene::singleStep() {
         return;
     }
     
-    for (auto &character : characters) {
-        character.update(deltaTime);
-    }
+    unordered_map<uint, vector<Constraint>> constraints;
     
     for (auto &island : islands) {
-        island.second->step(deltaTime);
+//        island.second->step(deltaTime);
+        constraints[island.second->id] = island.second->integrateDVAndFindCollisions(deltaTime);
     }
+    
+    for (auto &character : characters) {
+        character->update(deltaTime);
+    }
+    
+    for (auto &constraint : constraints) {
+        islands[constraint.first]->integratePosition(deltaTime, constraint.second);
+    }
+    
+//    for (int i = 0; i < islands.size(); i++) {
+//        islands[i]->integratePosition(deltaTime, constraints[i]);
+//    }
 }
 
 void CharacterScene::render() {

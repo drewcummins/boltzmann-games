@@ -43,9 +43,10 @@ namespace bltz {
     
     class TemporalState : public FiniteState {
     public:
-        static FState create(float duration) {
+        static FState create(float duration, int size=8) {
             shared_ptr<TemporalState> state(new TemporalState());
             state->duration = duration;
+            state->Theta.reserve(size);
             return state;
         }
         float duration;
@@ -56,9 +57,10 @@ namespace bltz {
     
     class StrikeState : public FiniteState {
     public:
-        static FState create(Body body) {
+        static FState create(Body body, int size=8) {
             shared_ptr<StrikeState> state(new StrikeState());
             state->body = body;
+            state->Theta.reserve(size);
             return state;
         }
         Body body;
@@ -70,11 +72,12 @@ namespace bltz {
     class FSM {
     public:
         vector<FState> states;
-        int current;
+        int current = 0;
         void step(float dt) {
             FState state = states[current];
             state->step(dt);
             if (state->isComplete()) {
+                cout << current << endl;
                 current = (current+1) % states.size();
                 state->transitionOut();
                 state = states[current];
@@ -85,9 +88,12 @@ namespace bltz {
     
     class SimbiconCharacter : public bltz::Character {
     public:
+        static shared_ptr<SimbiconCharacter> create();
         FSM fsm;
+        Hinge hj;
         virtual void setup(float height, vec3 pelvisX);
         virtual void update(float dt);
+        virtual vector<Constraint> getJoints();
     };
 }
 

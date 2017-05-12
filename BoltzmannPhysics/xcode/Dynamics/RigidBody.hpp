@@ -58,7 +58,7 @@ namespace bltz {
         
         void integrateAcceleration(float dt);
         void integrateVelocity(float dt);
-        void addElement(Shape shape, Material material, vec3 offset=vec3(), mat3 R=mat3());
+        Element addElement(Shape shape, Material material, vec3 offset=vec3(), mat3 R=mat3());
         
         void addForce(vec3 force);
         void addTorque(vec3 torque);

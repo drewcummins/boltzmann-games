@@ -11,9 +11,13 @@
 
 using namespace bltz;
 
+shared_ptr<Character> Character::create() {
+    return shared_ptr<Character>(new Character);
+}
+
 void Character::setup(float height, vec3 pelvisX) {
     
-    float s = M2U(height * 0.3);
+    s = M2U(height * 0.3);
     
     auto leg = Box::create(vec3(s/3,s,s/3));
     auto foot = bltz::Sphere::create(s/4);
@@ -54,10 +58,10 @@ void Character::setup(float height, vec3 pelvisX) {
     ruleg->addElement(leg, animal);
     
     llleg->addElement(leg, animal);
-    llleg->addElement(foot, animal, vec3(0,-s/2,0));
+    lfootElem = llleg->addElement(foot, animal, vec3(0,-s/2,0));
     
     rlleg->addElement(leg, animal);
-    rlleg->addElement(foot, animal, vec3(0,-s/2,0));
+    rfootElem = rlleg->addElement(foot, animal, vec3(0,-s/2,0));
     
     pelvis->setPosition(pelvisX);
     torso->setPosition(pelvisX + vec3(0,s/2 + s/4,0));
@@ -99,43 +103,53 @@ void Character::setup(float height, vec3 pelvisX) {
     back = HingeJoint::create(torsoLat, vec3(), vec3(1,0,0), torso);
     back->setLimits(-glm::pi<float>()*0.15, glm::pi<float>()*0.15);
     
-    
+    muscles.resize(8);
     
     auto motor = MotorMuscle::create(rhip);
-    muscles.push_back(motor);
+    muscles[RHIP] = motor;
     
     motor = MotorMuscle::create(rknee);
-    muscles.push_back(motor);
+    muscles[RKNEE] = motor;
     
     motor = MotorMuscle::create(back);
-    muscles.push_back(motor);
+    muscles[BACK] = motor;
     
     motor = MotorMuscle::create(lhip);
-    muscles.push_back(motor);
+    muscles[LHIP] = motor;
     
     motor = MotorMuscle::create(lknee);
-    muscles.push_back(motor);
+    muscles[LKNEE] = motor;
     
     motor = MotorMuscle::create(lhipLatJoint);
-    muscles.push_back(motor);
+    muscles[LHIPLAT] = motor;
     
     motor = MotorMuscle::create(rhipLatJoint);
-    muscles.push_back(motor);
+    muscles[RHIPLAT] = motor;
     
     motor = MotorMuscle::create(backLat);
-    muscles.push_back(motor);
+    muscles[BACKLAT] = motor;
     
     sy = pelvis->com.z;
     ticks = 0;
     
 }
 
+vec3 Character::com() {
+    vec3 COM = vec3();
+    float mass = 0.f;
+    for (auto &bone : getBones()) {
+        COM += bone->com * bone->m;
+        mass += bone->m;
+    }
+    return COM/mass;
+}
+
 vec3 Character::leftAnkle() {
-    return vec3();
+    return luleg->com + luleg->R * (lfootElem.x + luleg->xModel);
 }
 
 vec3 Character::rightAnkle() {
-    return vec3();
+    return ruleg->com + luleg->R * (lfootElem.x + luleg->xModel);
 }
 
 vector<Body> Character::getBones() {

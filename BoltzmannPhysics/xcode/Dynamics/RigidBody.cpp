@@ -36,7 +36,7 @@ shared_ptr<RigidBody> RigidBody::create(Shape shape, float density) {
     return body;
 }
 
-void RigidBody::addElement(Shape shape, Material material, vec3 position, mat3 R) {
+Element RigidBody::addElement(Shape shape, Material material, vec3 position, mat3 R) {
     Element element = {shape, material, position, R};
     elements.push_back(element);
     
@@ -58,6 +58,8 @@ void RigidBody::addElement(Shape shape, Material material, vec3 position, mat3 R
     invIWorld = R * invIModel * glm::transpose(R);
     xModel = -com;
     com += x;
+    
+    return element;
 }
 
 void RigidBody::integrateAcceleration(float dt) {
