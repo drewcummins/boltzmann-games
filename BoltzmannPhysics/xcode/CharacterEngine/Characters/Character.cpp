@@ -67,41 +67,50 @@ void Character::setup(float height, vec3 pelvisX) {
     torso->setPosition(pelvisX + vec3(0,s/2 + s/4,0));
     torsoLat->setPosition(pelvisX + vec3(0,s/2,0));
     
-    luleg->setPosition(pelvisX - vec3(s/2,s/2,0));
-    llleg->setPosition(luleg->x - vec3(0,s,0));
+    luleg->setPosition(pelvisX + vec3(s/2,-s/2,0));
+    llleg->setPosition(luleg->x + vec3(0,-s,0));
     
-    ruleg->setPosition(pelvisX + vec3(s/2,-s/2,0));
-    rlleg->setPosition(ruleg->x - vec3(0,s,0));
+    ruleg->setPosition(pelvisX + vec3(-s/2,-s/2,0));
+    rlleg->setPosition(ruleg->x + vec3(0,-s,0));
     
-    rhipLat->setPosition(pelvisX + vec3(s/2,0,0));
-    lhipLat->setPosition(pelvisX - vec3(s/2,0,0));
+    rhipLat->setPosition(pelvisX + vec3(-s/2,0,0));
+    lhipLat->setPosition(pelvisX + vec3(s/2,0,0));
+    
+    
+    
+    
     
     lknee = HingeJoint::create(luleg, vec3(0,-s/2,0), vec3(1,0,0), llleg);
-    lknee->setLimits(0, glm::pi<float>()*0.5);
+    lknee->setLimits(0, glm::pi<float>()*0.75);
     
     rknee = HingeJoint::create(ruleg, vec3(0,-s/2,0), vec3(1,0,0), rlleg);
-    rknee->setLimits(0, glm::pi<float>()*0.5);
+    rknee->setLimits(0, glm::pi<float>()*0.75);
+    
+    
     
     lhipLatJoint = HingeJoint::create(lhipLat, vec3(0,0,0), vec3(0,0,1), pelvis);
     lhipLatJoint->setLimits(-glm::pi<float>()*0.2, glm::pi<float>()*0.2);
     
-    lhip = HingeJoint::create(lhipLat, vec3(0), vec3(1,0,0), luleg);
-    lhip->setLimits(-glm::pi<float>()*0.5, glm::pi<float>()*0.25);
-    
-    rhipLatJoint = HingeJoint::create(rhipLat, vec3(0,0,0), vec3(0,0,1), pelvis);
+    rhipLatJoint = HingeJoint::create(rhipLat, vec3(), vec3(0,0,1), pelvis);
     rhipLatJoint->setLimits(-glm::pi<float>()*0.2, glm::pi<float>()*0.2);
     
-    rhip = HingeJoint::create(rhipLat, vec3(0), vec3(1,0,0), ruleg);
+    
+    
+    lhip = HingeJoint::create(lhipLat, vec3(0,0,0), vec3(1,0,0), luleg);
+    lhip->setLimits(-glm::pi<float>()*0.5, glm::pi<float>()*0.25);
+    
+    rhip = HingeJoint::create(rhipLat, vec3(0,0,0), vec3(1,0,0), ruleg);
     rhip->setLimits(-glm::pi<float>()*0.5, glm::pi<float>()*0.25);
     
-//    rhip = HingeJoint::create(pelvis, vec3(s*0.75/2,0,0), vec3(1,0,0), ruleg);
-//    rhip->setLimits(-glm::pi<float>()*0.5, glm::pi<float>()*0.25);
     
-    backLat = HingeJoint::create(torsoLat, vec3(), vec3(0,0,1), pelvis);
+    
+    backLat = HingeJoint::create(torsoLat, vec3(0,0,0), vec3(0,0,1), pelvis);
     backLat->setLimits(-glm::pi<float>()*0.1, glm::pi<float>()*0.1);
     
-    back = HingeJoint::create(torsoLat, vec3(), vec3(1,0,0), torso);
-    back->setLimits(-glm::pi<float>()*0.15, glm::pi<float>()*0.15);
+    
+    back = HingeJoint::create(torso, torsoLat->x - torso->x, vec3(1,0,0), torsoLat);
+    back->setLimits(-glm::pi<float>()*0.35, glm::pi<float>()*0.35);
+    
     
     muscles.resize(8);
     

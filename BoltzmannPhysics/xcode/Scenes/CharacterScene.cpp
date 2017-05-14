@@ -74,12 +74,29 @@ void CharacterScene::render() {
     Scene::render();
     gl::color(0.6, 1.0, 0.4);
     for (auto &character : characters) {
-//        for (auto &muscle : character.muscles) {
-//            vec3 x1, x2;
-//            
-////            gl::ScopedModelMatrix scpModelMatrix;
-////            gl::translate(x1);
-//            gl::drawVector(x1, x2);
-//        }
+        Body torso = character->torso;
+        vec3 x1, x2, x3, x4;
+        
+        x1 = torso->com;
+//        x2 = torso->com + torso->R * (inverse(torso->R) * vec3(0,2,0));
+        x2 = inverse(torso->R) * vec3(0,1,0);
+        x3 = character->back->r1;
+        x4 = character->back->a1;
+        
+        x3 = normalize(x3);
+        
+//        vector<vec2> torsoPlane = Utils::projectPointsOntoPlane({x2, vec3(0,1,0)}, character->back->r1, character->back->a1);
+//        vec2 u1 = normalize(torsoPlane[0]);
+//        vec2 u2 = normalize(torsoPlane[1]);
+//        
+//        float du = dot(u1, u2);
+        
+        gl::ScopedModelMatrix scpModelMatrix;
+        gl::translate(x1);
+        gl::rotate(torso->q);
+//        gl::translate(x1);
+//        gl::drawVector(x1, x2);
+        gl::drawVector(vec3(0,0,0), x2*2.f);
+        gl::drawVector(vec3(0,0,0), x4*2.f);
     }
 }

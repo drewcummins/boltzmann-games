@@ -16,7 +16,7 @@ Isle Island::create(uint seed, uint solverIterations) {
     shared_ptr<Island> island(new Island());
     island->seed = seed;
     island->rng = Rand(seed);
-    island->solverIterations = 30; //solverIterations;
+    island->solverIterations = 100; //solverIterations;
     island->reset();
     island->gravity = vec3(0,-9.8,0) * METERS_TO_UNITS;
     return island;

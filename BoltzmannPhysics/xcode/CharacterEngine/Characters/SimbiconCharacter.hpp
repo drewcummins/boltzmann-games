@@ -77,8 +77,9 @@ namespace bltz {
             FState state = states[current];
             state->step(dt);
             if (state->isComplete()) {
-                cout << current << endl;
+                cout << current << "-> ";
                 current = (current+1) % states.size();
+                cout << current << endl;
                 state->transitionOut();
                 state = states[current];
                 state->transitionIn();

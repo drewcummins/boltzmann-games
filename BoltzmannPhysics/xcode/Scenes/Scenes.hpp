@@ -58,6 +58,7 @@ void dudeScene(CharacterScene *scene) {
 
 void simbiconScene(CharacterScene *scene) {
     scene->cam.lookAt(vec3(0,3,25), vec3(0,2,0));
+//    scene->deltaTime = 1/240.f;
     
     shared_ptr<SimbiconCharacter> character = SimbiconCharacter::create();
     character->setup(1.3, vec3(0,M2U(2*1.3/3.0),0));
