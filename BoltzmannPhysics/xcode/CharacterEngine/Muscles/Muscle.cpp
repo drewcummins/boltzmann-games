@@ -100,7 +100,7 @@ void MotorMuscle::update(float dt) {
 //        dp = current - target;
 //    }
     
-    const float kp = 5.0;
+    const float kp = 15.0;
     const float kd = 0.25;
     
 //    float speed = (target - current)/(dt*2.5f);

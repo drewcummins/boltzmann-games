@@ -16,7 +16,7 @@ shared_ptr<SimbiconCharacter> SimbiconCharacter::create() {
 }
 
 void SimbiconCharacter::setup(float height, vec3 pelvisX) {
-    Character::setup(height, pelvisX + vec3(0,-0.3,0));
+    Character::setup(height, pelvisX + vec3(0,0.3,0));
     
     
     Body ground = RigidBody::create();
@@ -77,15 +77,14 @@ vector<Constraint> SimbiconCharacter::getJoints() {
 }
 
 void SimbiconCharacter::update(float dt) {
-    fsm.step(dt);
-    
-    FState state = fsm.states[fsm.current];
+    FState state = fsm.step(dt);
     
     vector<float> Theta(state->Theta);
     
     int swing, stance;
     float swingTheta, swingLatTheta;
     vec3 swingAnkle, stanceAnkle;
+    Hinge swingHip, swingHipLat;
     
     if (state->leftRight) {
         swing = LHIP;
@@ -94,6 +93,8 @@ void SimbiconCharacter::update(float dt) {
         swingLatTheta = lhipLatJoint->cacheTheta();
         swingAnkle = leftAnkle();
         stanceAnkle = rightAnkle();
+        swingHip = rhip;
+        swingHipLat = rhipLatJoint;
     } else {
         swing = RHIP;
         stance = LHIP;
@@ -101,6 +102,8 @@ void SimbiconCharacter::update(float dt) {
         swingLatTheta = rhipLatJoint->cacheTheta();
         swingAnkle = rightAnkle();
         stanceAnkle = leftAnkle();
+        swingHip = lhip;
+        swingHipLat = lhipLatJoint;
     }
     
     vec3 COM = com();
@@ -108,7 +111,7 @@ void SimbiconCharacter::update(float dt) {
     vec3 coronal = pelvis->R * vec3(1,0,0);
     vec3 sagittal = pelvis->R * vec3(0,0,1);
     
-    coronal.y = sagittal.y = 0;
+//    coronal.y = sagittal.y = 0;
     
     float dCoronal = dot(coronal, COM - stanceAnkle);
     float vCoronal = dot(coronal, pelvis->v);
@@ -118,15 +121,14 @@ void SimbiconCharacter::update(float dt) {
     const float cd = 0.5f;
     const float cv = 0.2f;
     
-//    Theta[swing]    += cd * dSagittal + cv * vSagittal;
-//    Theta[swing+1]  += cd * dCoronal  + cv * vCoronal;
+    
+    
+    
+    
+    Theta[swing]    += cd * dSagittal + cv * vSagittal;
+    Theta[swing+1]  += cd * dCoronal  + cv * vCoronal;
     
     vec3 up = vec3(0,1,0);
-    vec3 torsoUpInWorldSpace = inverse(torso->R) * up;
-//    vec3 r1ws = torso->com + torso->R * back->r1;
-//    vec3 a1ws = torso->R * back->a1;
-//    vector<vec2> torsoPlane = Utils::projectPointsOntoPlane({torsoUpInWorldSpace, up}, r1ws, a1ws);
-    
     vec3 upInTorsoSpace = inverse(torso->R) * up;
     
     // up in the points to be transformed is actually just the torso up vector
@@ -144,20 +146,20 @@ void SimbiconCharacter::update(float dt) {
     torsoPlane = Utils::projectPointsOntoPlane({upInTorsoLatSpace, up}, backLat->r1, backLat->a1);
     u1 = normalize(torsoPlane[0]);
     u2 = normalize(torsoPlane[1]);
-    float dthetaTorsoLat = acos(dot(u1, u2));
     
-//    cout << back->cacheTheta() << endl;
-    cout << dthetaTorso << endl;
+    float dthetaTorsoLat = acos(dot(u1, u2));
+    if (Utils::isClockwise({u1, u2, vec2()})) {
+        dthetaTorsoLat = -dthetaTorsoLat;
+    }
     
 //    // set torso orientation to up in world coordinates:
-    
     Theta[BACK] = back->cacheTheta() + dthetaTorso;
-//    Theta[BACKLAT] = backLat->cacheTheta() - dthetaTorsoLat;
+    Theta[BACKLAT] = backLat->cacheTheta() + dthetaTorsoLat;
 //////
 //////    // find stance hip torque:
 //////    // -back - swing hip for coronal and sagittal
-//    Theta[stance] = -dthetaTorso - (Theta[swing] - swingTheta);
-//    Theta[stance+1] = -dthetaTorsoLat - (Theta[swing+1] - swingLatTheta);
+    Theta[stance] += -dthetaTorso - (Theta[swing] - swingTheta);
+    Theta[stance+1] += -dthetaTorsoLat - (Theta[swing+1] - swingLatTheta);
     
     for (int i = 0; i < muscles.size(); i++) {
         if (i == BACK || i == BACKLAT) {

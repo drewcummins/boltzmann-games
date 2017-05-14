@@ -73,7 +73,7 @@ namespace bltz {
     public:
         vector<FState> states;
         int current = 0;
-        void step(float dt) {
+        FState step(float dt) {
             FState state = states[current];
             state->step(dt);
             if (state->isComplete()) {
@@ -84,6 +84,7 @@ namespace bltz {
                 state = states[current];
                 state->transitionIn();
             }
+            return state;
         }
     };
     
