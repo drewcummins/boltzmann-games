@@ -158,7 +158,7 @@ vec3 Character::leftAnkle() {
 }
 
 vec3 Character::rightAnkle() {
-    return ruleg->com + luleg->R * (lfootElem.x + luleg->xModel);
+    return ruleg->com + ruleg->R * (rfootElem.x + ruleg->xModel);
 }
 
 vector<Body> Character::getBones() {

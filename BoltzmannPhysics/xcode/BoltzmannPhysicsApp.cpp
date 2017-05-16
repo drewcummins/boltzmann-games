@@ -29,6 +29,7 @@ class BoltzmannPhysicsApp : public App {
 
 void BoltzmannPhysicsApp::setup()
 {
+    
     isLearning = false;
     scene = CharacterScene::create(simbiconScene);
     scene->setup();

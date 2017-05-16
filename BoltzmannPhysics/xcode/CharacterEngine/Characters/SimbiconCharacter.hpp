@@ -96,6 +96,7 @@ namespace bltz {
         virtual void setup(float height, vec3 pelvisX);
         virtual void update(float dt);
         virtual vector<Constraint> getJoints();
+        float getTargetInJointSpace(float thetaWorld, float thetaJoint, Body body, vec3 jointAxis, bool flip=false);
     };
 }
 
