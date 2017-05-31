@@ -88,16 +88,16 @@ void HingeJoint::solve(float dt) {
         b2->omega += rqn.J.A1 * b2->invIWorld * rqn.lambda[0] + rqn.J.A2 * b2->invIWorld * rqn.lambda[1];
     }
     
+    if (hasMotor) {
+        solveMotor(dt);
+    }
+    
     if (hasLimits) {
         if (lim1.bias <= 0) {
             solveLimit(lim1, dt);
         } else if (lim2.bias <= 0) {
             solveLimit(lim2, dt);
         }
-    }
-    
-    if (hasMotor) {
-        solveMotor(dt);
     }
 }
 

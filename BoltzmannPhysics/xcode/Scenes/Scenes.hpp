@@ -56,6 +56,8 @@ void dudeScene(CharacterScene *scene) {
     scene->addCharacter(character, island->id);
 }
 
+
+
 void simbiconScene(CharacterScene *scene) {
     scene->cam.lookAt(vec3(0,3,25), vec3(0,2,0));
 //    scene->deltaTime = 1/240.f;

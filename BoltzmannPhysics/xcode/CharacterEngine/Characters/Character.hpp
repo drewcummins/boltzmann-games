@@ -25,11 +25,11 @@ namespace bltz {
         enum MUSCLE {
             BACKLAT = 0,
             BACK = 1,
-            LHIPLAT = 2,
-            LHIP = 3,
+            LHIP = 2,
+            LHIPLAT = 3,
             LKNEE = 4,
-            RHIPLAT = 5,
-            RHIP = 6,
+            RHIP = 5,
+            RHIPLAT = 6,
             RKNEE = 7
         };
         

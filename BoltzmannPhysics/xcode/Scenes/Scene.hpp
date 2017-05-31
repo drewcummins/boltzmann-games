@@ -68,13 +68,14 @@ namespace bltz {
         float h;
         float yTarget = 2;
         SceneSetup sceneSetup;
+        bool isPaused = false;
         
     protected:
         Scene(vec3 gravity=vec3(0,-9.8,0), int solverIterations=10, float deltaTime=1/60.f);
         
         double time = -1;
         
-        bool isPaused = false;
+        
         
         
         unordered_map<uint, Isle> bodyIslandMap;
