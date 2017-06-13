@@ -94,18 +94,10 @@ void MotorMuscle::update(float dt) {
     
     float dp = target - current;
     
-//    if (current < joint->minTheta && dp < 0) {
-//        dp = current - target;
-//    } else if (current > joint->maxTheta && current - target < 0) {
-//        dp = current - target;
-//    }
+    const float kp = 21.0;
+    const float kd = 0.25;
     
-    const float kp = 17.0;
-    const float kd = 0; //0.25;
-    
-//    float speed = (target - current)/(dt*2.5f);
     float speed = kp * dp - kd * joint->motorSpeed;
-    
     joint->setMotor(speed);
 }
 

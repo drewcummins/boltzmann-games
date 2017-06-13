@@ -131,7 +131,7 @@ void BoltzmannPhysicsApp::update()
 //    //        joint->setMotor(-theta*11);
 //            muscle->mapThetaToT(theta);
 //            muscle->update(1/60.f);
-//    //        scene->deltaTime = 1/600.f;
+//            scene->deltaTime = 1/600.f;
             scene->step(1/60.f);
             
         }
@@ -166,12 +166,13 @@ void rotationScene(CharacterScene *scene) {
     scene->addBody(torso);
     
     auto joint1 = HingeJoint::create(torso, vec3(0,-0.5f,0), vec3(1,0,0), pelvis);
-    joint1->setLimits(-glm::pi<float>()/2, glm::pi<float>()/2);
+    joint1->setLimits(-glm::pi<float>()/4, glm::pi<float>()/4);
+//    joint1->setLimits(0, 0);
     scene->addConstraint(joint1);
     
     joint1 = HingeJoint::create(pelvis, vec3(0,0,0), vec3(1,0,0), scene->ground);
     scene->addConstraint(joint1);
-    joint1->setLimits(-glm::pi<float>()/8, glm::pi<float>()/8);
+//    joint1->setLimits(-glm::pi<float>()/8, glm::pi<float>()/8);
 }
 
 void BoltzmannPhysicsApp::setup()

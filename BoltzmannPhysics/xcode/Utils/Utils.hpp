@@ -35,6 +35,7 @@ namespace bltz {
         static vector<float> lineLineIntersctionParameters(vec2 a1, vec2 a2, vec2 b1, vec2 b2, bool clipToSegment=true);
         static bool isClockwise(vector<vec2> p);
         static Rand rand;
+        static float relativeTheta(quat q0, quat q1, quat q2, mat3 R, vec3 a1);
     };
     
 }

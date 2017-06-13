@@ -102,6 +102,27 @@ void HingeJoint::solve(float dt) {
 }
 
 float HingeJoint::cacheTheta() {
+    vec3 ortho = orthogonal(a1);
+    vec3 orthoWorld1 = b1->R * ortho;
+    vec3 orthoWorld2 = b2->R * ortho;
+    
+    vec3 jointAxisWorld = b1->R * a1;
+    
+    vector<vec2> plane = Utils::projectPointsOntoPlane({orthoWorld1, orthoWorld2}, vec3(0,0,0), jointAxisWorld);
+    vec2 u1 = normalize(plane[0]);
+    vec2 u2 = normalize(plane[1]);
+    
+    float cosineTheta = Utils::clamp(dot(u1, u2), -1.f, 1.f);
+    float theta = glm::acos(cosineTheta);
+    
+    if (Utils::isClockwise({u1, u2, vec2(0,0)})) {
+        theta = -theta;
+    }
+
+    return  theta;
+}
+
+float HingeJoint::oldCacheTheta() {
     quat qt = normalize(b2->q * inverse(b1->q));
     quat dq = normalize(qt * inverse(q0));
     vec3 v = vec3(dq.x, dq.y, dq.z);
@@ -182,6 +203,30 @@ void HingeJoint::solveMotor(float dt) {
     }
 }
 
-
+void HingeJoint::render() {
+    if (b2->isGround) {
+        return;
+    }
+    gl::color(0.2, 0.2, 1.0);
+    gl::lineWidth(0.05);
+    
+    vec3 ortho = orthogonal(a1);
+    
+    r1R = b1->R * r1;
+    
+    gl::pushModelMatrix();
+    gl::translate(b1->com + r1R);
+    gl::drawVector(vec3(), b1->R*(ortho*1.25f));
+    gl::popModelMatrix();
+    
+    gl::color(1.0, 0.5, 0.3);
+    r2R = b2->R * r2;
+    
+    gl::pushModelMatrix();
+    gl::translate(b2->com + r2R);
+    gl::drawVector(vec3(), b2->R*(ortho*1.25f));
+//    gl::drawSphere(vec3(), 0.015f);
+    gl::popModelMatrix();
+}
 
 

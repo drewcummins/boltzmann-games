@@ -23,11 +23,13 @@ namespace bltz {
         void setLimits(float minTheta, float maxTheta);
         void setMotor(float speed);
         float cacheTheta();
+        float oldCacheTheta();
         bool hasLimits;
         float dtheta;
         float minTheta, maxTheta;
         bool hasMotor;
         float motorSpeed;
+        virtual void render();
     protected:
         HingeJoint(Body b1, vec3 r1, vec3 axis, Body b2);
         C2DOF rqn;

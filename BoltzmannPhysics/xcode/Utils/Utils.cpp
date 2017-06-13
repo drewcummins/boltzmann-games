@@ -162,6 +162,7 @@ bool Utils::isClockwise(vector<vec2> p) {
     float area = 0.f;
     for (int i = 0; i < p.size(); i++) {
         area += (p[i].x - L.x) * (p[i].y + L.y);
+        L = p[i];
     }
     return area > 0;
 }
@@ -172,5 +173,32 @@ vec3 Utils::vmin(vec3 a, vec3 x) {
 
 vec3 Utils::vmax(vec3 a, vec3 x) {
     return vec3(max(a.x, x.x), max(a.y, x.y), max(a.z, x.z));
+}
+
+float Utils::relativeTheta(quat q0, quat q1, quat q2, mat3 R, vec3 a1) {
+    quat qt = normalize(q2 * inverse(q1));
+    quat dq = normalize(qt * inverse(q0));
+    vec3 v = vec3(dq.x, dq.y, dq.z);
+    vec3 a1ws = R * a1;
+    
+    float halfcos = dq.w;
+    float halfsin = sqrt(dot(v,v));
+    float theta;
+    
+    if (dot(v, a1ws) > 0) {
+        theta = 2 * atan2(halfsin, halfcos);
+    } else {
+        theta = 2 * atan2(halfsin, -halfcos);
+    }
+    
+    theta = fmod(theta, 2*glm::pi<float>());
+    
+    if (theta < -glm::pi<float>()) {
+        theta = theta + 2*glm::pi<float>();
+    } else if (theta > glm::pi<float>()) {
+        theta = theta - 2*glm::pi<float>();
+    }
+    
+    return theta;
 }
 

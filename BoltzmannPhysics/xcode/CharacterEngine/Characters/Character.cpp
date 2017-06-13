@@ -96,10 +96,10 @@ void Character::setup(float height, vec3 pelvisX) {
     
     
     
-    lhip = HingeJoint::create(lhipLat, vec3(0,0,0), vec3(1,0,0), luleg);
-    lhip->setLimits(-glm::pi<float>()*0.5, glm::pi<float>()*0.25);
+    lhip = HingeJoint::create(luleg, vec3(0,s/2,0), vec3(1,0,0), lhipLat);
+    lhip->setLimits(-glm::pi<float>()*0.25, glm::pi<float>()*0.5);
     
-    rhip = HingeJoint::create(rhipLat, vec3(0,0,0), vec3(1,0,0), ruleg);
+    rhip = HingeJoint::create(ruleg, vec3(0,s/2,0), vec3(-1,0,0), rhipLat);
     rhip->setLimits(-glm::pi<float>()*0.5, glm::pi<float>()*0.25);
     
     
